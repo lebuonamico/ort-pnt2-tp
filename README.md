@@ -1,5 +1,5 @@
-# Vue 3 + Vite
+2. Dashboard de Seguimiento de Finanzas Personales
+Descripcion del proyecto
+Resuelve el caos en el registro de gastos e ingresos diarios. La aplicación utiliza composables para encapsular la lógica de cálculos matemáticos y el formateo de monedas, manteniendo los componentes de la interfaz limpios y enfocados en la UI. Implementa Navigation Guards en el router para simular un acceso protegido a las estadísticas privadas. El estado global con Pinia maneja el balance total y el historial, mientras que el flujo de trabajo se asegura mediante un pipeline de CI/CD que valida que cada nueva funcionalidad añadida (como un filtro de fechas) no rompa los cálculos existentes antes de desplegarse automáticamente a producción.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+Dificultad técnica: Media-Alta

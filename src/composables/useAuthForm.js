@@ -10,8 +10,11 @@ export const useAuthForm = () => {
 
 
     const form = reactive({
+        //name: '',
         email: '',
         password: '',
+        confirmPassword: '',
+        terms: false,
         isLogin: true,
         loading: false,
         error: ''
@@ -23,6 +26,24 @@ export const useAuthForm = () => {
             form.error = 'Email y contraseña son obligatorios'
             return false
         }
+
+        if (!form.isLogin) {
+           /* if (form.name === '') {
+                form.error = 'El nombre es obligatorio'
+                return false
+            }*/
+
+            if (form.password !== form.confirmPassword) {
+                form.error = 'Las contraseñas deben coincidir'
+                return false
+            }
+
+            if (!form.terms) {
+                form.error = 'Debes aceptar los términos de servicio'
+                return false
+            }
+        }
+
         return true
     }
 

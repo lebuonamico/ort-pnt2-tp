@@ -1,14 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthForm } from '../composables/useAuthForm.js'
 import PrimaryButton from '../components/PrimaryButton.vue'
+import AuthInputGroup from '../components/AuthInputGroup.vue'
 
 const router = useRouter()
 
 const { form, submit } = useAuthForm()
-
-const showPassword = ref(false)
 
 onMounted(() => {
   form.isLogin = true
@@ -65,38 +64,18 @@ const handleToggle = () => {
           class="form"
         >
 
-          <!-- Email -->
+          <AuthInputGroup
+            label="Correo Electrónico"
+            icon="mail"
+            id="email"
+            type="email"
+            placeholder="ejemplo@finanzaspro.com"
+            v-model="form.email"
+            :disabled="form.loading"
+          />
+
           <div class="field-group">
-
-            <label
-              for="email"
-              class="field-label"
-            >
-              Correo Electrónico
-            </label>
-
-            <div class="input-wrapper">
-
-              <span class="material-symbols-outlined input-icon">
-                mail
-              </span>
-
-              <input
-                id="email"
-                v-model="form.email"
-                type="email"
-                placeholder="ejemplo@finanzaspro.com"
-                :disabled="form.loading"
-                class="input"
-              >
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div class="field-group">
-
             <div class="password-header">
-
               <label
                 for="password"
                 class="field-label"
@@ -110,39 +89,20 @@ const handleToggle = () => {
               >
                 ¿Olvidaste tu contraseña?
               </router-link>
-
             </div>
 
-            <div class="input-wrapper">
-
-              <span class="material-symbols-outlined input-icon">
-                lock
-              </span>
-
-              <input
-                id="password"
-                v-model="form.password"
-                :type="showPassword ? 'text' : 'password'"
-                placeholder="••••••••"
-                :disabled="form.loading"
-                class="input password-input"
-              >
-
-              <button
-                type="button"
-                class="visibility-btn"
-                @click="showPassword = !showPassword"
-              >
-                <span class="material-symbols-outlined visibility-icon">
-                  {{ showPassword ? 'visibility_off' : 'visibility' }}
-                </span>
-              </button>
-
-            </div>
+            <AuthInputGroup
+              label=""
+              icon="lock"
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              v-model="form.password"
+              :disabled="form.loading"
+              :showToggle="true"
+            />
           </div>
 
-
-          <!-- Submit -->
           <PrimaryButton
             type="submit"
             :disabled="form.loading"

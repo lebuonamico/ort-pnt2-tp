@@ -34,7 +34,7 @@ export const useAuthForm = () => {
 
     const register = async () => {
         await signUp({ email: form.email, password: form.password })
-        form.isLogin = true
+        router.push('/dashboard')
     }
 
 

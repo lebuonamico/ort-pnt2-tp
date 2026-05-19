@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthForm } from '../composables/useAuthForm.js'
+import PrimaryButton from '../components/PrimaryButton.vue'
 
 const router = useRouter()
 
@@ -142,13 +143,12 @@ const handleToggle = () => {
 
 
           <!-- Submit -->
-          <button
+          <PrimaryButton
             type="submit"
             :disabled="form.loading"
-            class="submit-btn"
           >
             {{ form.loading ? 'Cargando...' : 'Iniciar Sesión' }}
-          </button>
+          </PrimaryButton>
 
         </form>
 
@@ -379,29 +379,6 @@ const handleToggle = () => {
   accent-color: #006a61;
 }
 
-
-.submit-btn {
-  width: 100%;
-  height: 52px;
-  border: none;
-  border-radius: 8px;
-  background: #006a61;
-  color: white;
-  font-family: 'Manrope', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.submit-btn:hover {
-  background: #00554d;
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
 
 .divider {
   margin: 32px 0;

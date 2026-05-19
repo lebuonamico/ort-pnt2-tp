@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthForm } from '../composables/useAuthForm.js'
+import PrimaryButton from '../components/PrimaryButton.vue'
 
 const router = useRouter()
 const { form, submit } = useAuthForm()
@@ -39,9 +40,9 @@ const handleToggle = () => router.push('/login')
           <input type="password" v-model="form.password" placeholder="••••••••" :disabled="form.loading">
         </div>
 
-        <button type="submit" class="submit-btn" :disabled="form.loading">
+        <PrimaryButton type="submit" :disabled="form.loading">
           Registrarme
-        </button>
+        </PrimaryButton>
 
         <a href="#" @click.prevent="handleToggle" class="toggle-link">
           Ya tengo cuenta
@@ -139,37 +140,6 @@ const handleToggle = () => router.push('/login')
 
 .field input:disabled {
   opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 0.8rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-  color: #667eea;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.submit-btn:active {
-  transform: translateY(0);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
 }
 

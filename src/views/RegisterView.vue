@@ -2,10 +2,12 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthForm } from '../composables/useAuthForm.js'
+
 import PrimaryButton from '../components/PrimaryButton.vue'
 import AuthInputGroup from '../components/AuthInputGroup.vue'
 
 const router = useRouter()
+
 const { form, submit } = useAuthForm()
 
 onMounted(() => {
@@ -16,127 +18,228 @@ const handleRegister = () => {
   submit()
 }
 
-const handleToggle = () => router.push('/login')
+const handleToggle = () => {
+  router.push('/login')
+}
 </script>
 
 <template>
-  <main class="register-container">
-    <section class="branding-section">
-      <div class="logo">
-        <span class="material-symbols-outlined">account_balance</span>
-        <h2>Finanzas Pro</h2>
-      </div>
+  <div class="page-wrapper">
+    <main class="register-container">
+      <!-- LEFT SIDE -->
+      <section class="branding-section">
+        <div class="logo">
+          <span class="material-symbols-outlined">
+            account_balance
+          </span>
 
-      <div class="branding-content">
-        <h1>Toma el control total de tu patrimonio.</h1>
-
-        <p>
-          Únete a la plataforma de gestión financiera preferida por
-          profesionales. Datos en tiempo real, análisis profundo y seguridad
-          bancaria.
-        </p>
-
-        <div class="features">
-          <div class="feature-card">
-            <span class="material-symbols-outlined">security</span>
-            <small>SEGURIDAD</small>
-            <h3>Encriptación AES-256</h3>
-          </div>
-
-          <div class="feature-card">
-            <span class="material-symbols-outlined">monitoring</span>
-            <small>ANÁLISIS</small>
-            <h3>IA Predictiva</h3>
-          </div>
-        </div>
-      </div>
-
-      <div class="users">
-        <div class="avatars">
-          <img src="https://i.pravatar.cc/100?img=1" alt="user" />
-          <img src="https://i.pravatar.cc/100?img=12" alt="user" />
-          <img src="https://i.pravatar.cc/100?img=32" alt="user" />
+          <h2>Finanzas Pro</h2>
         </div>
 
-        <p>
-          +5,000 profesionales ya gestionan sus activos con nosotros.
-        </p>
-      </div>
-    </section>
+        <div class="branding-content">
+          <div>
+            <h1>
+              Toma el control total de tu patrimonio.
+            </h1>
 
-    <section class="form-section">
-      <div class="form-container">
-        <header>
-          <h1>Crear una cuenta</h1>
-          <p>
-            Comienza tu viaje hacia la libertad financiera hoy mismo.
-          </p>
-        </header>
-
-        <form @submit.prevent="handleRegister">
-          <div v-if="form.error" class="error-message">
-            {{ form.error }}
-          </div>
-          <!--
-          <AuthInputGroup
-            label="Nombre completo"
-            icon="person"
-            id="name"
-            type="text"
-            placeholder="Ej: Juan Pérez"
-            v-model="form.name"
-          />*/
-  -->
-          <AuthInputGroup label="Correo electrónico" icon="mail" id="email" type="email"
-            placeholder="nombre@empresa.com" v-model="form.email" />
-
-          <AuthInputGroup label="Contraseña" icon="lock" id="password" type="password" placeholder="••••••••"
-            v-model="form.password" :disabled="form.loading" :showToggle="true" />
-
-          <AuthInputGroup label="Confirmar contraseña" icon="lock_reset" id="confirmPassword" type="password"
-            placeholder="••••••••" v-model="form.confirmPassword" :disabled="form.loading" :showToggle="true" />
-
-          <div class="terms">
-            <input v-model="form.terms" type="checkbox" id="terms" />
-            <label for="terms">
-              Acepto los
-              <a href="#">Términos de Servicio</a>
-              y la
-              <a href="#">Política de Privacidad</a>.
-            </label>
+            <p>
+              Únete a la plataforma de gestión financiera preferida por
+              profesionales. Datos en tiempo real, análisis profundo
+              y seguridad bancaria.
+            </p>
           </div>
 
-          <PrimaryButton type="submit" :disabled="form.loading">
-            {{ form.loading ? 'Cargando...' : 'Registrarse' }}
-          </PrimaryButton>
-        </form>
+          <div class="features">
+            <div class="feature-card">
+              <span class="material-symbols-outlined">
+                security
+              </span>
 
-        <footer>
+              <small>SEGURIDAD</small>
+
+              <h3>Encriptación AES-256</h3>
+            </div>
+
+            <div class="feature-card">
+              <span class="material-symbols-outlined">
+                monitoring
+              </span>
+
+              <small>ANÁLISIS</small>
+
+              <h3>IA Predictiva</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="users">
+          <div class="avatars">
+            <img
+              src="https://i.pravatar.cc/100?img=1"
+              alt="user"
+            />
+
+            <img
+              src="https://i.pravatar.cc/100?img=12"
+              alt="user"
+            />
+          </div>
+
           <p>
-            ¿Ya tengo una cuenta?
-            <a href="#" @click.prevent="handleToggle">Iniciar sesión</a>
+            +5,000 profesionales ya gestionan sus activos con nosotros.
           </p>
-        </footer>
-      </div>
-    </section>
-  </main>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDE -->
+      <section class="form-section">
+        <div class="form-container">
+          <header>
+            <h1>Crear una cuenta</h1>
+
+            <p>
+              Comienza tu viaje hacia la libertad financiera hoy mismo.
+            </p>
+          </header>
+
+          <form @submit.prevent="handleRegister">
+            <div
+              v-if="form.error"
+              class="error-message"
+            >
+              {{ form.error }}
+            </div>
+
+            <AuthInputGroup
+              label="Nombre completo"
+              icon="person"
+              id="name"
+              type="text"
+              placeholder="Ej: Juan Pérez"
+              v-model="form.name"
+            />
+
+            <AuthInputGroup
+              label="Correo electrónico"
+              icon="mail"
+              id="email"
+              type="email"
+              placeholder="nombre@empresa.com"
+              v-model="form.email"
+            />
+
+            <AuthInputGroup
+              label="Contraseña"
+              icon="lock"
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              v-model="form.password"
+              :disabled="form.loading"
+              :showToggle="true"
+            />
+
+            <AuthInputGroup
+              label="Confirmar contraseña"
+              icon="lock_reset"
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              v-model="form.confirmPassword"
+              :disabled="form.loading"
+              :showToggle="true"
+            />
+
+            <div class="terms">
+              <input
+                v-model="form.terms"
+                type="checkbox"
+                id="terms"
+              />
+
+              <label for="terms">
+                Acepto los
+                <a href="#">Términos de Servicio</a>
+                y la
+                <a href="#">Política de Privacidad</a>.
+              </label>
+            </div>
+
+            <PrimaryButton
+              type="submit"
+              :disabled="form.loading"
+            >
+              {{ form.loading ? 'Cargando...' : 'Registrarse' }}
+            </PrimaryButton>
+          </form>
+
+          <footer>
+            <p>
+              ¿Ya tengo una cuenta?
+
+              <a
+                href="#"
+                @click.prevent="handleToggle"
+              >
+                Iniciar sesión
+              </a>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </main>
+  </div>
 </template>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
-.register-container {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page-wrapper {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
   background: #f8f9ff;
 }
+
+.register-container {
+  width: min(96vw, 1600px);
+
+  min-height: 94vh;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  background: white;
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  border: 1px solid rgba(198, 198, 205, 0.3);
+
+  box-shadow:
+    0 4px 20px rgba(15, 23, 42, 0.05);
+}
+
+/* LEFT */
 
 .branding-section {
   background: #131b2e;
   color: white;
-  padding: 60px;
+
+  padding: 56px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -145,70 +248,101 @@ const handleToggle = () => router.push('/login')
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .logo h2 {
   font-family: 'Manrope', sans-serif;
   font-size: 28px;
+  font-weight: 700;
 }
 
 .logo span {
-  color: #4edea3;
   font-size: 32px;
+  color: #4edea3;
+}
+
+.branding-content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
 }
 
 .branding-content h1 {
   font-family: 'Manrope', sans-serif;
-  font-size: 58px;
-  line-height: 1.1;
-  margin-bottom: 24px;
+
+  font-size: 72px;
+  line-height: 1.05;
+  letter-spacing: -3px;
+
+  margin-bottom: 28px;
 }
 
 .branding-content p {
   color: #94a3b8;
-  font-size: 18px;
-  line-height: 1.6;
-  max-width: 550px;
+
+  font-size: 22px;
+  line-height: 1.7;
+
+  max-width: 580px;
 }
+
+/* FEATURES */
 
 .features {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  margin-top: 50px;
 }
 
 .feature-card {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 20px;
+
+  padding: 28px;
 }
 
 .feature-card span {
   color: #4edea3;
-  margin-bottom: 12px;
+
+  margin-bottom: 18px;
+
   display: block;
 }
 
 .feature-card small {
   display: block;
-  margin-bottom: 8px;
-  opacity: 0.7;
+
+  margin-bottom: 10px;
+
   font-size: 12px;
-  text-transform: uppercase;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  opacity: 0.7;
 }
 
 .feature-card h3 {
-  font-size: 20px;
-  margin: 0;
+  font-family: 'Manrope', sans-serif;
+
+  font-size: 28px;
+  line-height: 1.3;
 }
+
+/* USERS */
 
 .users {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
+}
+
+.users p {
+  color: rgba(255,255,255,0.9);
 }
 
 .avatars {
@@ -216,52 +350,85 @@ const handleToggle = () => router.push('/login')
 }
 
 .avatars img {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
+
   border-radius: 50%;
-  border: 2px solid #131b2e;
+
+  border: 3px solid #131b2e;
+
   margin-left: -10px;
 }
 
+.avatars img:first-child {
+  margin-left: 0;
+}
+
+/* RIGHT */
+
 .form-section {
   background: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px;
+
+  padding: 70px;
 }
 
 .form-container {
   width: 100%;
-  max-width: 450px;
+  max-width: 460px;
 }
 
 .form-container header {
-  margin-bottom: 40px;
+  margin-bottom: 42px;
 }
 
 .form-container h1 {
   font-family: 'Manrope', sans-serif;
-  font-size: 40px;
-  margin-bottom: 10px;
-  color: black
+
+  font-size: 52px;
+  line-height: 1.1;
+
+  color: #0f172a;
+
+  margin-bottom: 14px;
 }
 
-.form-container p {
+.form-container header p {
   color: #64748b;
+
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 24px;
 }
 
 .terms {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+
   font-size: 14px;
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+.terms input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+
+  margin-top: 3px;
+
+  accent-color: #006a61;
+
+  cursor: pointer;
 }
 
 .terms a {
@@ -270,43 +437,42 @@ form {
   text-decoration: none;
 }
 
-.terms input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin-top: 2px;
-  accent-color: #006a61;
-  cursor: pointer;
-}
-
 .error-message {
   background: #fee2e2;
+
   border: 1px solid #fca5a5;
+
   color: #991b1b;
-  border-radius: 12px;
+
+  border-radius: 14px;
+
   padding: 14px 16px;
+
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 footer {
-  margin-top: 30px;
+  margin-top: 34px;
+
   text-align: center;
+}
+
+footer p {
+  color: #64748b;
 }
 
 footer a {
   color: #006a61;
+
   font-weight: 700;
+
   text-decoration: none;
 }
 
-.toggle-password {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #64748b;
-}
+/* RESPONSIVE */
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .register-container {
     grid-template-columns: 1fr;
   }
@@ -316,11 +482,30 @@ footer a {
   }
 
   .form-section {
-    padding: 30px;
+    padding: 40px;
   }
 
   .form-container h1 {
-    font-size: 32px;
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-wrapper {
+    padding: 0;
+  }
+
+  .register-container {
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .form-section {
+    padding: 24px;
+  }
+
+  .form-container h1 {
+    font-size: 34px;
   }
 }
 </style>

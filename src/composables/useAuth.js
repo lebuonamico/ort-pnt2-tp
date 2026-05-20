@@ -1,4 +1,4 @@
-import { supabase } from "../services/supabase.js";
+import { supabase } from "../lib/supabase.js";
 import { ref } from 'vue'
 
 const user = ref(null)

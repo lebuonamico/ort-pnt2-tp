@@ -169,7 +169,7 @@ const handleToggle = () => {
 
 .login-container {
   width: 100%;
-  max-width: 440px;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -213,15 +213,15 @@ const handleToggle = () => {
   width: 100%;
   background: #ffffff;
   border: 1px solid #c6c6cd;
-  border-radius: 12px;
-  padding: 32px;
+  border-radius: 24px;
+  padding: 48px;
   box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
   overflow: hidden;
 }
 
 .card-title {
   font-family: 'Manrope', sans-serif;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
   color: #0b1c30;
   margin-bottom: 8px;
@@ -229,7 +229,7 @@ const handleToggle = () => {
 
 .card-subtitle {
   font-family: 'Work Sans', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   color: #45464d;
   margin-bottom: 32px;
   line-height: 1.5;

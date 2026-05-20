@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '../composables/useAuth'
 const routes = [
-   // { path: "/", component: () => import("../views/HomeView.vue") },
+    { path: "/", component: () => import("../views/HomeView.vue") },
     //{ path: "/about-us", component: () => import("../views/AboutUsView.vue") },
     //{ path: "/about-us/:email", component: () => import("../views/AboutUsView.vue") },
     { path: "/dashboard", component: () => import("../views/DashboardView.vue") , meta:{ requiresAuth: true}},

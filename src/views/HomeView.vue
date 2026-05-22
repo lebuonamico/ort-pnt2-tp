@@ -3,29 +3,12 @@ import PrimaryButton from '../components/PrimaryButton.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const handleToggle = () => {
-  router.push('/login')
+const handleRegister = () => {
+  router.push('/register')
 }
 </script>
 <template>
     <div class="page">
-        <!-- NAVBAR -->
-        <nav class="navbar">
-            <div class="container navbar-container">
-                <h1 class="logo">Finanzas Pro</h1>
-
-                <div class="nav-actions">
-                    <button @click="handleToggle" class="login-btn">
-                        Login
-                    </button>
-
-                    <PrimaryButton variant="dark" :fullWidth="false">
-                        Registrarse
-                    </PrimaryButton>
-                </div>
-            </div>
-        </nav>
-
         <!-- HERO -->
         <header class="hero">
             <div class="container hero-content">
@@ -41,7 +24,7 @@ const handleToggle = () => {
                     </p>
                 </div>
 
-                <PrimaryButton variant="dark" :fullWidth="false" class="hero-cta">
+                <PrimaryButton variant="dark" :fullWidth="false" class="hero-cta" @click="handleRegister">
                     Comienza ahora
                 </PrimaryButton>
 
@@ -161,53 +144,8 @@ const handleToggle = () => {
 }
 
 
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 80px;
-    background: rgba(248, 249, 255, 0.82);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(198, 198, 205, 0.2);
-    z-index: 1000;
-}
-
-.navbar-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    font-family: 'Manrope', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: #0f172a;
-    letter-spacing: -1px;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
-.login-btn {
-    background: transparent;
-    border: none;
-    font-size: 16px;
-    color: #45464d;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.login-btn:hover {
-    color: #0f172a;
-}
-
 .hero {
-    padding-top: 100px;
+    padding-top: 36px;
     padding-bottom: 130px;
 }
 

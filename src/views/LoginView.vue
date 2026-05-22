@@ -1,16 +1,17 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 import { useAuthForm } from '../composables/useAuthForm.js'
 import PrimaryButton from '../components/PrimaryButton.vue'
 import AuthInputGroup from '../components/AuthInputGroup.vue'
 
 const router = useRouter()
-
-const { form, submit } = useAuthForm()
+const authStore = useAuthStore()
+const { email, password, submit, isLogin, errorMessage } = useAuthForm()
 
 onMounted(() => {
-  form.isLogin = true
+  isLogin.value = true
 })
 
 const handleToggle = () => {
@@ -53,10 +54,10 @@ const handleToggle = () => {
         </p>
 
         <div
-          v-if="form.error"
+          v-if="errorMessage"
           class="error-box"
         >
-          {{ form.error }}
+          {{ errorMessage }}
         </div>
 
         <form
@@ -70,8 +71,8 @@ const handleToggle = () => {
             id="email"
             type="email"
             placeholder="ejemplo@finanzaspro.com"
-            v-model="form.email"
-            :disabled="form.loading"
+            v-model="email"
+            :disabled="authStore.loading"
           />
 
           <div class="field-group">
@@ -97,17 +98,17 @@ const handleToggle = () => {
               id="password"
               type="password"
               placeholder="••••••••"
-              v-model="form.password"
-              :disabled="form.loading"
+              v-model="password"
+              :disabled="authStore.loading"
               :showToggle="true"
             />
           </div>
 
           <PrimaryButton
             type="submit"
-            :disabled="form.loading"
+            :disabled="authStore.loading"
           >
-            {{ form.loading ? 'Cargando...' : 'Iniciar Sesión' }}
+            {{ authStore.loading ? 'Cargando...' : 'Iniciar Sesión' }}
           </PrimaryButton>
 
         </form>

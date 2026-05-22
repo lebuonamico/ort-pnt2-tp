@@ -1,18 +1,28 @@
 <script setup>
-import {RouterLink, RouterView} from 'vue-router'
+import { RouterView } from 'vue-router'
+import { onMounted } from 'vue'
+import { useAuthStore } from './stores/auth'
+import Navbar from './components/Navbar.vue'
+const auth = useAuthStore()
 
+onMounted(() => {
+  auth.initAuthListener()
+})
 </script>
 
 <template>
-
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/login">Login-Register</RouterLink>
-    <RouterLink to="/dashboard">Dashboard</RouterLink>
-    <RouterLink to="/about-us">AboutUs</RouterLink>
-  </nav>
-
-  <RouterView/>
-
-
+  <div class="app-layout">
+    <Navbar />
+    <main class="app-main">
+      <RouterView />
+    </main>
+  </div>
 </template>
+
+<style scoped>
+.app-main {
+  padding-top: 92px;
+  min-height: calc(100vh - 92px);
+  background: #f8f9ff;
+}
+</style>

@@ -1,17 +1,19 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 import { useAuthForm } from '../composables/useAuthForm.js'
 
 import PrimaryButton from '../components/PrimaryButton.vue'
 import AuthInputGroup from '../components/AuthInputGroup.vue'
 
 const router = useRouter()
-
-const { form, submit } = useAuthForm()
+const authStore = useAuthStore()
+const name = ref('')
+const { email, password, confirmPassword, terms, submit, isLogin, errorMessage } = useAuthForm()
 
 onMounted(() => {
-  form.isLogin = false
+  isLogin.value = false
 })
 
 const handleRegister = () => {
@@ -104,10 +106,10 @@ const handleToggle = () => {
 
           <form @submit.prevent="handleRegister">
             <div
-              v-if="form.error"
+              v-if="errorMessage"
               class="error-message"
             >
-              {{ form.error }}
+              {{ errorMessage }}
             </div>
 
             <AuthInputGroup
@@ -116,7 +118,7 @@ const handleToggle = () => {
               id="name"
               type="text"
               placeholder="Ej: Juan Pérez"
-              v-model="form.name"
+              v-model="name"
             />
 
             <AuthInputGroup
@@ -125,7 +127,7 @@ const handleToggle = () => {
               id="email"
               type="email"
               placeholder="nombre@empresa.com"
-              v-model="form.email"
+              v-model="email"
             />
 
             <AuthInputGroup
@@ -134,8 +136,8 @@ const handleToggle = () => {
               id="password"
               type="password"
               placeholder="••••••••"
-              v-model="form.password"
-              :disabled="form.loading"
+              v-model="password"
+              :disabled="authStore.loading"
               :showToggle="true"
             />
 
@@ -145,14 +147,14 @@ const handleToggle = () => {
               id="confirmPassword"
               type="password"
               placeholder="••••••••"
-              v-model="form.confirmPassword"
-              :disabled="form.loading"
+              v-model="confirmPassword"
+              :disabled="authStore.loading"
               :showToggle="true"
             />
 
             <div class="terms">
               <input
-                v-model="form.terms"
+                v-model="terms"
                 type="checkbox"
                 id="terms"
               />
@@ -167,9 +169,9 @@ const handleToggle = () => {
 
             <PrimaryButton
               type="submit"
-              :disabled="form.loading"
+              :disabled="authStore.loading"
             >
-              {{ form.loading ? 'Cargando...' : 'Registrarse' }}
+              {{ authStore.loading ? 'Cargando...' : 'Registrarse' }}
             </PrimaryButton>
           </form>
 

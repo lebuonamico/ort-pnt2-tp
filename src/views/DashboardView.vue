@@ -1,18 +1,14 @@
 <script setup>
-import {useAuth} from '../composables/useAuth.js'
+import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 
-const { isAuthenticated, signOut, user } = useAuth()
+const auth = useAuthStore()
 const router = useRouter()
 const handleSignOut = async () => {
 
   try {
-    console.log('Sesion cerrada 1')
-    await signOut()
-    console.log('Sesion cerrada 2')
-    router.push("/login")
-    console.log('Sesion cerrada')
-
+    await auth.logout()
+    router.push({ name: 'login' })
   } catch (error) {
   }
 }
@@ -20,21 +16,13 @@ const handleSignOut = async () => {
 
 
 <template>
-    <div class="dashboard-container">
-        <h1>Bienvenido al Dashboard</h1>
-        <p>Esta es una vista protegida que solo los usuarios autenticados pueden ver.</p>
-    </div>
+  <div class="dashboard-container">
+    <h1>Bienvenido al Dashboard</h1>
+    <p>Esta es una vista protegida que solo los usuarios autenticados pueden ver.</p>
+  </div>
 
-    <div v-if="isAuthenticated">
-    
-    <p>
-    Usuario autenticado:
-    {{ user?.email }}
-    </p>
-    
-    <button @click="handleSignOut">
-    Sign Out
-    </button>
-    
-    </div>
+    <button v-if="auth.isAuthenticated" @click="handleSignOut()">Cerrar sesión</button>
+    <span v-else>No autenticado</span>
+
+ 
 </template>

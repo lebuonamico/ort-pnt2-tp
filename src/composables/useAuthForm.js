@@ -1,45 +1,34 @@
-import { reactive } from 'vue'
-import { useAuth } from './useAuth.js'
+import { ref } from 'vue'
+import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 
-export const useAuthForm = () => {
-
+export function useAuthForm() {
+    const authStore = useAuthStore()
     const router = useRouter()
 
-    const { signIn, signUp } = useAuth()
+    const email = ref('')
+    const password = ref('')
+    const confirmPassword = ref('')
+    const terms = ref(false)
+    const isLogin = ref(true)
+    const errorMessage = ref('')
 
+    function validateForm() {
 
-    const form = reactive({
-        //name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        terms: false,
-        isLogin: true,
-        loading: false,
-        error: ''
-    })
-
-
-    const validateForm = () => {
-        if (form.email === '' || form.password === '') {
-            form.error = 'Email y contraseña son obligatorios'
+        if (!email.value || !password.value) {
+            errorMessage.value = 'Email y contraseña obligatorios'
             return false
         }
 
-        if (!form.isLogin) {
-           /* if (form.name === '') {
-                form.error = 'El nombre es obligatorio'
-                return false
-            }*/
+        if (!isLogin.value) {
 
-            if (form.password !== form.confirmPassword) {
-                form.error = 'Las contraseñas deben coincidir'
+            if (password.value !== confirmPassword.value) {
+                errorMessage.value = 'Las contraseñas no coinciden'
                 return false
             }
 
-            if (!form.terms) {
-                form.error = 'Debes aceptar los términos de servicio'
+            if (!terms.value) {
+                errorMessage.value = 'Debes aceptar los términos'
                 return false
             }
         }
@@ -47,48 +36,30 @@ export const useAuthForm = () => {
         return true
     }
 
+    async function submit() {
 
-    const login = async () => {
-        await signIn({ email: form.email, password: form.password })
-        router.push('/dashboard')
-    }
+        errorMessage.value = ''
 
-    const register = async () => {
-        await signUp({ email: form.email, password: form.password })
-        router.push('/dashboard')
-    }
+        if (!validateForm()) return
 
+        const result = isLogin.value
+            ? await authStore.login(email.value, password.value)
+            : await authStore.register(email.value, password.value)
 
-
-    const submit = async () => {
-        form.loading = true
-        form.error = ''
-
-        if (!validateForm()) {
-            form.loading = false
-            return
+        if (result.success) {
+            router.push({ name: 'dashboard' })
+        } else {
+            errorMessage.value = result.error.message
         }
-
-        try {
-            if (form.isLogin) {
-                await login()
-            } else {
-                await register()
-            }
-        } catch (error) {
-            form.error = error?.message || 'Error en la autenticación'
-        } finally {
-            form.loading = false
-        }
-    }
-
-
-    const toggleMode = () => {
-        form.isLogin = !form.isLogin
-        form.error = ''
     }
 
     return {
-        form, submit, toggleMode
+        email,
+        password,
+        confirmPassword,
+        terms,
+        isLogin,
+        errorMessage,
+        submit
     }
 }

@@ -204,15 +204,13 @@ const handleToggle = () => {
 }
 
 .page-wrapper {
-  min-height: 100vh;
-
+  height: calc(100vh - 92px);
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 24px;
-
   background: #f8f9ff;
+  overflow-y: auto;
 }
 
 .register-container {

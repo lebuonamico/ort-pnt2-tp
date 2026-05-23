@@ -28,13 +28,17 @@ const handleToggle = () => {
       <!-- Brand -->
       <div class="brand">
         <div class="brand-row">
-          <span class="material-symbols-outlined brand-icon">
-            account_balance_wallet
-          </span>
+          <RouterLink to="/" class="logo">
 
-          <span class="brand-title">
-            Finanzas Pro
-          </span>
+            <span class="material-symbols-outlined brand-icon">
+              account_balance_wallet
+            </span>
+
+            <span class="brand-title">
+              Finanzas Pro
+            </span>
+
+          </RouterLink>
         </div>
 
         <p class="brand-subtitle">
@@ -53,61 +57,31 @@ const handleToggle = () => {
           Ingresa tus credenciales para acceder a tu panel.
         </p>
 
-        <div
-          v-if="errorMessage"
-          class="error-box"
-        >
+        <div v-if="errorMessage" class="error-box">
           {{ errorMessage }}
         </div>
 
-        <form
-          @submit.prevent="submit"
-          class="form"
-        >
+        <form @submit.prevent="submit" class="form">
 
-          <AuthInputGroup
-            label="Correo Electrónico"
-            icon="mail"
-            id="email"
-            type="email"
-            placeholder="ejemplo@finanzaspro.com"
-            v-model="email"
-            :disabled="authStore.loading"
-          />
+          <AuthInputGroup label="Correo Electrónico" icon="mail" id="email" type="email"
+            placeholder="ejemplo@finanzaspro.com" v-model="email" :disabled="authStore.loading" />
 
           <div class="field-group">
             <div class="password-header">
-              <label
-                for="password"
-                class="field-label"
-              >
+              <label for="password" class="field-label">
                 Contraseña
               </label>
 
-              <router-link
-                to="/forgot-password"
-                class="forgot-link"
-              >
+              <router-link to="/forgot-password" class="forgot-link">
                 ¿Olvidaste tu contraseña?
               </router-link>
             </div>
 
-            <AuthInputGroup
-              label=""
-              icon="lock"
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              v-model="password"
-              :disabled="authStore.loading"
-              :showToggle="true"
-            />
+            <AuthInputGroup label="" icon="lock" id="password" type="password" placeholder="••••••••" v-model="password"
+              :disabled="authStore.loading" :showToggle="true" />
           </div>
 
-          <PrimaryButton
-            type="submit"
-            :disabled="authStore.loading"
-          >
+          <PrimaryButton type="submit" :disabled="authStore.loading">
             {{ authStore.loading ? 'Cargando...' : 'Iniciar Sesión' }}
           </PrimaryButton>
 
@@ -124,10 +98,7 @@ const handleToggle = () => {
       <p class="footer-text">
         ¿No tienes una cuenta?
 
-        <button
-          @click="handleToggle"
-          class="register-link"
-        >
+        <button @click="handleToggle" class="register-link">
           Regístrate gratis
         </button>
       </p>
@@ -158,7 +129,7 @@ const handleToggle = () => {
 }
 
 .login-page {
-  min-height: 100vh;
+  height: calc(100vh - 92px);
   background: #f8f9ff;
   display: flex;
   align-items: center;
@@ -193,15 +164,17 @@ const handleToggle = () => {
 .brand-icon {
   font-size: 40px;
   color: #006a61;
-  font-variation-settings: 'FILL' 1;
+  display: flex;
+  align-items: center;
 }
 
 .brand-title {
   font-family: 'Manrope', sans-serif;
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 800;
   color: #0b1c30;
   letter-spacing: -0.5px;
+  text-decoration: none;
 }
 
 .brand-subtitle {
@@ -408,7 +381,20 @@ const handleToggle = () => {
   filter: blur(80px);
   z-index: -1;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
 
+.logo:visited {
+  color: inherit;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
 @media (max-width: 480px) {
   .login-card {
     padding: 24px;

@@ -25,27 +25,6 @@ const handleToggle = () => {
     <!-- Login Container -->
     <div class="login-container">
 
-      <!-- Brand -->
-      <div class="brand">
-        <div class="brand-row">
-          <RouterLink to="/" class="logo">
-
-            <span class="material-symbols-outlined brand-icon">
-              account_balance_wallet
-            </span>
-
-            <span class="brand-title">
-              Finanzas Pro
-            </span>
-
-          </RouterLink>
-        </div>
-
-        <p class="brand-subtitle">
-          Gestión patrimonial de nivel profesional
-        </p>
-      </div>
-
       <!-- Card -->
       <div class="login-card">
 
@@ -153,13 +132,7 @@ const handleToggle = () => {
   text-align: center;
 }
 
-.brand-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
+
 
 .brand-icon {
   font-size: 40px;
@@ -175,12 +148,6 @@ const handleToggle = () => {
   color: #0b1c30;
   letter-spacing: -0.5px;
   text-decoration: none;
-}
-
-.brand-subtitle {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 16px;
-  color: #7c839b;
 }
 
 .login-card {
@@ -381,6 +348,7 @@ const handleToggle = () => {
   filter: blur(80px);
   z-index: -1;
 }
+
 .logo {
   display: flex;
   align-items: center;
@@ -395,6 +363,7 @@ const handleToggle = () => {
 .logo:hover {
   text-decoration: none;
 }
+
 @media (max-width: 480px) {
   .login-card {
     padding: 24px;

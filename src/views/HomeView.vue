@@ -132,7 +132,7 @@ const handleRegister = () => {
     background: #f8f9ff;
     color: #0b1c30;
     overflow-x: hidden;
-    min-height: 100vh;
+    min-height: 100%;
     font-family: 'Work Sans', sans-serif;
 }
 
@@ -145,8 +145,8 @@ const handleRegister = () => {
 
 
 .hero {
-    padding-top: 36px;
-    padding-bottom: 130px;
+    padding-top: calc(var(--navbar-height) + 24px);
+    padding-bottom: 120px;
 }
 
 .hero-cta {
@@ -331,7 +331,8 @@ const handleRegister = () => {
 
 @media (max-width: 640px) {
     .hero {
-        padding-top: 180px;
+        padding-top: calc(var(--navbar-height) + 12px);
+        padding-bottom: 80px;
     }
 
     .hero-text h1 {

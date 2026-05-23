@@ -20,10 +20,18 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.app-layout{
+  position:relative;
+  height:100%;
+}
+
 .app-main {
-  padding-top: var(--navbar-height);
-  height: calc(100vh - var(--navbar-height));
+  position:absolute;
+  top:var(--navbar-height);
+  left:0;
+  right:0;
+  bottom:0;
   background: #f8f9ff;
-  overflow: auto;
+  overflow:auto;
 }
 </style>

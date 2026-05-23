@@ -101,7 +101,7 @@ const actions = computed(() => {
   position:fixed;
   top:0;
   width:100%;
-  height:80px;
+  height:var(--navbar-height);
 
   background:rgba(248,249,255,.78);
 
@@ -195,8 +195,8 @@ const actions = computed(() => {
 @media(max-width:640px){
 
 .navbar{
-height:auto;
-padding:12px;
+  height:var(--navbar-height);
+  padding:12px 16px;
 }
 
 .navbar-container{

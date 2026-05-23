@@ -21,8 +21,9 @@ onMounted(() => {
 
 <style scoped>
 .app-main {
-  padding-top: 92px;
-  min-height: calc(100vh - 92px);
+  padding-top: var(--navbar-height);
+  height: calc(100vh - var(--navbar-height));
   background: #f8f9ff;
+  overflow: auto;
 }
 </style>

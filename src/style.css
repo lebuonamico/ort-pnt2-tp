@@ -1,0 +1,39 @@
+:root{
+	--navbar-height: 80px;
+}
+
+html, body, #app {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Prevent root/body scrolling so only .app-main scrolls */
+body {
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* App main scroll behavior & subtle scrollbar styling */
+.app-main {
+	-webkit-overflow-scrolling: touch;
+	scroll-behavior: smooth;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(6,95,77,0.6) rgba(15,23,42,0.04);
+}
+
+/* WebKit scrollbar */
+.app-main::-webkit-scrollbar { width: 10px; }
+.app-main::-webkit-scrollbar-track { background: transparent; }
+.app-main::-webkit-scrollbar-thumb {
+	background-color: rgba(6,95,77,0.12);
+	border-radius: 999px;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+.app-main::-webkit-scrollbar-thumb:hover { background-color: rgba(6,95,77,0.2); }
+
+/* Utility */
+.sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+

@@ -204,32 +204,28 @@ const handleToggle = () => {
 }
 
 .page-wrapper {
-  height: calc(100vh - 92px);
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
   background: #f8f9ff;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .register-container {
   width: min(96vw, 1600px);
-
-  min-height: 94vh;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
 
   background: white;
 
   border-radius: 24px;
-  overflow: hidden;
+  overflow: visible;
 
   border: 1px solid rgba(198, 198, 205, 0.3);
 
-  box-shadow:
-    0 4px 20px rgba(15, 23, 42, 0.05);
+  box-shadow: 12px 12px 12px rgba(15, 23, 42, 0.05);
 }
 
 /* LEFT */
@@ -238,7 +234,7 @@ const handleToggle = () => {
   background: #131b2e;
   color: white;
 
-  padding: 56px;
+  padding: 48px;
 
   display: flex;
   flex-direction: column;
@@ -271,9 +267,9 @@ const handleToggle = () => {
 .branding-content h1 {
   font-family: 'Manrope', sans-serif;
 
-  font-size: 72px;
+  font-size: clamp(28px, 4.8vw, 56px);
   line-height: 1.05;
-  letter-spacing: -3px;
+  letter-spacing: -1px;
 
   margin-bottom: 28px;
 }
@@ -373,7 +369,7 @@ const handleToggle = () => {
   align-items: center;
   justify-content: center;
 
-  padding: 70px;
+  padding: 48px;
 }
 
 .form-container {
@@ -496,7 +492,7 @@ footer a {
   }
 
   .register-container {
-    min-height: 100vh;
+    min-height: 100%;
     border-radius: 0;
   }
 

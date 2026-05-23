@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import PrimaryButton from './PrimaryButton.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -14,15 +15,12 @@ const actions = computed(() => {
       {
         label: 'Dashboard',
         type: 'link',
-        to: '/dashboard',
-        class: route.name === 'dashboard'
-          ? 'nav-cta'
-          : 'nav-link'
+        to: '/dashboard'
       },
       {
         label: 'Cerrar sesión',
         type: 'button',
-        class: 'nav-link',
+        variant: 'outline',
         action: async () => {
           await authStore.logout()
           router.push('/login')
@@ -35,17 +33,17 @@ const actions = computed(() => {
     {
       label: 'Ingresar',
       type: 'button',
-      class: route.name === 'login'
-        ? 'nav-cta'
-        : 'nav-link',
+      variant: route.name === 'login'
+        ? 'primary'
+        : 'outline',
       action: () => router.push('/login')
     },
     {
       label: 'Registrarse',
       type: 'button',
-      class: route.name === 'register'
-        ? 'nav-cta'
-        : 'nav-link',
+      variant: route.name === 'register'
+        ? 'primary'
+        : 'outline',
       action: () => router.push('/register')
     }
   ]
@@ -54,7 +52,8 @@ const actions = computed(() => {
 
 <template>
   <nav class="navbar">
-    <div class="container navbar-container">
+
+    <div class="navbar-container">
 
       <RouterLink
         to="/"
@@ -65,62 +64,72 @@ const actions = computed(() => {
 
       <div class="nav-actions">
 
-        <component
+        <template
           v-for="item in actions"
           :key="item.label"
-          :is="item.type === 'link' ? RouterLink : 'button'"
-          :to="item.to"
-          :class="item.class"
-          @click="item.action"
         >
-          {{ item.label }}
-        </component>
+
+          <RouterLink
+            v-if="item.type === 'link'"
+            :to="item.to"
+            class="dashboard-link"
+          >
+            {{ item.label }}
+          </RouterLink>
+
+          <PrimaryButton
+            v-else
+            :variant="item.variant"
+            :fullWidth="false"
+            @click="item.action"
+          >
+            {{ item.label }}
+          </PrimaryButton>
+
+        </template>
 
       </div>
 
     </div>
+
   </nav>
 </template>
 
 <style scoped>
 
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 80px;
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:80px;
 
-  background: rgba(248,249,255,.78);
+  background:rgba(248,249,255,.78);
 
-  backdrop-filter: blur(18px);
+  backdrop-filter:blur(18px);
 
-  border-bottom: 1px solid rgba(198,198,205,.18);
+  border-bottom:1px solid rgba(198,198,205,.18);
 
   z-index:1000;
 }
 
-.navbar-container {
-
+.navbar-container{
   width:min(1200px,100%);
   max-width:1200px;
 
-  margin:0 auto;
+  margin:auto;
 
   padding:0 24px;
 
   height:100%;
 
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
-  gap:24px;
 }
 
+.logo{
 
-.logo {
+  text-decoration:none;
 
   font-family:'Manrope',sans-serif;
 
@@ -130,88 +139,60 @@ const actions = computed(() => {
 
   color:#0f172a;
 
-  text-decoration:none;
-
-  transition:.25s;
+  transition:.2s;
 }
 
 .logo:hover{
-
-  transform:translateY(-1px);
-
   opacity:.8;
 }
 
-
-.nav-actions {
-
+.nav-actions{
   display:flex;
-
   align-items:center;
-
   gap:16px;
 }
 
+.dashboard-link{
 
-.nav-link,
-.nav-cta {
-
-  border:none;
-
-  cursor:pointer;
+  text-decoration:none;
 
   font-family:'Work Sans',sans-serif;
 
-  font-size:15px;
-
   font-weight:600;
 
-  padding:12px 24px;
-
-  border-radius:999px;
-
-  transition:
-    all .25s ease;
-}
-
-
-.nav-link {
-
-  background:transparent;
-
   color:#45464d;
+
+  position:relative;
+
+  transition:.2s;
 }
 
-.nav-link:hover {
-
-  background:rgba(0,106,97,.08);
-
+.dashboard-link:hover{
   color:#006a61;
 }
 
+.router-link-active{
+  color:#006a61;
+}
 
-.nav-cta {
+.router-link-active::after{
+
+  content:'';
+
+  position:absolute;
+
+  left:0;
+  bottom:-8px;
+
+  width:100%;
+  height:2px;
 
   background:#006a61;
 
-  color:white;
-
-  box-shadow:
-    0 6px 18px rgba(0,106,97,.22);
+  border-radius:999px;
 }
 
-.nav-cta:hover {
-
-  background:#00584f;
-
-  transform:translateY(-2px);
-
-  box-shadow:
-    0 12px 28px rgba(0,106,97,.28);
-}
-
-
-@media (max-width:640px){
+@media(max-width:640px){
 
 .navbar{
 height:auto;
@@ -219,46 +200,13 @@ padding:12px;
 }
 
 .navbar-container{
-
-width:100%;
-
-padding:0;
-
 flex-direction:column;
-
 gap:12px;
-}
-
-.logo{
-
-width:100%;
-
-text-align:center;
 }
 
 .nav-actions{
-
 width:100%;
-
 flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:12px;
-}
-
-.nav-actions>*{
-
-width:100%;
-max-width:280px;
-}
-
-.nav-link,
-.nav-cta{
-
-width:100%;
 }
 
 }

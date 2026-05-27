@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits, ref, watch, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 
 const props = defineProps({
   label: {
@@ -263,4 +263,3 @@ const inputClasses = computed(() => ({
   color: #334155;
 }
 </style>
-

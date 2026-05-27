@@ -1,13 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import { onMounted } from 'vue'
-import { useAuthStore } from './stores/auth'
 import Navbar from './components/Navbar.vue'
-const auth = useAuthStore()
-
-onMounted(() => {
-  auth.initAuthListener()
-})
 </script>
 
 <template>

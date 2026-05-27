@@ -11,6 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const loading = ref(false)
   const error = ref(null)
+  const initialized = ref(false)
 
   // GETTERS
   const isAuthenticated = computed(() => user.value !== null)
@@ -95,13 +96,13 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
   }
 
-  function initAuthListener() {
+  async function initAuthListener() {
 
-    supabase.auth
-      .getSession()
-      .then(({ data:{session} }) => {
-        user.value = session?.user ?? null
-      })
+    if (initialized.value) return
+
+    const { data: { session } } = await supabase.auth.getSession()
+    user.value = session?.user ?? null
+    initialized.value = true
 
     supabase.auth
       .onAuthStateChange((_event, session) => {
@@ -113,6 +114,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     loading,
     error,
+    initialized,
     isAuthenticated,
     userEmail,
     userName,

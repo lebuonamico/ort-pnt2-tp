@@ -38,8 +38,11 @@ const router = createRouter(
     }
 )
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore()
+
+    await authStore.initAuthListener()
+
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
         // Redirigir al login, opcionalmente con un mensaje
         next({ name: 'login', query: { redirect: to.fullPath } })

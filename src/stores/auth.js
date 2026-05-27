@@ -15,6 +15,11 @@ export const useAuthStore = defineStore('auth', () => {
   // GETTERS
   const isAuthenticated = computed(() => user.value !== null)
   const userEmail = computed(() => user.value?.email ?? '')
+  const userName = computed(() =>
+    user.value?.user_metadata?.full_name ||
+    user.value?.email ||
+    'usuario'
+  )
 
   // Función reutilizable
   async function executeAuth(action) {
@@ -110,6 +115,7 @@ export const useAuthStore = defineStore('auth', () => {
     error,
     isAuthenticated,
     userEmail,
+    userName,
     login,
     register,
     logout,

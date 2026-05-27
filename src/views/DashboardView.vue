@@ -17,7 +17,7 @@ const handleSignOut = async () => {
 
 <template>
   <div class="dashboard-container">
-    <h1>Bienvenido al Dashboard</h1>
+    <h1>Hola {{ auth.userName }}</h1>
     <p>Esta es una vista protegida que solo los usuarios autenticados pueden ver.</p>
   </div>
 

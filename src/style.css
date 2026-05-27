@@ -36,9 +36,8 @@ body {
 
 /* Responsive navbar height: keep app offset consistent on mobile */
 @media (max-width: 640px) {
-	:root { --navbar-height: 100px; }
+	:root { --navbar-height: 64px; }
 }
 
 /* Utility */
 .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
-

@@ -1,5 +1,37 @@
-2. Dashboard de Seguimiento de Finanzas Personales
-Descripcion del proyecto
-Resuelve el caos en el registro de gastos e ingresos diarios. La aplicación utiliza composables para encapsular la lógica de cálculos matemáticos y el formateo de monedas, manteniendo los componentes de la interfaz limpios y enfocados en la UI. Implementa Navigation Guards en el router para simular un acceso protegido a las estadísticas privadas. El estado global con Pinia maneja el balance total y el historial, mientras que el flujo de trabajo se asegura mediante un pipeline de CI/CD que valida que cada nueva funcionalidad añadida (como un filtro de fechas) no rompa los cálculos existentes antes de desplegarse automáticamente a producción.
+# Finanzas Pro
 
-Dificultad técnica: Media-Alta
+SPA desarrollada con Vue.js para el seguimiento de finanzas personales. El objetivo del proyecto es permitir que una persona registre ingresos y gastos, consulte su balance y acceda a un panel privado mediante autenticacion.
+
+## Estado actual
+
+- Proyecto Vue creado con Vite.
+- Rutas principales configuradas con Vue Router.
+- Estado global de autenticacion centralizado con Pinia.
+- Persistencia local del estado de usuario con `pinia-plugin-persistedstate`.
+- Conexion a Supabase para registro, inicio de sesion y cierre de sesion.
+- Landing page, login, registro, dashboard protegido y pagina 404.
+
+## En desarrollo
+
+- Dashboard financiero con ingresos, gastos, balance e historial.
+- Store global para transacciones.
+- Filtros por fecha y tipo de movimiento.
+- Configuracion PWA con `vite-plugin-pwa`.
+- Documentacion tecnica ampliada.
+- Deploy publico en produccion.
+
+## Tecnologias
+
+- Vue.js
+- Vite
+- Vue Router
+- Pinia
+- Supabase
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run preview
+```

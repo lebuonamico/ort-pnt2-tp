@@ -5,7 +5,7 @@
     <p>La página que estás buscando no existe.</p>
     <div class="actions">
       <router-link to="/" class="btn">Ir al Inicio</router-link>
-      <router-link to="/catalogo" class="btn">Ver Catálogo</router-link>
+      <router-link to="/dashboard" class="btn secondary">Ir al Dashboard</router-link>
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@
 h1 {
   font-size: 6rem;
   margin: 0;
-  color: var(--accent);
+  color: #006a61;
 }
 
 h2 {
@@ -30,7 +30,7 @@ h2 {
 }
 
 p {
-  color: var(--text);
+  color: #45464d;
   margin-bottom: 2rem;
 }
 
@@ -42,11 +42,15 @@ p {
 
 .btn {
   padding: 1rem 2rem;
-  background: var(--accent);
+  background: #006a61;
   color: white;
   text-decoration: none;
   border-radius: 8px;
   font-weight: bold;
+}
+
+.secondary {
+  background: #0f172a;
 }
 
 .btn:hover {

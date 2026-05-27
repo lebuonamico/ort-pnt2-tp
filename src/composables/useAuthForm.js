@@ -9,6 +9,7 @@ export function useAuthForm() {
     const email = ref('')
     const password = ref('')
     const confirmPassword = ref('')
+    const fullName = ref('')
     const terms = ref(false)
     const isLogin = ref(true)
     const errorMessage = ref('')
@@ -21,6 +22,11 @@ export function useAuthForm() {
         }
 
         if (!isLogin.value) {
+
+            if (!fullName.value.trim()) {
+                errorMessage.value = 'Nombre completo obligatorio'
+                return false
+            }
 
             if (password.value !== confirmPassword.value) {
                 errorMessage.value = 'Las contraseñas no coinciden'
@@ -44,7 +50,9 @@ export function useAuthForm() {
 
         const result = isLogin.value
             ? await authStore.login(email.value, password.value)
-            : await authStore.register(email.value, password.value)
+            : await authStore.register(email.value, password.value, {
+                full_name: fullName.value.trim()
+            })
 
         if (result.success) {
             router.push({ name: 'dashboard' })
@@ -57,6 +65,7 @@ export function useAuthForm() {
         email,
         password,
         confirmPassword,
+        fullName,
         terms,
         isLogin,
         errorMessage,

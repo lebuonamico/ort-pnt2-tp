@@ -38,11 +38,11 @@ const actions = computed(() => {
         : 'outline',
       action: () => router.push('/login')
     },
-    {
-      label: 'Registrarse',
-      type: 'button',
-      variant: route.name === 'register'
-        ? 'primary'
+      {
+        label: 'Registro',
+        type: 'button',
+        variant: route.name === 'register'
+          ? 'primary'
         : 'outline',
       action: () => router.push('/register')
     }
@@ -102,6 +102,7 @@ const actions = computed(() => {
   top:0;
   width:100%;
   height:var(--navbar-height);
+  box-sizing:border-box;
 
   background:rgba(248,249,255,.78);
 
@@ -115,6 +116,7 @@ const actions = computed(() => {
 .navbar-container{
   width:min(1200px,100%);
   max-width:1200px;
+  box-sizing:border-box;
 
   margin:auto;
 
@@ -196,17 +198,39 @@ const actions = computed(() => {
 
 .navbar{
   height:var(--navbar-height);
-  padding:12px 16px;
+  padding:0;
 }
 
 .navbar-container{
-flex-direction:column;
+padding:0 16px;
+flex-direction:row;
 gap:12px;
+min-width:0;
+}
+
+.logo{
+font-size:19px;
+white-space:nowrap;
+min-width:0;
 }
 
 .nav-actions{
-width:100%;
-flex-direction:column;
+width:auto;
+flex-direction:row;
+gap:6px;
+flex-shrink:0;
+}
+
+.dashboard-link{
+font-size:14px;
+}
+
+:deep(.primary-button){
+height:40px;
+padding:0 10px;
+font-size:14px;
+border-radius:10px;
+min-width:0;
 }
 
 }

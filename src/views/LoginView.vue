@@ -50,10 +50,6 @@ const handleToggle = () => {
               <label for="password" class="field-label">
                 Contraseña
               </label>
-
-              <router-link to="/forgot-password" class="forgot-link">
-                ¿Olvidaste tu contraseña?
-              </router-link>
             </div>
 
             <AuthInputGroup label="" icon="lock" id="password" type="password" placeholder="••••••••" v-model="password"

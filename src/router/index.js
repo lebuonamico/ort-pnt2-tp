@@ -22,6 +22,11 @@ const routes = [
         path: "/register",
         name: "register",
         component: () => import("../views/RegisterView.vue")
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "not-found",
+        component: () => import("../views/NotFoundView.vue")
     }
 ]
 
@@ -33,19 +38,19 @@ const router = createRouter(
     }
 )
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to) => {
     const authStore = useAuthStore()
+
+    await authStore.initAuthListener()
+
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
         // Redirigir al login, opcionalmente con un mensaje
-        next({ name: 'login', query: { redirect: to.fullPath } })
+        return { name: 'login', query: { redirect: to.fullPath } }
     }
     else if((to.name === 'login' && authStore.isAuthenticated) || (to.name === 'register' && authStore.isAuthenticated)) {
         console.log('Usuario ya autenticado, redirigiendo al dashboard')
         // Si el usuario ya está autenticado, redirigir al dashboard
-        next({ name: 'dashboard' })
-    }
-    else {
-        next()
+        return { name: 'dashboard' }
     }
 })
 

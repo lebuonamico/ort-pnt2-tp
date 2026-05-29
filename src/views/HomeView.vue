@@ -145,7 +145,7 @@ const handleRegister = () => {
 
 
 .hero {
-    padding-top: calc(var(--navbar-height) + 24px);
+    padding-top: 56px;
     padding-bottom: 120px;
 }
 
@@ -331,7 +331,7 @@ const handleRegister = () => {
 
 @media (max-width: 640px) {
     .hero {
-        padding-top: calc(var(--navbar-height) + 12px);
+        padding-top: 48px;
         padding-bottom: 80px;
     }
 
@@ -341,16 +341,6 @@ const handleRegister = () => {
 
     .hero-text p {
         font-size: 18px;
-    }
-
-    .navbar-container {
-        flex-direction: column;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .navbar {
-        height: 100px;
     }
 }
 </style>

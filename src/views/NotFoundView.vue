@@ -1,17 +1,31 @@
+<script setup>
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import PrimaryButton from '../components/PrimaryButton.vue'
+
+const router = useRouter()
+const auth = useAuthStore()
+
+const goHome = () => {
+  router.push(auth.isAuthenticated ? '/dashboard' : '/')
+}
+</script>
+
 <template>
   <div class="not-found-page">
     <h1>404</h1>
     <h2>Página no encontrada</h2>
     <p>La página que estás buscando no existe.</p>
     <div class="actions">
-      <router-link to="/" class="btn">Ir al Inicio</router-link>
-      <router-link to="/catalogo" class="btn">Ver Catálogo</router-link>
+      <PrimaryButton
+        :fullWidth="false"
+        @click="goHome"
+      >
+        Ir al Inicio
+      </PrimaryButton>
     </div>
   </div>
 </template>
-
-<script setup>
-</script>
 
 <style scoped>
 .not-found-page {
@@ -22,7 +36,7 @@
 h1 {
   font-size: 6rem;
   margin: 0;
-  color: var(--accent);
+  color: #006a61;
 }
 
 h2 {
@@ -30,7 +44,7 @@ h2 {
 }
 
 p {
-  color: var(--text);
+  color: #45464d;
   margin-bottom: 2rem;
 }
 
@@ -38,18 +52,6 @@ p {
   display: flex;
   gap: 1rem;
   justify-content: center;
-}
-
-.btn {
-  padding: 1rem 2rem;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.btn:hover {
-  opacity: 0.9;
+  flex-wrap: wrap;
 }
 </style>

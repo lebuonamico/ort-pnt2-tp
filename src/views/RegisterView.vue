@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useAuthForm } from '../composables/useAuthForm.js'
@@ -9,8 +9,7 @@ import AuthInputGroup from '../components/AuthInputGroup.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
-const name = ref('')
-const { email, password, confirmPassword, terms, submit, isLogin, errorMessage } = useAuthForm()
+const { email, password, confirmPassword, fullName, terms, submit, isLogin, errorMessage } = useAuthForm()
 
 onMounted(() => {
   isLogin.value = false
@@ -118,7 +117,8 @@ const handleToggle = () => {
               id="name"
               type="text"
               placeholder="Ej: Juan Pérez"
-              v-model="name"
+              v-model="fullName"
+              :disabled="authStore.loading"
             />
 
             <AuthInputGroup

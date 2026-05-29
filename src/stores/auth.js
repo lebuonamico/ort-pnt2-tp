@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   // STATE
   const user = ref(null)
+  const role = ref('user')
   const loading = ref(false)
   const error = ref(null)
   const initialized = ref(false)
@@ -21,6 +22,33 @@ export const useAuthStore = defineStore('auth', () => {
     user.value?.email ||
     'usuario'
   )
+  const isAdmin = computed(() => role.value === 'admin')
+
+  async function loadUserRole(sessionUser) {
+    if (!sessionUser) {
+      role.value = 'user'
+      return
+    }
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', sessionUser.id)
+      .maybeSingle()
+
+    if (error) {
+      console.error('No se pudo cargar el rol del usuario:', error.message)
+      role.value = 'user'
+      return
+    }
+
+    role.value = data?.role ?? 'user'
+  }
+
+  async function setUser(sessionUser) {
+    user.value = sessionUser
+    await loadUserRole(sessionUser)
+  }
 
   // Función reutilizable
   async function executeAuth(action) {
@@ -62,7 +90,7 @@ export const useAuthStore = defineStore('auth', () => {
     )
 
     if (result.success) {
-      user.value = result.data.user
+      await setUser(result.data.user)
     }
 
     return result
@@ -85,7 +113,7 @@ export const useAuthStore = defineStore('auth', () => {
       result.data.user &&
       result.data.session
     ) {
-      user.value = result.data.user
+      await setUser(result.data.user)
     }
 
     return result
@@ -93,7 +121,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function logout() {
     await supabase.auth.signOut()
-    user.value = null
+    await setUser(null)
   }
 
   async function initAuthListener() {
@@ -101,21 +129,23 @@ export const useAuthStore = defineStore('auth', () => {
     if (initialized.value) return
 
     const { data: { session } } = await supabase.auth.getSession()
-    user.value = session?.user ?? null
+    await setUser(session?.user ?? null)
     initialized.value = true
 
     supabase.auth
-      .onAuthStateChange((_event, session) => {
-        user.value = session?.user ?? null
+      .onAuthStateChange(async (_event, session) => {
+        await setUser(session?.user ?? null)
       })
   }
 
   return {
     user,
+    role,
     loading,
     error,
     initialized,
     isAuthenticated,
+    isAdmin,
     userEmail,
     userName,
     login,
@@ -128,6 +158,6 @@ export const useAuthStore = defineStore('auth', () => {
   persist:{
     key:'auth-store',
     storage:localStorage,
-    pick:['user']
+    pick:['user', 'role']
   }
 })

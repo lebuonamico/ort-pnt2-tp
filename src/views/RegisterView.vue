@@ -163,7 +163,7 @@ const handleToggle = () => {
                 Acepto los
                 <a href="#">Términos de Servicio</a>
                 y la
-                <a href="#">Política de Privacidad</a>.
+                <RouterLink to="/privacidad">Política de Privacidad</RouterLink>.
               </label>
             </div>
 
@@ -208,7 +208,7 @@ const handleToggle = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 13px;
   background: #f8f9ff;
   overflow: visible;
 }

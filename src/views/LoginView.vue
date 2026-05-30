@@ -104,14 +104,13 @@ const handleToggle = () => {
 }
 
 .login-page {
-  height: calc(100vh - 92px);
-  background: #f8f9ff;
+  min-height: calc(100vh - var(--navbar-height));
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 16px;
-  position: relative;
-  overflow: hidden;
+  box-sizing: border-box;
+  background: #f8f9ff;
 }
 
 .login-container {

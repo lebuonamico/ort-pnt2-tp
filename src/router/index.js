@@ -5,28 +5,38 @@ const routes = [
     {
         path: "/",
         name: "home",
-        component: () => import("../views/HomeView.vue")
+        component: () => import("../views/HomeView.vue"),
+        meta: { requiresAuth: false, hideNavbar: false }
     },
     {
         path: "/dashboard",
         name: "dashboard",
         component: () => import("../views/DashboardView.vue"),
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, hideNavbar: false }
     },
     {
         path: "/login",
         name: "login",
-        component: () => import("../views/LoginView.vue")
+        component: () => import("../views/LoginView.vue"),
+        meta: { requiresAuth: false, hideNavbar: false }
     },
     {
         path: "/register",
         name: "register",
-        component: () => import("../views/RegisterView.vue")
+        component: () => import("../views/RegisterView.vue"),
+        meta: { requiresAuth: false, hideNavbar: false }
+    },
+    {
+        path: "/privacidad",
+        name: "privacy-policy",
+        component: () => import("../views/PrivacyPolicyView.vue"),
+        meta: { requiresAuth: false, hideNavbar: false }
     },
     {
         path: "/:pathMatch(.*)*",
         name: "not-found",
-        component: () => import("../views/NotFoundView.vue")
+        component: () => import("../views/NotFoundView.vue"),
+        meta: { requiresAuth: false, hideNavbar: false }
     }
 ]
 
@@ -34,7 +44,10 @@ const routes = [
 const router = createRouter(
     {
         history: createWebHistory(),
-        routes
+        routes,
+        scrollBehavior() {
+            return { top: 0 }
+        }
     }
 )
 
@@ -44,10 +57,10 @@ router.beforeEach(async (to) => {
     await authStore.initAuthListener()
 
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        // Redirigir al login, opcionalmente con un mensaje
+        // Redirigir al login
         return { name: 'login', query: { redirect: to.fullPath } }
     }
-    else if((to.name === 'login' && authStore.isAuthenticated) || (to.name === 'register' && authStore.isAuthenticated)) {
+    else if ((to.name === 'login' && authStore.isAuthenticated) || (to.name === 'register' && authStore.isAuthenticated)) {
         console.log('Usuario ya autenticado, redirigiendo al dashboard')
         // Si el usuario ya está autenticado, redirigir al dashboard
         return { name: 'dashboard' }

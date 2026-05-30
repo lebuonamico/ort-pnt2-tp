@@ -6,8 +6,6 @@ import { useErrorTranslator } from '../composables/useErrorTranslator'
 export const useAuthStore = defineStore('auth', () => {
 
   const { translateError } = useErrorTranslator()
-
-  // STATE
   const user = ref(null)
   const role = ref('user')
   const loading = ref(false)
@@ -50,7 +48,6 @@ export const useAuthStore = defineStore('auth', () => {
     await loadUserRole(sessionUser)
   }
 
-  // Función reutilizable
   async function executeAuth(action) {
 
     loading.value = true

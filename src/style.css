@@ -2,18 +2,15 @@
 	--navbar-height: 80px;
 }
 
-html, body, #app {
-	height: 100%;
-	margin: 0;
-	padding: 0;
+html,
+body,
+#app {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
-
 /* Prevent root/body scrolling so only .app-main scrolls */
-body {
-	overflow: hidden;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
+
 
 /* App main scroll behavior & subtle scrollbar styling */
 .app-main {

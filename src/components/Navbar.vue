@@ -97,21 +97,16 @@ const actions = computed(() => {
 
 <style scoped>
 
-.navbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:var(--navbar-height);
-  box-sizing:border-box;
-
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
+  z-index: 1000;
   background:rgba(248,249,255,.78);
-
   backdrop-filter:blur(18px);
-
-  border-bottom:1px solid rgba(198,198,205,.18);
-
-  z-index:1000;
-}
+border-bottom:1px solid rgba(198,198,205,.18);}
 
 .navbar-container{
   width:min(1200px,100%);

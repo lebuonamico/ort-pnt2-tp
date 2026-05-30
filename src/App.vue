@@ -1,30 +1,32 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { computed } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 import Navbar from './components/Navbar.vue'
+
+const route = useRoute()
+const hideNavbar = computed(() => route.meta.hideNavbar === true)
 </script>
 
 <template>
   <div class="app-layout">
-    <Navbar />
-    <main class="app-main">
+    <Navbar v-if="!hideNavbar" />
+    <main :class="['app-main', { 'app-main-full': hideNavbar }]">
       <RouterView />
     </main>
   </div>
 </template>
 
 <style scoped>
-.app-layout{
-  position:relative;
-  height:100%;
+.app-layout {
+  min-height: 100vh;
 }
 
 .app-main {
-  position:absolute;
-  top:var(--navbar-height);
-  left:0;
-  right:0;
-  bottom:0;
+  padding-top: var(--navbar-height);
   background: #f8f9ff;
-  overflow:auto;
+}
+
+.app-main-full {
+  padding-top: 0;
 }
 </style>

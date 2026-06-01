@@ -1,37 +1,41 @@
 <script setup>
-import { RouterView } from 'vue-router'
-import { onMounted } from 'vue'
+import { computed } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 import { useAuthStore } from './stores/auth'
 import Navbar from './components/Navbar.vue'
-const auth = useAuthStore()
+import Sidebar from './components/Sidebar.vue'
 
-onMounted(() => {
-  auth.initAuthListener()
-})
+const route = useRoute()
+const auth = useAuthStore()
+const hideNavbar = computed(() => route.meta.hideNavbar === true)
 </script>
 
 <template>
   <div class="app-layout">
-    <Navbar />
-    <main class="app-main">
+    <Navbar v-if="!hideNavbar && !auth.isAuthenticated" />
+    <Sidebar v-if="auth.isAuthenticated" />
+    <main :class="['app-main', { 'app-main-full': hideNavbar, 'con-sidebar': auth.isAuthenticated }]">
       <RouterView />
     </main>
   </div>
 </template>
 
 <style scoped>
-.app-layout{
-  position:relative;
-  height:100%;
+.app-layout {
+  min-height: 100vh;
 }
 
 .app-main {
-  position:absolute;
-  top:var(--navbar-height);
-  left:0;
-  right:0;
-  bottom:0;
+  padding-top: var(--navbar-height);
   background: #f8f9ff;
-  overflow:auto;
+}
+
+.app-main-full {
+  padding-top: 0;
+}
+
+.con-sidebar {
+  margin-left: 220px;
+  padding: 32px;
 }
 </style>

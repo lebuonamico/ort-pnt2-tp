@@ -39,6 +39,12 @@ const routes = [
         meta: { requiresAuth: false, hideNavbar: false }
     },
     {
+        path: '/terminos',
+        name: 'terms',
+        component: () => import('../views/TermsView.vue'),
+        meta: { requiresAuth: false, hideNavbar: false }
+    },
+    {
         path: "/admin",
         component: () => import("../views/admin/AdminLayout.vue"),
         meta: { requiresAuth: true, requiresAdmin: true, hideNavbar: false },

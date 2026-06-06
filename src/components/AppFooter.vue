@@ -24,7 +24,7 @@ const route = useRoute()
 
     <div class="container footer-bottom">
       <p>
-        © 2024 Finanzas Pro. Todos los derechos reservados.
+        © 2026 Finanzas Pro. Todos los derechos reservados.
       </p>
     </div>
   </footer>

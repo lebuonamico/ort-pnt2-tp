@@ -32,7 +32,7 @@ const goBack = () => {
 
         <div class="security-visual">
           <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqUABOaiOJgIfwHPitXBTedlAs5MnyMVELW2gn1IVt8OAvWOkuxH8tosTpwkP9FLFgqYopA3XUdbp1iVv5n454nZu4HLxSz-y2SOSVy1xmnyQoRzaBh2_I7OHcX3UkS1eIvOQiZ-bRAw3J-Y7mW0rEwVolzXokXNIc0M_DN0Q_noUOoVExmH_PY6ILh3GXvakj7-XKB1hZlCFRHRXNZqpM6ThTvFNagIciSSxn20wVwiOYGX7Y9r4lT1_NM1EesJVAc0fAHkZtzSRg"
+            src="../assets/privacy.png"
             alt="Seguridad de datos" />
         </div>
 
@@ -77,22 +77,23 @@ const goBack = () => {
               <li>
                 <span class="material-symbols-outlined">check_circle</span>
                 <p>
-                  <strong>Metadatos de Uso:</strong> IP de acceso y
-                  comportamiento de navegación para prevenir fraudes.
+                  <strong>Metadatos de Uso:</strong> Registros de acceso (fechas,
+                  acciones) y datos de uso anónimos que nos ayudan a mejorar el
+                  servicio y detectar abusos. No realizamos técnicas de
+                  "fingerprinting" ni recopilamos datos biométricos.
                 </p>
               </li>
             </ul>
           </div>
 
           <div class="highlight-card">
-            <h3>Seguridad de Grado Bancario</h3>
+            <h3>Medidas de seguridad</h3>
 
             <p>
-              Utilizamos cifrado AES-256 para el almacenamiento de datos y
-              protocolos TLS 1.3 para todas las transmisiones de información.
-              Sus datos nunca se venden a terceros; nuestro modelo de negocio se
-              basa exclusivamente en la suscripción premium, no en la
-              comercialización de información.
+              Aplicamos medidas de protección razonables y trabajamos con
+              proveedores que emplean cifrado y comunicaciones seguras para proteger
+              la información en tránsito y en reposo. Sus datos no se venden a
+              terceros; nuestro modelo de negocio se basa en la suscripción.
             </p>
           </div>
 
@@ -127,11 +128,11 @@ const goBack = () => {
             <h2>4. Sus Derechos (GDPR/LFPDPPP)</h2>
 
             <p>
-              Usted mantiene el control total sobre su huella digital. En
-              cualquier momento puede ejercer sus derechos de acceso,
-              rectificación, cancelación y oposición (ARCO) directamente desde la
-              configuración de su perfil o contactando a nuestro Oficial de
-              Privacidad.
+              Usted mantiene el control sobre sus datos personales. En cualquier
+              momento puede ejercer sus derechos de acceso, rectificación,
+              cancelación y oposición (ARCO) desde la configuración de su perfil
+              o contactando a nuestro Oficial de Privacidad. No realizamos
+              fingerprinting ni recopilamos datos biométricos.
             </p>
           </div>
         </section>
@@ -140,13 +141,12 @@ const goBack = () => {
           <div>
             <h2>¿Tiene preguntas?</h2>
             <p>
-              Estamos aquí para resolver cualquier duda sobre su información.
+              Estamos aquí para resolver cualquier duda sobre su información. Por favor, contáctenos vía email en
+            </p>
+            <p style="color: #006a61; font-weight: bold;" >
+              legales@finanzaspro.com
             </p>
           </div>
-
-          <a class="support-button" href="mailto:legales@finanzaspro.com">
-            Contactar Soporte Legal
-          </a>
         </section>
       </article>
     </main>

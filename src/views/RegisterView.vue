@@ -58,7 +58,7 @@ const handleToggle = () => {
 
               <small>SEGURIDAD</small>
 
-              <h3>Encriptación AES-256</h3>
+              <h3>Cifrado de datos</h3>
             </div>
 
             <div class="feature-card">
@@ -68,7 +68,7 @@ const handleToggle = () => {
 
               <small>ANÁLISIS</small>
 
-              <h3>IA Predictiva</h3>
+              <h3>Análisis avanzado</h3>
             </div>
           </div>
         </div>

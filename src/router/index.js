@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
 const routes = [
+    
     {
         path: "/",
         name: "home",
@@ -13,6 +14,13 @@ const routes = [
         name: "dashboard",
         component: () => import("../views/DashboardView.vue"),
         meta: { requiresAuth: true, hideNavbar: false }
+    },    
+    // agregado
+    {
+        path: "/estadisticas",
+        name: "estadisticas",
+        component: () => import("../views/EstadisticasView.vue"),
+         meta: { requiresAuth: true, hideNavbar: false }
     },
     {
         path: "/login",

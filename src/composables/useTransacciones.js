@@ -9,6 +9,9 @@ export function useTransacciones() {
 const anioActual = new Date().getFullYear()
 
   const obtenerTransacciones = async () => {
+    console.log('USER COMPLETO:', auth.user)        // ← agregá esta línea
+    console.log('USER ID:', auth.user?.id)
+    // agregar
     const { data, error } = await supabase
       .from('transacciones')
       .select('*')

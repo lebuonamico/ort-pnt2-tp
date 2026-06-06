@@ -17,14 +17,14 @@ const route = useRoute()
 
       <div class="footer-links">
         <RouterLink v-if="route.name !== 'privacy-policy'" to="/privacidad">Privacidad</RouterLink>
-        <a v-if="route.name !== 'terms'" href="#">Términos</a>
-        <span>contacto@finanzaspro.example.com</span>
+        <RouterLink v-if="route.name !== 'terms'" to="/terminos">Términos</RouterLink>
+        <span>contacto@finanzaspro.com</span>
       </div>
     </div>
 
     <div class="container footer-bottom">
       <p>
-        © 2024 Finanzas Pro. Todos los derechos reservados.
+        © 2026 Finanzas Pro. Todos los derechos reservados.
       </p>
     </div>
   </footer>

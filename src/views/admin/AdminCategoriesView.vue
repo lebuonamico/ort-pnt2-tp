@@ -1,18 +1,26 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useAdminStore } from '../../stores/admin'
 import PrimaryButton from '../../components/PrimaryButton.vue'
 import AuthInputGroup from '../../components/AuthInputGroup.vue'
 
 const admin = useAdminStore()
 
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024
+
 const showForm = ref(false)
 const editingId = ref(null)
+const fileInput = ref(null)
+const imageError = ref('')
+const uploading = ref(false)
+
+const sessionUploads = ref([])
+const originalImagePath = ref('')
 
 const form = reactive({
   nombre: '',
   tipo: 'gasto',
-  icono: '',
+  imagen_path: '',
   descripcion: ''
 })
 
@@ -20,12 +28,17 @@ onMounted(() => {
   admin.loadCategories()
 })
 
+const formImageUrl = computed(() => admin.categoryImageUrl(form.imagen_path))
+
 const resetForm = () => {
   form.nombre = ''
   form.tipo = 'gasto'
-  form.icono = ''
+  form.imagen_path = ''
   form.descripcion = ''
   editingId.value = null
+  imageError.value = ''
+  sessionUploads.value = []
+  originalImagePath.value = ''
 }
 
 const openCreate = () => {
@@ -34,24 +47,62 @@ const openCreate = () => {
 }
 
 const openEdit = (category) => {
+  resetForm()
   editingId.value = category.id
   form.nombre = category.nombre
   form.tipo = category.tipo
-  form.icono = category.icono || ''
+  form.imagen_path = category.imagen_path || ''
   form.descripcion = category.descripcion || ''
+  originalImagePath.value = category.imagen_path || ''
   showForm.value = true
 }
 
 const cancel = () => {
+  admin.removeCategoryImages(sessionUploads.value)
   showForm.value = false
   resetForm()
+}
+
+const triggerFilePicker = () => {
+  imageError.value = ''
+  fileInput.value?.click()
+}
+
+const onFileSelected = async (event) => {
+  const file = event.target.files?.[0]
+  event.target.value = ''
+  if (!file) return
+
+  if (!file.type.startsWith('image/')) {
+    imageError.value = 'El archivo debe ser una imagen.'
+    return
+  }
+  if (file.size > MAX_IMAGE_BYTES) {
+    imageError.value = 'La imagen no puede superar los 2 MB.'
+    return
+  }
+
+  uploading.value = true
+  try {
+    const result = await admin.uploadCategoryImage(file)
+    if (!result) return
+    sessionUploads.value.push(result.path)
+    form.imagen_path = result.path
+    imageError.value = ''
+  } finally {
+    uploading.value = false
+  }
+}
+
+const removeImage = () => {
+  form.imagen_path = ''
 }
 
 const submit = async () => {
   const payload = {
     nombre: form.nombre.trim(),
     tipo: form.tipo,
-    icono: form.icono.trim() || null,
+    imagen_path: form.imagen_path || null,
     descripcion: form.descripcion.trim() || null
   }
 
@@ -62,6 +113,12 @@ const submit = async () => {
     : await admin.createCategory(payload)
 
   if (result) {
+    const orphans = sessionUploads.value.filter((p) => p !== form.imagen_path)
+    if (originalImagePath.value && originalImagePath.value !== form.imagen_path) {
+      orphans.push(originalImagePath.value)
+    }
+    admin.removeCategoryImages(orphans)
+
     showForm.value = false
     resetForm()
   }
@@ -128,13 +185,43 @@ const confirmDelete = async (category) => {
             </div>
           </div>
 
-          <AuthInputGroup
-            v-model="form.icono"
-            label="Icono (Material Symbol)"
-            id="cat-icono"
-            placeholder="restaurant, home, savings…"
-            icon="emoji_symbols"
-          />
+          <div class="image-field">
+            <span class="field-label">Imagen de la categoría</span>
+            <div class="image-field-controls">
+              <div class="image-preview">
+                <img v-if="formImageUrl" :src="formImageUrl" alt="Imagen de la categoría" />
+                <span v-else class="material-symbols-outlined">image</span>
+              </div>
+              <div class="image-buttons">
+                <input
+                  ref="fileInput"
+                  type="file"
+                  accept="image/*"
+                  class="visually-hidden"
+                  @change="onFileSelected"
+                />
+                <PrimaryButton
+                  variant="outline"
+                  :fullWidth="false"
+                  type="button"
+                  :disabled="uploading"
+                  @click="triggerFilePicker"
+                >
+                  {{ uploading ? 'Subiendo…' : (form.imagen_path ? 'Cambiar imagen' : 'Subir imagen') }}
+                </PrimaryButton>
+                <button
+                  v-if="form.imagen_path"
+                  type="button"
+                  class="image-remove"
+                  :disabled="uploading"
+                  @click="removeImage"
+                >
+                  Quitar imagen
+                </button>
+              </div>
+            </div>
+            <p v-if="imageError" class="image-error">{{ imageError }}</p>
+          </div>
         </div>
 
         <div class="form-row">
@@ -181,7 +268,13 @@ const confirmDelete = async (category) => {
         class="category-card"
       >
         <div :class="['category-icon', cat.tipo === 'ingreso' ? 'icon-income' : 'icon-expense']">
-          <span class="material-symbols-outlined">{{ cat.icono || 'category' }}</span>
+          <img
+            v-if="cat.imagen_path"
+            :src="admin.categoryImageUrl(cat.imagen_path)"
+            :alt="cat.nombre"
+            class="category-image"
+          />
+          <span v-else class="material-symbols-outlined">image</span>
         </div>
         <div class="category-info">
           <h3 class="category-name">{{ cat.nombre }}</h3>
@@ -302,6 +395,90 @@ const confirmDelete = async (category) => {
   color: #475569;
 }
 
+.image-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-field-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.image-preview {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: #f1f5f9;
+  border: 1px solid #c6c6cd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #94a3b8;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.image-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.image-remove {
+  border: none;
+  background: transparent;
+  color: #93000a;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.image-remove:hover:not(:disabled) {
+  background: rgba(186, 26, 26, 0.08);
+}
+
+.image-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.image-error {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 13px;
+  color: #93000a;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .type-options {
   display: flex;
   gap: 12px;
@@ -374,6 +551,13 @@ const confirmDelete = async (category) => {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.category-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .icon-expense {

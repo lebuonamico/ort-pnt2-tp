@@ -161,7 +161,7 @@ const handleToggle = () => {
 
               <label for="terms">
                 Acepto los
-                <a href="#">Términos de Servicio</a>
+                <RouterLink to="/terminos">Términos de Servicio</RouterLink>.
                 y la
                 <RouterLink to="/privacidad">Política de Privacidad</RouterLink>.
               </label>

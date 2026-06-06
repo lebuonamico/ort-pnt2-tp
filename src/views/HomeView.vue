@@ -40,7 +40,7 @@ const handleRegister = () => {
 
           <img
             class="hero-image"
-            src="../assets/tablet.jpg"
+            src="../assets/tablet.webp"
             alt="Dashboard"
           />
         </div>

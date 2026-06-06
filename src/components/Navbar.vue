@@ -11,22 +11,33 @@ const authStore = useAuthStore()
 const actions = computed(() => {
 
   if (authStore.isAuthenticated) {
-    return [
+    const items = [
       {
         label: 'Dashboard',
         type: 'link',
         to: '/dashboard'
-      },
-      {
-        label: 'Cerrar sesión',
-        type: 'button',
-        variant: 'outline',
-        action: async () => {
-          await authStore.logout()
-          router.push('/login')
-        }
       }
     ]
+
+    if (authStore.isAdmin) {
+      items.push({
+        label: 'Admin',
+        type: 'link',
+        to: '/admin'
+      })
+    }
+
+    items.push({
+      label: 'Cerrar sesión',
+      type: 'button',
+      variant: 'outline',
+      action: async () => {
+        await authStore.logout()
+        router.push('/login')
+      }
+    })
+
+    return items
   }
 
   return [

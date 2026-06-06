@@ -43,6 +43,21 @@ export const useAuthStore = defineStore('auth', () => {
     role.value = data?.role ?? 'user'
   }
 
+  async function syncProfileEmail(sessionUser) {
+    if (!sessionUser?.id || !sessionUser?.email) return
+
+    const { error: upsertError } = await supabase
+      .from('profiles')
+      .upsert(
+        { id: sessionUser.id, email: sessionUser.email },
+        { onConflict: 'id' }
+      )
+
+    if (upsertError) {
+      console.error('No se pudo guardar el email del perfil:', upsertError.message)
+    }
+  }
+
   async function setUser(sessionUser) {
     user.value = sessionUser
     await loadUserRole(sessionUser)
@@ -110,6 +125,7 @@ export const useAuthStore = defineStore('auth', () => {
       result.data.user &&
       result.data.session
     ) {
+      await syncProfileEmail(result.data.user)
       await setUser(result.data.user)
     }
 

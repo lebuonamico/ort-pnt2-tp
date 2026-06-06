@@ -16,7 +16,13 @@ const actions = computed(() => {
         label: 'Dashboard',
         type: 'link',
         to: '/dashboard'
-      }
+      },
+      // agregado
+    {
+      label: 'Estadísticas',
+      type: 'link',
+      to: '/estadisticas'
+    }
     ]
 
     if (authStore.isAdmin) {
@@ -56,7 +62,7 @@ const actions = computed(() => {
           ? 'primary'
         : 'outline',
       action: () => router.push('/register')
-    }
+    },
   ]
 })
 </script>

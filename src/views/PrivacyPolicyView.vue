@@ -32,7 +32,7 @@ const goBack = () => {
 
         <div class="security-visual">
           <img
-            src="../assets/newPrivacy.webp"
+            src="../assets/privacy.webp"
             alt="Seguridad de datos" />
         </div>
 

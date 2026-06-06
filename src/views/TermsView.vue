@@ -27,7 +27,7 @@ const { currentDate } = useDate()
 
         <div class="security-visual">
           <img
-            src="../assets/terms.png"
+            src="../assets/terms.webp"
             alt="Términos y Condiciones"
           />
         </div>

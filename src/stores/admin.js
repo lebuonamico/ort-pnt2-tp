@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '../lib/supabase'
 import { useErrorTranslator } from '../composables/useErrorTranslator'
+import { CATEGORIES_BUCKET } from '../composables/useCategoryImage'
 
 const MONTHS_IN_HISTORY = 12
 
@@ -351,12 +352,36 @@ export const useAdminStore = defineStore('admin', () => {
     return runQuery('categories', async () => {
       const { data, error: err } = await supabase
         .from('categories')
-        .select('id, nombre, tipo, icono, descripcion, created_at')
+        .select('id, nombre, tipo, imagen_path, descripcion, created_at')
         .order('nombre', { ascending: true })
 
       if (err) throw err
       categories.value = data ?? []
     })
+  }
+
+  async function uploadCategoryImage(file) {
+    return runQuery('categories', async () => {
+      const ext = file.name.includes('.') ? file.name.split('.').pop() : 'png'
+      const path = `${crypto.randomUUID()}.${ext}`
+
+      const { error: err } = await supabase.storage
+        .from(CATEGORIES_BUCKET)
+        .upload(path, file, { cacheControl: '3600', upsert: false })
+
+      if (err) throw err
+      return { path }
+    })
+  }
+
+  async function removeCategoryImages(paths) {
+    const list = (Array.isArray(paths) ? paths : [paths]).filter(Boolean)
+    if (!list.length) return
+    try {
+      await supabase.storage.from(CATEGORIES_BUCKET).remove(list)
+    } catch (err) {
+      console.warn('[admin] removeCategoryImages:', err)
+    }
   }
 
   async function createCategory(payload) {
@@ -394,12 +419,19 @@ export const useAdminStore = defineStore('admin', () => {
 
   async function deleteCategory(id) {
     return runQuery('categories', async () => {
+      const target = categories.value.find((c) => c.id === id)
+
       const { error: err } = await supabase
         .from('categories')
         .delete()
         .eq('id', id)
 
       if (err) throw err
+
+      if (target?.imagen_path) {
+        await supabase.storage.from(CATEGORIES_BUCKET).remove([target.imagen_path])
+      }
+
       categories.value = categories.value.filter((c) => c.id !== id)
     })
   }
@@ -448,6 +480,8 @@ export const useAdminStore = defineStore('admin', () => {
     loadCategories,
     createCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    uploadCategoryImage,
+    removeCategoryImages
   }
 })

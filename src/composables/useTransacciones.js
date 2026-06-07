@@ -76,11 +76,32 @@ const gastosMesAnterior = computed(() => {
     .reduce((acc, t) => acc + t.monto, 0)
 })
 
+function porcentajeCambio(actual, anterior) {
+  if (anterior === 0) return null
+  return (((actual - anterior) / anterior) * 100).toFixed(1)
+}
+
 const porcentajeCambioSaldo = computed(() => {
   const saldoAnterior = ingresosMesAnterior.value - gastosMesAnterior.value
-  if (saldoAnterior === 0) return 0
-  return (((saldoTotal.value - saldoAnterior) / saldoAnterior) * 100).toFixed(1)
+  return porcentajeCambio(saldoTotal.value, saldoAnterior)
 })
 
-  return { transacciones, obtenerTransacciones, saldoTotal, ingresosMes, gastosMes, porcentajeCambioSaldo }
+const porcentajeCambioIngresos = computed(() =>
+  porcentajeCambio(ingresosMes.value, ingresosMesAnterior.value)
+)
+
+const porcentajeCambioGastos = computed(() =>
+  porcentajeCambio(gastosMes.value, gastosMesAnterior.value)
+)
+
+  return {
+    transacciones,
+    obtenerTransacciones,
+    saldoTotal,
+    ingresosMes,
+    gastosMes,
+    porcentajeCambioSaldo,
+    porcentajeCambioIngresos,
+    porcentajeCambioGastos,
+  }
 }

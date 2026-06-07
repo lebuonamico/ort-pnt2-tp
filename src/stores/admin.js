@@ -2,9 +2,9 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '../lib/supabase'
 import { useErrorTranslator } from '../composables/useErrorTranslator'
+import { CATEGORIES_BUCKET } from '../composables/useCategoryImage'
 
 const MONTHS_IN_HISTORY = 12
-const CATEGORIES_BUCKET = 'imagenesCategorias'
 
 const monthKey = (date) => {
   const year = date.getFullYear()
@@ -360,11 +360,6 @@ export const useAdminStore = defineStore('admin', () => {
     })
   }
 
-  const categoryImageUrl = (path) => {
-    if (!path) return null
-    return supabase.storage.from(CATEGORIES_BUCKET).getPublicUrl(path).data.publicUrl
-  }
-
   async function uploadCategoryImage(file) {
     return runQuery('categories', async () => {
       const ext = file.name.includes('.') ? file.name.split('.').pop() : 'png'
@@ -486,7 +481,6 @@ export const useAdminStore = defineStore('admin', () => {
     createCategory,
     updateCategory,
     deleteCategory,
-    categoryImageUrl,
     uploadCategoryImage,
     removeCategoryImages
   }

@@ -15,6 +15,12 @@ const routes = [
         meta: { requiresAuth: true, hideNavbar: false }
     },
     {
+        path: "/movimientos",
+        name: "movimientos",
+        component: () => import("../views/MovimientosView.vue"),
+        meta: { requiresAuth: true, hideNavbar: false }
+    },
+    {
         path: "/login",
         name: "login",
         component: () => import("../views/LoginView.vue"),
@@ -30,6 +36,12 @@ const routes = [
         path: "/privacidad",
         name: "privacy-policy",
         component: () => import("../views/PrivacyPolicyView.vue"),
+        meta: { requiresAuth: false, hideNavbar: false }
+    },
+    {
+        path: '/terminos',
+        name: 'terms',
+        component: () => import('../views/TermsView.vue'),
         meta: { requiresAuth: false, hideNavbar: false }
     },
     {
@@ -67,7 +79,6 @@ const routes = [
     }
 ]
 
-
 const router = createRouter(
     {
         history: createWebHistory(),
@@ -84,15 +95,12 @@ router.beforeEach(async (to) => {
     await authStore.initAuthListener()
 
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        // Redirigir al login
         return { name: 'login', query: { redirect: to.fullPath } }
     }
     else if (to.meta.requiresAdmin && !authStore.isAdmin) {
         return { name: 'dashboard' }
     }
     else if ((to.name === 'login' && authStore.isAuthenticated) || (to.name === 'register' && authStore.isAuthenticated)) {
-        console.log('Usuario ya autenticado, redirigiendo al dashboard')
-        // Si el usuario ya está autenticado, redirigir al dashboard
         return { name: 'dashboard' }
     }
 })

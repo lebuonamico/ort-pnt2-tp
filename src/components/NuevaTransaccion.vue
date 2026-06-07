@@ -10,7 +10,7 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'guardado'])
 
 const cerrar = () => {
   emit('close')
@@ -18,6 +18,7 @@ const cerrar = () => {
 
 const guardarYCerrar = async () => {
   await guardar()
+  emit('guardado')
   cerrar()
 }
 
@@ -57,9 +58,10 @@ const guardarYCerrar = async () => {
         <div class="campo">
             <label>CATEGORÍA</label>
             <select v-model="categoria">
-            <option v-for="cat in categorias" :key="cat" :value="cat">
-            {{ cat }}
-            </option>
+              <option :value="null" disabled>Seleccionar categoría</option>
+              <option v-for="cat in categorias" :key="cat.id" :value="cat">
+                {{ cat.nombre }}
+              </option>
             </select>
         </div>
 

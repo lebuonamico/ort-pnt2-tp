@@ -40,7 +40,7 @@ const handleRegister = () => {
 
           <img
             class="hero-image"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhSdr3412gsvA0rLcs1Ji_3sqFJWR7imLloyUONbn6WmT7Pd0B0vVjYVIJKJI3KU2XJ1ZnSYLwAT4xtxzBYxt7SZd6emKuKZnVhRsLKVHnxMgb8EblWahMw9HcC2prQkB8n92zsS1zHBcs1KiEFjrQg9cldI_r-txMuvouGGZr8c7qrtofVQzlMEe2qwfMsr-uQ60feFxffq9JF5zuhyPUUNUAZXnQHSJkwnpGk0fyAhC5344DWEToOq40_vKmnARReqKU5L3dFna8"
+            src="../assets/tablet.webp"
             alt="Dashboard"
           />
         </div>
@@ -87,11 +87,10 @@ const handleRegister = () => {
             </span>
           </div>
 
-          <h3>Privacidad total</h3>
+          <h3>Priorizamos tu privacidad</h3>
 
           <p>
-            Tus datos están protegidos con estándares de seguridad
-            de nivel bancario.
+            Trabajamos para proteger tus datos y darte control sobre su uso.
           </p>
         </div>
       </div>

@@ -18,12 +18,17 @@ const hideNavbar = computed(() => route.meta.hideNavbar === true)
 
 <style scoped>
 .app-layout {
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .app-main {
+  flex: 1;
   padding-top: var(--navbar-height);
   background: #f8f9ff;
+  overflow-y: auto;
 }
 
 .app-main-full {

@@ -1,10 +1,12 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useAdminStore } from '../../stores/admin'
+import { useCategoryImage } from '../../composables/useCategoryImage'
 import PrimaryButton from '../../components/PrimaryButton.vue'
 import AuthInputGroup from '../../components/AuthInputGroup.vue'
 
 const admin = useAdminStore()
+const { categoryImageUrl } = useCategoryImage()
 
 const MAX_IMAGE_BYTES = 2 * 1024 * 1024
 
@@ -28,7 +30,7 @@ onMounted(() => {
   admin.loadCategories()
 })
 
-const formImageUrl = computed(() => admin.categoryImageUrl(form.imagen_path))
+const formImageUrl = computed(() => categoryImageUrl(form.imagen_path))
 
 const resetForm = () => {
   form.nombre = ''
@@ -270,7 +272,7 @@ const confirmDelete = async (category) => {
         <div :class="['category-icon', cat.tipo === 'ingreso' ? 'icon-income' : 'icon-expense']">
           <img
             v-if="cat.imagen_path"
-            :src="admin.categoryImageUrl(cat.imagen_path)"
+            :src="categoryImageUrl(cat.imagen_path)"
             :alt="cat.nombre"
             class="category-image"
           />

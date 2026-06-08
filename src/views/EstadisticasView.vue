@@ -46,7 +46,9 @@ onMounted(() => {
       <div class="card">
         <div class="card-icon-row">
           <span class="card-icon">💸</span>
-          <span class="badge badge-gasto">↓ -5.2%</span>
+          <!-- <span class="badge badge-gasto">↓ -5.2%</span> -->
+           <!-- <span class="badge badge-gasto"> {{(100 - porcentajeAhorro).toFixed(2)}}%</span> -->
+            <span class="badge badge-gasto"> {{(totalGastos / totalIngresos * 100).toFixed(2)}}%</span>
         </div>
         <p class="card-label">Gasto Total</p>
         <p class="card-valor">${{ totalGastos.toLocaleString('es-AR', { minimumFractionDigits: 2 }) }}</p>
@@ -55,6 +57,7 @@ onMounted(() => {
       <div class="card">
         <div class="card-icon-row">
           <span class="card-icon">🛒</span>
+          <!-- <span class="badge badge-categoria">Categoría</span> -->
         </div>
         <p class="card-label">Categoría Principal</p>
         <div class="card-categoria">

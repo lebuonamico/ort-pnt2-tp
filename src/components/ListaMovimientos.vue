@@ -15,11 +15,11 @@ const props = defineProps({
 })
 
 const { paginaActual, porPagina, totalPaginas, itemsPaginados, cambiarPagina } =
-  usePagination(toRef(props, 'transacciones'), 4)
+  usePagination(toRef(props, 'transacciones'), 3)
 </script>
 
 <template>
-  <div class="lista-movimientos">
+  <div class="app-card lista-movimientos">
     <div class="lista-header">
       <h3>Movimientos</h3>
       <button class="btn-ver-todos" @click="router.push('/movimientos')">Ver todos</button>
@@ -51,9 +51,6 @@ const { paginaActual, porPagina, totalPaginas, itemsPaginados, cambiarPagina } =
 <style scoped>
 .lista-movimientos {
   flex: 1;
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -82,8 +79,9 @@ const { paginaActual, porPagina, totalPaginas, itemsPaginados, cambiarPagina } =
 }
 
 .movimientos-area {
-  height: 240px;
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .movimientos-area :deep(.movimiento:last-child) {

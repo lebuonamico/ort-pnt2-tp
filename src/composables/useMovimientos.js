@@ -2,6 +2,11 @@ import { ref, computed } from 'vue'
 import { useCurrency } from './useCurrency'
 import { usePagination } from './usePagination'
 
+function parseLocalDate(str) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(str))
+  return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : new Date(str)
+}
+
 export function useMovimientos(transacciones) {
   const { formatDate, formatCurrency } = useCurrency()
 
@@ -16,9 +21,9 @@ export function useMovimientos(transacciones) {
       const coincideBusqueda = t.concepto?.toLowerCase().includes(busqueda.value.toLowerCase())
       const coincideCategoria = filtroCategoria.value === 'Todas' || t.categoria === filtroCategoria.value
       const coincideTipo = filtroTipo.value === 'Todos' || t.tipo === filtroTipo.value
-      const fecha = new Date(t.fecha)
+      const fecha = parseLocalDate(t.fecha)
       const diasAtras = new Date()
-      diasAtras.setDate(hoy.getDate() - parseInt(filtroFecha.value))
+      diasAtras.setDate(hoy.getDate() - Number.parseInt(filtroFecha.value))
       const coincideFecha = fecha >= diasAtras
       return coincideBusqueda && coincideCategoria && coincideTipo && coincideFecha
     })
@@ -30,7 +35,7 @@ export function useMovimientos(transacciones) {
     totalPaginas,
     itemsPaginados: transaccionesPaginadas,
     cambiarPagina,
-  } = usePagination(transaccionesFiltradas, 8)
+  } = usePagination(transaccionesFiltradas, 7)
 
   function formatearMonto(monto, tipo) {
     const signo = tipo === 'ingreso' ? '+' : '-'

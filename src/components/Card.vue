@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="card">
+  <div class="app-card app-card-interactive card-inner">
     <div class="card-header">
       <span class="titulo">{{ titulo }}</span>
       <div class="icono-wrapper">
@@ -31,13 +31,10 @@ defineProps({
 </template>
 
 <style scoped>
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 18px 20px;
+.card-inner {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   height: 100%;
   box-sizing: border-box;
   justify-content: space-between;
@@ -52,14 +49,15 @@ defineProps({
 .titulo {
   font-size: 12px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #64748b;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  font-family: var(--font-body);
 }
 
 .icono-wrapper {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
@@ -72,10 +70,12 @@ defineProps({
 }
 
 .monto {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-primary);
   margin: 0;
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
 }
 
 .badge-variacion {
@@ -90,16 +90,16 @@ defineProps({
 
 .badge-variacion.positivo {
   background: #d1fae5;
-  color: #006a61;
+  color: #166534;
 }
 
 .badge-variacion.negativo {
   background: #fee2e2;
-  color: #ef4444;
+  color: #92400e;
 }
 
 .sin-datos {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 </style>

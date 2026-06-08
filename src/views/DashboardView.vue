@@ -1,161 +1,168 @@
 <script setup>
-import { useAuthStore } from '../stores/auth'
-import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-import PrimaryButton from '../components/PrimaryButton.vue'
+import { ref, onMounted } from 'vue'
 import NuevaTransaccion from '../components/NuevaTransaccion.vue'
 import Card from '../components/Card.vue'
-import { useTransacciones } from '../composables/useTransacciones'
-import { useCategories } from '../composables/useCategories'
-import { onMounted } from 'vue'
 import ListaMovimientos from '../components/ListaMovimientos.vue'
 import GraficoGastos from '../components/GraficoGastos.vue'
+import { useTransacciones } from '../composables/useTransacciones'
+import { useCategories } from '../composables/useCategories'
 import iconoSaldo from '../assets/1.png'
 import iconoIngresos from '../assets/2.png'
 import iconoGastos from '../assets/3.png'
 
-const mostrarModal = ref(false) //elige si muestra o no el popup de nueva transaccion
+const mostrarModal = ref(false)
 
-const { transacciones, obtenerTransacciones, saldoTotal, ingresosMes, gastosMes, porcentajeCambioSaldo, porcentajeCambioIngresos, porcentajeCambioGastos } = useTransacciones()
+const {
+  transacciones,
+  obtenerTransacciones,
+  saldoTotal,
+  ingresosMes,
+  gastosMes,
+  porcentajeCambioSaldo,
+  porcentajeCambioIngresos,
+  porcentajeCambioGastos,
+} = useTransacciones()
+
 const { cargarCategorias } = useCategories()
-const fechaHoy = new Date().toLocaleDateString('es-AR', { 
-  day: 'numeric', 
-  month: 'long', 
-  year: 'numeric' 
+
+const fechaHoy = new Date().toLocaleDateString('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
 })
+
 onMounted(() => {
   obtenerTransacciones()
   cargarCategorias()
 })
 
-const handleNuevaTransaccion = () => {
-  mostrarModal.value = true}
-
-
-const auth = useAuthStore()
-const router = useRouter()
-const handleSignOut = async () => {
-
-  try {
-    await auth.logout()
-    router.push({ name: 'login' })
-  } catch (error) {
-  }
+function handleGuardado() {
+  mostrarModal.value = false
+  obtenerTransacciones()
 }
-
-
 </script>
 
-<!-- HERO -->
 <template>
-  <div class="dashboard-container">
-   <!-- <h1>Bienvenido al Dashboard</h1>
-    <p>Esta es una vista protegida que solo los usuarios autenticados pueden ver.</p>
-  
+  <div class="app-page">
 
-    <button v-if="auth.isAuthenticated" @click="handleSignOut()">Cerrar sesión</button>
-    <span v-else>No autenticado</span> -->
-<div class="header">
-  <div class="header-text">
-    <h1>Resumen General</h1>
-    <p>Actualizado al {{ fechaHoy }}</p>
-  </div>
-  <PrimaryButton :fullWidth="false" @click="handleNuevaTransaccion">
-    + Añadir transacción
-  </PrimaryButton>
-</div>
+    <header class="app-page-header">
+      <div class="app-page-header-inner header-row">
+        <div>
+          <p class="app-eyebrow">Finanzas Pro</p>
+          <h1 class="app-page-title">Resumen General</h1>
+          <p class="app-page-subtitle">Actualizado al {{ fechaHoy }}</p>
+        </div>
+        <button class="btn-nueva" @click="mostrarModal = true">
+          <span class="material-symbols-outlined">add</span>
+          Nueva transacción
+        </button>
+      </div>
+    </header>
 
-<div class="cards">
-<Card titulo="SALDO TOTAL" :monto="saldoTotal" :imagen="iconoSaldo" :variacion="porcentajeCambioSaldo" />
-<Card titulo="INGRESOS DEL MES" :monto="ingresosMes" :imagen="iconoIngresos" :variacion="porcentajeCambioIngresos" />
-<Card titulo="GASTOS DEL MES" :monto="gastosMes" :imagen="iconoGastos" :variacion="porcentajeCambioGastos" :invertirVariacion="true" />
-</div>
+    <div class="app-page-content">
 
-<div class="contenido">
- <div class="grafico">
-  <GraficoGastos :transacciones="transacciones" />
-</div>
-  <ListaMovimientos :transacciones="transacciones" />
-</div>
+      <div class="stats-grid">
+        <Card titulo="Saldo total" :monto="saldoTotal" :imagen="iconoSaldo" :variacion="porcentajeCambioSaldo" />
+        <Card titulo="Ingresos del mes" :monto="ingresosMes" :imagen="iconoIngresos" :variacion="porcentajeCambioIngresos" />
+        <Card titulo="Gastos del mes" :monto="gastosMes" :imagen="iconoGastos" :variacion="porcentajeCambioGastos" :invertirVariacion="true" />
+      </div>
+
+      <div class="contenido">
+        <div class="grafico app-card">
+          <GraficoGastos :transacciones="transacciones" />
+        </div>
+        <ListaMovimientos :transacciones="transacciones" />
+      </div>
+
+    </div>
+
     <NuevaTransaccion
       :show="mostrarModal"
       @close="mostrarModal = false"
-      @guardado="obtenerTransacciones"
+      @saved="handleGuardado"
     />
-  </div>
-  
 
- 
+  </div>
 </template>
 
 <style scoped>
-.dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 32px;
-  height: calc(100vh - var(--navbar-height));
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  overflow: hidden;
-}
-
-.header {
+.header-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.header-text h1 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-}
-
-.header-text p {
-  color: #94a3b8;
-  font-size: 13px;
-  margin: 2px 0 0;
-}
-
-.cards {
-  display: flex;
+  align-items: flex-end;
   gap: 16px;
-  align-items: stretch;
+}
+
+.btn-nueva {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
   flex-shrink: 0;
+  transition: background 0.2s ease;
 }
 
-.cards > * {
-  flex: 1;
-}
+.btn-nueva:hover { background: #00554d; }
 
+.btn-nueva .material-symbols-outlined { font-size: 18px; }
+
+.stats-grid,
 .contenido {
-  display: flex;
+  display: contents;
+}
+
+.app-page-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr;
   gap: 16px;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
+  padding-bottom: 16px;
 }
 
 .grafico {
-  flex: 2;
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
+  grid-column: 1 / 3;
+  grid-row: 2;
   min-height: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 
-@media (max-width: 768px) {
-  .dashboard-container {
-    height: auto;
-    overflow: auto;
-    padding: 16px;
+.grafico :deep(.grafico-container) {
+  flex: 1;
+  min-height: 0;
+}
+
+.app-page {
+  height: calc(100vh - var(--navbar-height));
+  overflow: hidden;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .app-page-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr;
   }
-  .cards { flex-direction: column; }
-  .contenido { flex-direction: column; }
+  .grafico { grid-column: 1; grid-row: 4; }
+}
+
+@media (max-width: 768px) {
+  .header-row { flex-direction: column; align-items: flex-start; }
 }
 </style>

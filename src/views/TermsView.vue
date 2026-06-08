@@ -1,158 +1,204 @@
 <script setup>
-import { useRouter } from 'vue-router'
 import { useDate } from '../composables/useDate.js'
 import AppFooter from '../components/AppFooter.vue'
+
 const { currentDate } = useDate()
-const router = useRouter()
-
-const goBack = () => {
-  if (window.history.length > 1) {
-    router.back()
-    return
-  } 
-
-  router.push('/')
-}
 </script>
 
 <template>
   <div class="privacy-page">
 
-
     <main class="policy-main">
       <article class="policy-container">
+
         <header class="policy-title">
-          <h1>Política de Privacidad</h1>
+          <h1>Términos de Servicio</h1>
 
           <p>
-            Última actualización: {{ currentDate }}.</p>
-          <p> Su privacidad es el pilar
-            fundamental de nuestra gestión financiera.</p>
+            Última actualización: {{ currentDate }}.
+          </p>
+
+          <p>
+            Estos términos regulan el uso de la plataforma Finanzas Pro y
+            establecen los derechos, responsabilidades y obligaciones de los
+            usuarios.
+          </p>
         </header>
 
         <div class="security-visual">
           <img
-            src="../assets/privacy.webp"
-            alt="Seguridad de datos" />
+            src="../assets/terms.webp"
+            alt="Términos y Condiciones"
+          />
         </div>
 
         <section class="policy-content">
+
           <div class="content-block">
-            <h2>1. Compromiso de Confidencialidad</h2>
+            <h2>1. Aceptación de los Términos</h2>
 
             <p>
-              En <strong>Finanzas Pro</strong>, entendemos que la gestión de sus
-              activos requiere una transparencia total sobre el manejo de su
-              información. Esta política detalla cómo recopilamos, utilizamos y
-              protegemos sus datos personales y financieros bajo los más altos
-              estándares de la industria bancaria digital.
+              Al acceder o utilizar los servicios de
+              <strong>Finanzas Pro</strong>, usted acepta cumplir estos
+              Términos de Servicio y todas las leyes y regulaciones
+              aplicables. Si no está de acuerdo con alguna de estas
+              disposiciones, deberá abstenerse de utilizar la plataforma.
             </p>
           </div>
 
           <div class="content-block">
-            <h2>2. Recopilación de Información</h2>
+            <h2>2. Licencia de Uso</h2>
 
             <p>
-              Recopilamos únicamente los datos necesarios para proporcionar una
-              visión consolidada de su patrimonio:
+              Se concede una licencia limitada, revocable y no exclusiva para
+              utilizar la plataforma únicamente con fines personales y de
+              administración financiera.
             </p>
 
             <ul class="policy-list">
               <li>
-                <span class="material-symbols-outlined">check_circle</span>
+                <span class="material-symbols-outlined">
+                  check_circle
+                </span>
+
                 <p>
-                  <strong>Identificación:</strong> Nombre, correo electrónico y
-                  credenciales de acceso seguras.
+                  No modificar, copiar ni distribuir el contenido de la
+                  plataforma sin autorización previa.
                 </p>
               </li>
 
               <li>
-                <span class="material-symbols-outlined">check_circle</span>
+                <span class="material-symbols-outlined">
+                  check_circle
+                </span>
+
                 <p>
-                  <strong>Datos Financieros:</strong> Saldos de cuentas,
-                  historial de transacciones y categorización de gastos.
+                  No utilizar la plataforma con fines comerciales,
+                  fraudulentos o ilícitos.
                 </p>
               </li>
 
               <li>
-                <span class="material-symbols-outlined">check_circle</span>
+                <span class="material-symbols-outlined">
+                  check_circle
+                </span>
+
                 <p>
-                  <strong>Metadatos de Uso:</strong> Registros de acceso (fechas,
-                  acciones) y datos de uso anónimos que nos ayudan a mejorar el
-                  servicio y detectar abusos. No realizamos técnicas de
-                  "fingerprinting" ni recopilamos datos biométricos.
+                  No intentar descompilar, alterar o realizar ingeniería
+                  inversa sobre el software.
+                </p>
+              </li>
+
+              <li>
+                <span class="material-symbols-outlined">
+                  check_circle
+                </span>
+
+                <p>
+                  Respetar todos los derechos de propiedad intelectual
+                  asociados al servicio.
                 </p>
               </li>
             </ul>
           </div>
 
           <div class="highlight-card">
-            <h3>Medidas de seguridad</h3>
+            <h3>Uso Responsable</h3>
 
             <p>
-              Aplicamos medidas de protección razonables y trabajamos con
-              proveedores que emplean cifrado y comunicaciones seguras para proteger
-              la información en tránsito y en reposo. Sus datos no se venden a
-              terceros; nuestro modelo de negocio se basa en la suscripción.
+              Finanzas Pro proporciona herramientas de organización y análisis
+              financiero. Las decisiones económicas o de inversión adoptadas a
+              partir de la información mostrada son responsabilidad exclusiva
+              del usuario.
             </p>
           </div>
 
           <div class="content-block">
-            <h2>3. Uso de la Información</h2>
+            <h2>3. Responsabilidad Financiera</h2>
 
             <p>
-              La información recopilada se utiliza exclusivamente para:
+              La información presentada por la plataforma tiene fines
+              informativos y de gestión personal. Finanzas Pro no actúa como
+              asesor financiero, contador ni entidad bancaria.
             </p>
 
             <div class="usage-grid">
               <div class="usage-card">
-                <span class="material-symbols-outlined">analytics</span>
-                <h3>ANÁLISIS PREDICTIVO</h3>
+                <span class="material-symbols-outlined">
+                  analytics
+                </span>
+
+                <h3>ANÁLISIS</h3>
+
                 <p>
-                  Generar proyecciones de ahorro basadas en sus hábitos reales.
+                  Las estadísticas y reportes son estimaciones basadas en los
+                  datos cargados por el usuario.
                 </p>
               </div>
 
               <div class="usage-card">
-                <span class="material-symbols-outlined">security</span>
-                <h3>PROTECCIÓN ACTIVA</h3>
+                <span class="material-symbols-outlined">
+                  warning
+                </span>
+
+                <h3>RIESGO</h3>
+
                 <p>
-                  Detectar anomalías en sus movimientos para alertar sobre
-                  posibles cargos no autorizados.
+                  Toda decisión financiera tomada utilizando la información de
+                  la plataforma será realizada bajo su propio criterio.
                 </p>
               </div>
             </div>
           </div>
 
           <div class="content-block">
-            <h2>4. Sus Derechos (GDPR/LFPDPPP)</h2>
+            <h2>4. Privacidad y Seguridad</h2>
 
             <p>
-              Usted mantiene el control sobre sus datos personales. En cualquier
-              momento puede ejercer sus derechos de acceso, rectificación,
-              cancelación y oposición (ARCO) desde la configuración de su perfil
-              o contactando a nuestro Oficial de Privacidad. No realizamos
-              fingerprinting ni recopilamos datos biométricos.
+              La protección de la información personal y financiera se rige por
+              nuestra Política de Privacidad. Implementamos medidas razonables
+              de seguridad para proteger los datos almacenados y transmitidos
+              dentro de la plataforma.
             </p>
           </div>
+
+          <div class="content-block">
+            <h2>5. Modificaciones del Servicio</h2>
+
+            <p>
+              Finanzas Pro podrá modificar, actualizar o discontinuar
+              funcionalidades de la plataforma en cualquier momento para
+              mejorar el servicio o adaptarse a requisitos legales y
+              regulatorios.
+            </p>
+          </div>
+
         </section>
 
         <section class="questions">
           <div>
             <h2>¿Tiene preguntas?</h2>
+
             <p>
-              Estamos aquí para resolver cualquier duda sobre su información. Por favor, contáctenos vía email en
+              Si necesita aclaraciones sobre estos Términos de Servicio,
+              estaremos encantados de ayudarle.
             </p>
-            <p style="color: #006a61; font-weight: bold;" >
+
+            <p
+              style="color:#006a61;font-weight:bold;"
+            >
               legales@finanzaspro.com
             </p>
           </div>
         </section>
+
       </article>
     </main>
-<AppFooter />
+
+    <AppFooter />
   </div>
 </template>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap');

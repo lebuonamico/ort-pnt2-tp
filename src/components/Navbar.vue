@@ -8,6 +8,10 @@ const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
 
+const logoRoute = computed(() => 
+  authStore.isAuthenticated ? '/dashboard' : '/'
+)
+
 const actions = computed(() => {
 
   if (authStore.isAuthenticated) {
@@ -73,7 +77,7 @@ const actions = computed(() => {
     <div class="navbar-container">
 
       <RouterLink
-        to="/"
+        :to="logoRoute"
         class="logo"
       >
         Finanzas Pro

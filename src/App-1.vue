@@ -1,16 +1,16 @@
 <script setup>
 import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
-import Sidebar from './components/Sidebar.vue'
+import Navbar from './components/Navbar.vue'
 
 const route = useRoute()
-const hideSidebar = computed(() => route.meta.hideNavbar === true)
+const hideNavbar = computed(() => route.meta.hideNavbar === true)
 </script>
 
 <template>
   <div class="app-layout">
-    <Sidebar v-if="!hideSidebar" />
-    <main :class="['app-main', { 'app-main-full': hideSidebar }]">
+    <Navbar v-if="!hideNavbar" />
+    <main :class="['app-main', { 'app-main-full': hideNavbar }]">
       <RouterView />
     </main>
   </div>
@@ -19,17 +19,14 @@ const hideSidebar = computed(() => route.meta.hideNavbar === true)
 <style scoped>
 .app-layout {
   min-height: 100vh;
-  display: flex;
 }
 
 .app-main {
-  margin-left: 240px;
-  flex: 1;
+  padding-top: var(--navbar-height);
   background: #f8f9ff;
-  min-height: 100vh;
 }
 
 .app-main-full {
-  margin-left: 0;
+  padding-top: 0;
 }
 </style>

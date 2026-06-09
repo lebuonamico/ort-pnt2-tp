@@ -68,13 +68,14 @@ const handleLogout = async () => {
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: var(--sidebar-width, 0);
   right: 0;
   height: var(--navbar-height);
   z-index: 1000;
   background: rgba(248,249,255,.78);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(198,198,205,.18);
+  transition: left 0.2s ease;
 }
 
 .navbar-container {

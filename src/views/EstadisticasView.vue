@@ -4,8 +4,9 @@ import { useTransacciones } from '../composables/useTransacciones'
 import { useEstadisticas } from '../composables/useEstadisticas'
 import BarChart from '../components/BarChart.vue'
 import DoughnutChart from '../components/DoughnutChart.vue'
+import EstadoDatos from '../components/EstadoDatos.vue'
 
-const { transacciones, obtenerTransacciones } = useTransacciones()
+const { transacciones, cargando, errorCarga, obtenerTransacciones } = useTransacciones()
 
 const {
   periodoActivo,
@@ -20,15 +21,14 @@ const {
   montosDoughnut,
 } = useEstadisticas(transacciones)
 
-onMounted(() => {
-  obtenerTransacciones()
+onMounted(async () => {
+  await obtenerTransacciones()
 })
 </script>
 
 <template>
   <div class="estadisticas-container">
 
-    <!-- Encabezado -->
     <div class="header">
       <div>
         <h1>Estadísticas y Análisis</h1>
@@ -41,14 +41,12 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Tarjetas resumen -->
+    <EstadoDatos :cargando="cargando" :error="errorCarga">
     <div class="cards">
       <div class="card">
         <div class="card-icon-row">
           <span class="card-icon">💸</span>
-          <!-- <span class="badge badge-gasto">↓ -5.2%</span> -->
-           <!-- <span class="badge badge-gasto"> {{(100 - porcentajeAhorro).toFixed(2)}}%</span> -->
-            <span class="badge badge-gasto"> {{(totalGastos / totalIngresos * 100).toFixed(2)}}%</span>
+          <span class="badge badge-gasto"> {{(totalGastos / totalIngresos * 100).toFixed(2)}}%</span>
         </div>
         <p class="card-label">Gasto Total</p>
         <p class="card-valor">${{ totalGastos.toLocaleString('es-AR', { minimumFractionDigits: 2 }) }}</p>
@@ -57,7 +55,6 @@ onMounted(() => {
       <div class="card">
         <div class="card-icon-row">
           <span class="card-icon">🛒</span>
-          <!-- <span class="badge badge-categoria">Categoría</span> -->
         </div>
         <p class="card-label">Categoría Principal</p>
         <div class="card-categoria">
@@ -82,7 +79,6 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Gráficos -->
     <div class="graficos">
       <div class="grafico-card grafico-grande">
         <div class="grafico-header">
@@ -104,6 +100,7 @@ onMounted(() => {
         <DoughnutChart :labels="categoriasDoughnut" :data="montosDoughnut" />
       </div>
     </div>
+    </EstadoDatos>
 
   </div>
 </template>

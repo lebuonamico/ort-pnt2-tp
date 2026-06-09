@@ -14,8 +14,7 @@ const routes = [
         name: "dashboard",
         component: () => import("../views/DashboardView.vue"),
         meta: { requiresAuth: true, hideNavbar: true, hideSideBar: false }
-    },    
-    // agregado
+    },
     {
         path: "/estadisticas",
         name: "estadisticas",

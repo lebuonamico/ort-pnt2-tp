@@ -14,6 +14,8 @@ export function useNuevaTransaccion() {
   const auth = useAuthStore()
   const { categorias: todasLasCategorias, cargarCategorias } = useCategories()
 
+  const guardando = ref(false)
+
   onMounted(() => cargarCategorias())
 
   const categoriasFiltradas = computed(() =>
@@ -45,39 +47,60 @@ export function useNuevaTransaccion() {
   }
 
   const guardar = async (id = null) => {
-    if (!esValido.value) return false
+    if (!esValido.value) return { ok: false }
+    if (guardando.value) return { ok: false }
+    guardando.value = true
 
-    const datos = {
-      tipo: tipo.value,
-      monto: monto.value,
-      concepto: concepto.value,
-      categoria: categoria.value?.nombre ?? null,
-      fecha: fecha.value,
-      notas: notas.value
+    try {
+      const datos = {
+        tipo: tipo.value,
+        monto: monto.value,
+        concepto: concepto.value,
+        categoria: categoria.value?.nombre ?? null,
+        fecha: fecha.value,
+        notas: notas.value
+      }
+
+      let error
+
+      if (id) {
+        const result = await supabase
+          .from('transacciones')
+          .update(datos)
+          .eq('id', id)
+        error = result.error
+      } else {
+        const { data: existente } = await supabase
+          .from('transacciones')
+          .select('id')
+          .eq('user_id', auth.user.id)
+          .eq('tipo', datos.tipo)
+          .eq('monto', datos.monto)
+          .eq('concepto', datos.concepto)
+          .eq('categoria', datos.categoria)
+          .eq('fecha', datos.fecha)
+          .limit(1)
+
+        if (existente && existente.length > 0) {
+          return { ok: false, duplicado: true }
+        }
+
+        const result = await supabase
+          .from('transacciones')
+          .insert({ ...datos, user_id: auth.user.id })
+        error = result.error
+      }
+
+      if (error) {
+        console.error('Error al guardar:', error)
+        return { ok: false }
+      }
+
+      resetForm()
+      return { ok: true }
+    } finally {
+      guardando.value = false
     }
-
-    let error
-
-    if (id) {
-      const result = await supabase
-        .from('transacciones')
-        .update(datos)
-        .eq('id', id)
-      error = result.error
-    } else {
-      const result = await supabase
-        .from('transacciones')
-        .insert({ ...datos, user_id: auth.user.id })
-      error = result.error
-    }
-
-    if (error) {
-      console.error('Error al guardar:', error)
-      return false
-    }
-
-    resetForm()
-    return true
   }
 
   const resetForm = () => {
@@ -99,6 +122,7 @@ export function useNuevaTransaccion() {
     notas,
     errores,
     esValido,
+    guardando,
     guardar,
     cargarTransaccion
   }

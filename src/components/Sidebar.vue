@@ -1,10 +1,12 @@
 <script setup>
 import { useRoute, useRouter, RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import { useSidebar } from '../composables/useSidebar'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+const { colapsado, toggleSidebar } = useSidebar()
 
 const handleLogout = async () => {
   await authStore.logout()
@@ -13,10 +15,10 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <aside class="sidebar">
+  <aside class="sidebar" :class="{ colapsado }">
     <div class="sidebar-logo">
       <span class="logo-icon">💰</span>
-      <span class="logo-text">Finanzas Pro</span>
+      <span v-show="!colapsado" class="logo-text">Finanzas Pro</span>
     </div>
 
     <nav class="sidebar-nav">
@@ -26,7 +28,7 @@ const handleLogout = async () => {
         :class="{ activo: route.path === '/dashboard' }"
       >
         <span class="nav-icon">🏠</span>
-        <span class="nav-label">Dashboard</span>
+        <span v-show="!colapsado" class="nav-label">Dashboard</span>
       </RouterLink>
 
       <RouterLink
@@ -35,7 +37,7 @@ const handleLogout = async () => {
         :class="{ activo: route.path === '/movimientos' }"
       >
         <span class="nav-icon">💳</span>
-        <span class="nav-label">Movimientos</span>
+        <span v-show="!colapsado" class="nav-label">Movimientos</span>
       </RouterLink>
 
       <RouterLink
@@ -44,13 +46,28 @@ const handleLogout = async () => {
         :class="{ activo: route.path === '/estadisticas' }"
       >
         <span class="nav-icon">📊</span>
-        <span class="nav-label">Estadísticas y Análisis</span>
+        <span v-show="!colapsado" class="nav-label">Estadísticas y Análisis</span>
+      </RouterLink>
+
+      <RouterLink
+        v-if="authStore.isAdmin"
+        to="/admin"
+        class="nav-item"
+        :class="{ activo: route.path.startsWith('/admin') }"
+      >
+        <span class="nav-icon">🛡️</span>
+        <span v-show="!colapsado" class="nav-label">Admin</span>
       </RouterLink>
     </nav>
 
+    <button class="nav-item sidebar-toggle" @click="toggleSidebar">
+      <span class="material-symbols-outlined toggle-icon" :class="{ rotado: colapsado }">chevron_left</span>
+      <span v-show="!colapsado" class="nav-label">Replegar</span>
+    </button>
+
     <button class="nav-item logout-btn" @click="handleLogout">
       <span class="nav-icon">🚪</span>
-      <span class="nav-label">Cerrar Sesión</span>
+      <span v-show="!colapsado" class="nav-label">Cerrar Sesión</span>
     </button>
   </aside>
 </template>
@@ -60,7 +77,7 @@ const handleLogout = async () => {
   position: fixed;
   top: 0;
   left: 0;
-  width: 240px;
+  width: var(--sidebar-width, 240px);
   height: 100vh;
   box-sizing: border-box;
   background: #0f172a;
@@ -68,6 +85,9 @@ const handleLogout = async () => {
   flex-direction: column;
   padding: 24px 16px;
   z-index: 100;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.2s ease;
 }
 
 .sidebar-logo {
@@ -124,6 +144,30 @@ const handleLogout = async () => {
   font-size: 18px;
 }
 
+.sidebar-toggle {
+  border: none;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+}
+
+.toggle-icon {
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.toggle-icon.rotado {
+  transform: rotate(180deg);
+}
+
 .logout-btn {
   border: none;
   background: transparent;
@@ -137,5 +181,15 @@ const handleLogout = async () => {
 .logout-btn:hover {
   background: rgba(255, 255, 255, 0.07);
   color: white;
+}
+
+.sidebar.colapsado .nav-item {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.sidebar.colapsado .sidebar-logo {
+  justify-content: center;
+  padding: 0;
 }
 </style>

@@ -9,12 +9,16 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'saved'])
 
-const { tipo, monto, concepto, categorias, categoria, fecha, notas, errores, esValido, guardar, cargarTransaccion } = useNuevaTransaccion()
+const { tipo, monto, concepto, categorias, categoria, fecha, notas, errores, esValido, guardando, guardar, cargarTransaccion } = useNuevaTransaccion()
 
 const submitted = ref(false)
+const mensajeDuplicado = ref('')
 
 watch(() => props.show, (val) => {
-  if (val) submitted.value = false
+  if (val) {
+    submitted.value = false
+    mensajeDuplicado.value = ''
+  }
 })
 
 watch(() => props.transaccion, (val) => {
@@ -25,8 +29,13 @@ const cerrar = () => emit('close')
 
 const guardarYCerrar = async () => {
   submitted.value = true
+  mensajeDuplicado.value = ''
   if (!esValido.value) return
-  const ok = await guardar(props.transaccion?.id ?? null)
+  const { ok, duplicado } = await guardar(props.transaccion?.id ?? null)
+  if (duplicado) {
+    mensajeDuplicado.value = 'Esta transacción ya fue registrada. No se agregó un duplicado.'
+    return
+  }
   if (ok) emit('saved')
 }
 </script>
@@ -78,9 +87,13 @@ const guardarYCerrar = async () => {
         <textarea id="notas" v-model="notas" placeholder="Detalles adicionales..."></textarea>
       </div>
 
+      <span v-if="mensajeDuplicado" class="error-msg duplicado-msg">{{ mensajeDuplicado }}</span>
+
       <div class="modal-footer">
-        <button class="btn-cancelar" @click="cerrar">Cancelar</button>
-        <button class="btn-guardar" @click="guardarYCerrar">Guardar</button>
+        <button class="btn-cancelar" @click="cerrar" :disabled="guardando">Cancelar</button>
+        <button class="btn-guardar" @click="guardarYCerrar" :disabled="guardando">
+          {{ guardando ? 'Guardando…' : 'Guardar' }}
+        </button>
       </div>
     </div>
   </div>
@@ -121,7 +134,9 @@ const guardarYCerrar = async () => {
 .monto-input input { border: none; outline: none; font-size: 28px; font-weight: 700; text-align: right; width: 100%; padding: 0; }
 .input-error { border-color: #ef4444 !important; }
 .error-msg { font-size: 12px; color: #ef4444; }
+.duplicado-msg { text-align: center; }
 .modal-footer { display: flex; justify-content: flex-end; gap: 12px; }
 .btn-cancelar { padding: 12px 24px; border: 1px solid #e2e8f0; border-radius: 10px; background: white; cursor: pointer; font-weight: 600; }
 .btn-guardar { padding: 12px 24px; border: none; border-radius: 10px; background: #006a61; color: white; cursor: pointer; font-weight: 600; }
+.btn-guardar:disabled, .btn-cancelar:disabled { opacity: 0.6; cursor: not-allowed; }
 </style>

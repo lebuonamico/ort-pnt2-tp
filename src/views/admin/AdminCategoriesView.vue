@@ -4,6 +4,7 @@ import { useAdminStore } from '../../stores/admin'
 import { useCategoryImage } from '../../composables/useCategoryImage'
 import PrimaryButton from '../../components/PrimaryButton.vue'
 import AuthInputGroup from '../../components/AuthInputGroup.vue'
+import EstadoDatos from '../../components/EstadoDatos.vue'
 
 const admin = useAdminStore()
 const { categoryImageUrl } = useCategoryImage()
@@ -26,8 +27,15 @@ const form = reactive({
   descripcion: ''
 })
 
-onMounted(() => {
-  admin.loadCategories()
+const cargando = ref(false)
+
+onMounted(async () => {
+  cargando.value = true
+  try {
+    await admin.loadCategories()
+  } finally {
+    cargando.value = false
+  }
 })
 
 const formImageUrl = computed(() => categoryImageUrl(form.imagen_path))
@@ -260,6 +268,7 @@ const confirmDelete = async (category) => {
 
     <p v-if="admin.errors.categories" class="error-banner">{{ admin.errors.categories }}</p>
 
+    <EstadoDatos :cargando="cargando">
     <section
       v-if="admin.categories.length"
       class="categories-grid"
@@ -308,11 +317,12 @@ const confirmDelete = async (category) => {
       </article>
     </section>
 
-    <section v-else-if="!admin.loading" class="card empty-card">
+    <section v-else class="card empty-card">
       <span class="material-symbols-outlined empty-icon">category</span>
       <h3>Todavía no hay categorías</h3>
       <p>Creá la primera categoría para que los usuarios puedan clasificar sus movimientos.</p>
     </section>
+    </EstadoDatos>
 
   </div>
 </template>

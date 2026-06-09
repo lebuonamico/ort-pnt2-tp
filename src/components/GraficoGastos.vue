@@ -14,12 +14,10 @@ const props = defineProps({
 
 const periodoSeleccionado = ref('semanal')
 
-// Labels por periodo
 const labelsSemanal = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 const labelsMensual = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4']
 const labelsAnual = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
-// Computed semanal
 const gastosSemanal = computed(() => {
   const totales = [0, 0, 0, 0, 0, 0, 0]
   const hoy = new Date()
@@ -44,7 +42,6 @@ const gastosSemanal = computed(() => {
   return totales
 })
 
-// Computed mensual (agrupa por semana del mes actual)
 const gastosMensual = computed(() => {
   const totales = [0, 0, 0, 0]
   const hoy = new Date()
@@ -66,7 +63,6 @@ const gastosMensual = computed(() => {
   return totales
 })
 
-// Computed anual (agrupa por mes)
 const gastosAnual = computed(() => {
   const totales = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   const anioActual = new Date().getFullYear()
@@ -83,7 +79,6 @@ const gastosAnual = computed(() => {
   return totales
 })
 
-// Computed final que elige según periodo
 const datosGrafico = computed(() => {
   if (periodoSeleccionado.value === 'semanal') return gastosSemanal.value
   if (periodoSeleccionado.value === 'mensual') return gastosMensual.value

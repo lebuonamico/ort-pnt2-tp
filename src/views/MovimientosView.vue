@@ -6,8 +6,9 @@ import { useCategories } from '../composables/useCategories'
 import FilaMovimiento from '../components/FilaMovimiento.vue'
 import Paginacion from '../components/Paginacion.vue'
 import NuevaTransaccion from '../components/NuevaTransaccion.vue'
+import EstadoDatos from '../components/EstadoDatos.vue'
 
-const { transacciones, obtenerTransacciones, eliminarTransaccion } = useTransacciones()
+const { transacciones, cargando, errorCarga, obtenerTransacciones, eliminarTransaccion } = useTransacciones()
 const {
   busqueda,
   filtroCategoria,
@@ -29,7 +30,15 @@ const categoriasPorTipo = computed(() => {
 })
 
 watch(filtroTipo, () => {
-  filtroCategoria.value = 'Todas'
+  if (filtroTipo.value === 'Todos' || filtroCategoria.value === 'Todas') return
+  const cat = categorias.value.find(c => c.nombre === filtroCategoria.value)
+  if (cat && cat.tipo !== filtroTipo.value) filtroCategoria.value = 'Todas'
+})
+
+watch(filtroCategoria, () => {
+  if (filtroCategoria.value === 'Todas') return
+  const cat = categorias.value.find(c => c.nombre === filtroCategoria.value)
+  if (cat && cat.tipo !== filtroTipo.value) filtroTipo.value = cat.tipo
 })
 
 const mostrarModal = ref(false)
@@ -108,13 +117,6 @@ onMounted(async () => {
           </select>
         </div>
         <div class="filtro-grupo">
-          <label for="filtro-categoria">Categoría</label>
-          <select id="filtro-categoria" v-model="filtroCategoria" class="select-filtro">
-            <option value="Todas">Todas</option>
-            <option v-for="cat in categoriasPorTipo" :key="cat.id" :value="cat.nombre">{{ cat.nombre }}</option>
-          </select>
-        </div>
-        <div class="filtro-grupo">
           <label for="filtro-tipo">Tipo</label>
           <select id="filtro-tipo" v-model="filtroTipo" class="select-filtro">
             <option>Todos</option>
@@ -122,8 +124,16 @@ onMounted(async () => {
             <option>gasto</option>
           </select>
         </div>
+        <div class="filtro-grupo">
+          <label for="filtro-categoria">Categoría</label>
+          <select id="filtro-categoria" v-model="filtroCategoria" class="select-filtro">
+            <option value="Todas">Todas</option>
+            <option v-for="cat in categoriasPorTipo" :key="cat.id" :value="cat.nombre">{{ cat.nombre }}</option>
+          </select>
+        </div>
       </div>
 
+      <EstadoDatos :cargando="cargando" :error="errorCarga">
       <div class="app-card tabla-container">
         <table class="tabla">
           <thead>
@@ -157,6 +167,7 @@ onMounted(async () => {
           />
         </div>
       </div>
+      </EstadoDatos>
 
     </div>
 

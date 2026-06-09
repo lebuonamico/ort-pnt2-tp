@@ -1,7 +1,8 @@
-// src/composables/useEstadisticas.js
 import { ref, computed } from 'vue'
+import { useFechas } from './useFechas'
 
 export function useEstadisticas(transacciones) {
+  const { mesCorto } = useFechas()
   const periodoActivo = ref('mes')
 
   const transaccionesFiltradas = computed(() => {
@@ -33,13 +34,17 @@ export function useEstadisticas(transacciones) {
     return ((totalIngresos.value - totalGastos.value) / totalIngresos.value) * 100
   })
 
-  const categoriasPrincipal = computed(() => {
+  const agruparGastosPorCategoria = () => {
     const agrupado = {}
     transaccionesFiltradas.value.filter(t => t.tipo === 'gasto').forEach(t => {
       const cat = t.categoria || 'Otros'
       agrupado[cat] = (agrupado[cat] || 0) + Number(t.monto)
     })
-    const top = Object.entries(agrupado).sort(([,a],[,b]) => b - a)[0]
+    return Object.entries(agrupado).sort(([,a],[,b]) => b - a)
+  }
+
+  const categoriasPrincipal = computed(() => {
+    const top = agruparGastosPorCategoria()[0]
     return top ? { nombre: top[0], monto: top[1] } : { nombre: '—', monto: 0 }
   })
 
@@ -47,8 +52,7 @@ export function useEstadisticas(transacciones) {
     const labels = []
     const hoy = new Date()
     for (let i = 5; i >= 0; i--) {
-      const d = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1)
-      labels.push(d.toLocaleString('es-AR', { month: 'short' }))
+      labels.push(mesCorto(new Date(hoy.getFullYear(), hoy.getMonth() - i, 1)))
     }
     return labels
   })
@@ -66,14 +70,7 @@ export function useEstadisticas(transacciones) {
     })
   })
 
-  const _gastosPorCategoria = computed(() => {
-    const agrupado = {}
-    transaccionesFiltradas.value.filter(t => t.tipo === 'gasto').forEach(t => {
-      const cat = t.categoria || 'Otros'
-      agrupado[cat] = (agrupado[cat] || 0) + Number(t.monto)
-    })
-    return Object.entries(agrupado).sort(([,a],[,b]) => b - a)
-  })
+  const _gastosPorCategoria = computed(() => agruparGastosPorCategoria())
 
   const categoriasDoughnut = computed(() => _gastosPorCategoria.value.map(([k]) => k))
   const montosDoughnut     = computed(() => _gastosPorCategoria.value.map(([,v]) => v))

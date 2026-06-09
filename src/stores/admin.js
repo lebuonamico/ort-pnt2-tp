@@ -3,8 +3,12 @@ import { defineStore } from 'pinia'
 import { supabase } from '../lib/supabase'
 import { useErrorTranslator } from '../composables/useErrorTranslator'
 import { CATEGORIES_BUCKET } from '../composables/useCategoryImage'
+import { useFechas } from '../composables/useFechas'
+import { useTipoTransaccion } from '../composables/useTipoTransaccion'
 
 const MONTHS_IN_HISTORY = 12
+
+const { MESES_CORTOS } = useFechas()
 
 const monthKey = (date) => {
   const year = date.getFullYear()
@@ -14,8 +18,7 @@ const monthKey = (date) => {
 
 const monthLabel = (key) => {
   const [year, month] = key.split('-')
-  const names = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-  return `${names[Number(month) - 1]} ${year.slice(2)}`
+  return `${MESES_CORTOS[Number(month) - 1]} ${year.slice(2)}`
 }
 
 const emptyStats = () => ({
@@ -67,8 +70,7 @@ export const useAdminStore = defineStore('admin', () => {
     categories: null
   })
 
-  const incomeKeywords = ['ingreso', 'ingresos', 'income']
-  const isIncome = (tipo) => incomeKeywords.includes(String(tipo).toLowerCase())
+  const { esIngreso: isIncome } = useTipoTransaccion()
 
   const supervisedIds = computed(() => supervisedUsers.value.map((u) => u.id))
   const currentAdminId = ref(null)

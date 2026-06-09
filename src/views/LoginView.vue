@@ -22,10 +22,8 @@ const handleToggle = () => {
 <template>
   <div class="login-page">
 
-    <!-- Login Container -->
     <div class="login-container">
 
-      <!-- Card -->
       <div class="login-card">
 
         <h1 class="card-title">
@@ -62,14 +60,12 @@ const handleToggle = () => {
 
         </form>
 
-        <!-- Divider -->
         <div class="divider">
           <span></span>
         </div>
 
       </div>
 
-      <!-- Footer -->
       <p class="footer-text">
         ¿No tienes una cuenta?
 
@@ -78,7 +74,6 @@ const handleToggle = () => {
         </button>
       </p>
 
-      <!-- Background -->
       <div class="bg-top"></div>
       <div class="bg-bottom"></div>
 

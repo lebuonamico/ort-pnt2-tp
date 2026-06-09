@@ -4,8 +4,10 @@ import NuevaTransaccion from '../components/NuevaTransaccion.vue'
 import Card from '../components/Card.vue'
 import ListaMovimientos from '../components/ListaMovimientos.vue'
 import GraficoGastos from '../components/GraficoGastos.vue'
+import EstadoDatos from '../components/EstadoDatos.vue'
 import { useTransacciones } from '../composables/useTransacciones'
 import { useCategories } from '../composables/useCategories'
+import { useFechas } from '../composables/useFechas'
 import iconoSaldo from '../assets/1.png'
 import iconoIngresos from '../assets/2.png'
 import iconoGastos from '../assets/3.png'
@@ -14,6 +16,8 @@ const mostrarModal = ref(false)
 
 const {
   transacciones,
+  cargando,
+  errorCarga,
   obtenerTransacciones,
   saldoTotal,
   ingresosMes,
@@ -24,16 +28,12 @@ const {
 } = useTransacciones()
 
 const { cargarCategorias } = useCategories()
+const { fechaLarga } = useFechas()
 
-const fechaHoy = new Date().toLocaleDateString('es-AR', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-})
+const fechaHoy = fechaLarga()
 
-onMounted(() => {
-  obtenerTransacciones()
-  cargarCategorias()
+onMounted(async () => {
+  await Promise.all([obtenerTransacciones(), cargarCategorias()])
 })
 
 function handleGuardado() {
@@ -61,18 +61,20 @@ function handleGuardado() {
 
     <div class="app-page-content">
 
-      <div class="stats-grid">
-        <Card titulo="Saldo total" :monto="saldoTotal" :imagen="iconoSaldo" :variacion="porcentajeCambioSaldo" />
-        <Card titulo="Ingresos del mes" :monto="ingresosMes" :imagen="iconoIngresos" :variacion="porcentajeCambioIngresos" />
-        <Card titulo="Gastos del mes" :monto="gastosMes" :imagen="iconoGastos" :variacion="porcentajeCambioGastos" :invertirVariacion="true" />
-      </div>
-
-      <div class="contenido">
-        <div class="grafico app-card">
-          <GraficoGastos :transacciones="transacciones" />
+      <EstadoDatos :cargando="cargando" :error="errorCarga">
+        <div class="stats-grid">
+          <Card titulo="Saldo total" :monto="saldoTotal" :imagen="iconoSaldo" :variacion="porcentajeCambioSaldo" />
+          <Card titulo="Ingresos del mes" :monto="ingresosMes" :imagen="iconoIngresos" :variacion="porcentajeCambioIngresos" />
+          <Card titulo="Gastos del mes" :monto="gastosMes" :imagen="iconoGastos" :variacion="porcentajeCambioGastos" :invertirVariacion="true" />
         </div>
-        <ListaMovimientos :transacciones="transacciones" />
-      </div>
+
+        <div class="contenido">
+          <div class="grafico app-card">
+            <GraficoGastos :transacciones="transacciones" />
+          </div>
+          <ListaMovimientos :transacciones="transacciones" />
+        </div>
+      </EstadoDatos>
 
     </div>
 
@@ -129,6 +131,11 @@ function handleGuardado() {
   min-height: 0;
   overflow: hidden;
   padding-bottom: 16px;
+}
+
+.app-page-content :deep(.estado-datos) {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
 }
 
 .grafico {

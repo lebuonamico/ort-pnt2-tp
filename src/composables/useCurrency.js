@@ -1,4 +1,7 @@
+import { useFechas } from './useFechas'
+
 export function useCurrency() {
+  const { parseLocalDate } = useFechas()
 
   const currencyFormatter = new Intl.NumberFormat('es-AR', {
     style: 'currency',
@@ -26,16 +29,7 @@ export function useCurrency() {
 
   const formatDate = (value) => {
     if (!value) return ''
-    let date
-    if (value instanceof Date) {
-      date = value
-    } else {
-      // Date-only strings (YYYY-MM-DD) are parsed as UTC by spec, which shifts
-      // the day backwards in negative-offset timezones (e.g. Argentina UTC-3).
-      // Parsing the components manually creates a local-time Date instead.
-      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value))
-      date = m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : new Date(value)
-    }
+    const date = value instanceof Date ? value : parseLocalDate(value)
     if (Number.isNaN(date.getTime())) return ''
     return dateFormatter.format(date)
   }

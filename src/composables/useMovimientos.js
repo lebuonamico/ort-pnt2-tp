@@ -1,14 +1,11 @@
 import { ref, computed } from 'vue'
 import { useCurrency } from './useCurrency'
 import { usePagination } from './usePagination'
-
-function parseLocalDate(str) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(str))
-  return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : new Date(str)
-}
+import { useFechas } from './useFechas'
 
 export function useMovimientos(transacciones) {
   const { formatDate, formatCurrency } = useCurrency()
+  const { parseLocalDate } = useFechas()
 
   const busqueda = ref('')
   const filtroCategoria = ref('Todas')

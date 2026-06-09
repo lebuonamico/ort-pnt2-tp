@@ -6,7 +6,7 @@ import Sidebar from './components/Sidebar.vue'
 import { useSidebar } from './composables/useSidebar'
 const route = useRoute()
 const hideNavbar = computed(() => route.meta.hideNavbar === true)
-const hideSideBg1ar = computed(() => route.meta.hideSidebar === true)
+const hideSidebar = computed(() => route.meta.hideSidebar === true)
 const { colapsado } = useSidebar()
 const sidebarWidth = computed(() =>
   hideSidebar.value ? '0px' : (colapsado.value ? '72px' : '240px')

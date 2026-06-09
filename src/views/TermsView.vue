@@ -1,8 +1,9 @@
 <script setup>
-import { useDate } from '../composables/useDate.js'
+import { useFechas } from '../composables/useFechas'
 import AppFooter from '../components/AppFooter.vue'
 
-const { currentDate } = useDate()
+const { fechaLarga } = useFechas()
+const currentDate = fechaLarga()
 </script>
 
 <template>

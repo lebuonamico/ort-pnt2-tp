@@ -27,7 +27,6 @@ const handleToggle = () => {
 <template>
   <div class="page-wrapper">
     <main class="register-container">
-      <!-- LEFT SIDE -->
       <section class="branding-section">
         <div class="logo">
           <span class="material-symbols-outlined">
@@ -92,7 +91,6 @@ const handleToggle = () => {
         </div>
       </section>
 
-      <!-- RIGHT SIDE -->
       <section class="form-section">
         <div class="form-container">
           <header>
@@ -228,8 +226,6 @@ const handleToggle = () => {
   box-shadow: 12px 12px 12px rgba(15, 23, 42, 0.05);
 }
 
-/* LEFT */
-
 .branding-section {
   background: #131b2e;
   color: white;
@@ -283,8 +279,6 @@ const handleToggle = () => {
   max-width: 580px;
 }
 
-/* FEATURES */
-
 .features {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -329,8 +323,6 @@ const handleToggle = () => {
   line-height: 1.3;
 }
 
-/* USERS */
-
 .users {
   display: flex;
   align-items: center;
@@ -359,8 +351,6 @@ const handleToggle = () => {
 .avatars img:first-child {
   margin-left: 0;
 }
-
-/* RIGHT */
 
 .form-section {
   background: white;
@@ -465,8 +455,6 @@ footer a {
 
   text-decoration: none;
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 1100px) {
   .register-container {

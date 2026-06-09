@@ -1,4 +1,7 @@
+import { useFechas } from './useFechas'
+
 export function useCurrency() {
+  const { parseLocalDate } = useFechas()
 
   const currencyFormatter = new Intl.NumberFormat('es-AR', {
     style: 'currency',
@@ -26,7 +29,7 @@ export function useCurrency() {
 
   const formatDate = (value) => {
     if (!value) return ''
-    const date = value instanceof Date ? value : new Date(value)
+    const date = value instanceof Date ? value : parseLocalDate(value)
     if (Number.isNaN(date.getTime())) return ''
     return dateFormatter.format(date)
   }

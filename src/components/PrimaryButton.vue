@@ -67,8 +67,6 @@ const buttonClass = computed(() => {
   width: 100%;
 }
 
-/* PRIMARY */
-
 .primary {
   background: #006a61;
   color: white;
@@ -77,8 +75,6 @@ const buttonClass = computed(() => {
 .primary:hover:not(:disabled) {
   background: #00554d;
 }
-
-/* DARK */
 
 .dark {
   background: #0f172a;
@@ -91,8 +87,6 @@ const buttonClass = computed(() => {
   transform: translateY(-1px);
 }
 
-/* OUTLINE */
-
 .outline {
   background: transparent;
   border: 1px solid #c6c6cd;
@@ -102,8 +96,6 @@ const buttonClass = computed(() => {
 .outline:hover:not(:disabled) {
   background: rgba(0, 0, 0, 0.03);
 }
-
-/* DISABLED */
 
 .primary-button:disabled {
   opacity: 0.7;

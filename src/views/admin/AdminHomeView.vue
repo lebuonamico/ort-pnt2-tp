@@ -1,19 +1,29 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAdminStore } from '../../stores/admin'
 import { useCurrency } from '../../composables/useCurrency'
 import BarChart from '../../components/admin/BarChart.vue'
 import DoughnutChart from '../../components/admin/DoughnutChart.vue'
+import EstadoDatos from '../../components/EstadoDatos.vue'
 
 const admin = useAdminStore()
 const { formatCurrency, formatNumber } = useCurrency()
 
+const cargando = ref(false)
+
 onMounted(async () => {
-  await admin.loadSupervision()
-  admin.loadStats()
-  admin.loadMonthlyActivity()
-  admin.loadCategoryDistribution()
+  cargando.value = true
+  try {
+    await admin.loadSupervision()
+    await Promise.all([
+      admin.loadStats(),
+      admin.loadMonthlyActivity(),
+      admin.loadCategoryDistribution()
+    ])
+  } finally {
+    cargando.value = false
+  }
 })
 
 const statCards = computed(() => [
@@ -90,6 +100,7 @@ const homeError = computed(() =>
       </RouterLink>
     </section>
 
+    <EstadoDatos :cargando="cargando">
     <section class="stats-grid">
       <article
         v-for="card in statCards"
@@ -146,6 +157,7 @@ const homeError = computed(() =>
       </article>
 
     </section>
+    </EstadoDatos>
 
     <p v-if="homeError" class="error-banner">
       {{ homeError }}

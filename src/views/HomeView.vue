@@ -11,7 +11,6 @@ const handleRegister = () => {
 
 <template>
   <div class="page">
-    <!-- HERO -->
     <header class="hero">
       <div class="container hero-content">
         <div class="hero-text">
@@ -47,7 +46,6 @@ const handleRegister = () => {
       </div>
     </header>
 
-    <!-- BENEFICIOS -->
     <section class="benefits">
       <div class="container benefits-grid">
         <div class="benefit-card">

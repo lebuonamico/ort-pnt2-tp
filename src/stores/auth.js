@@ -12,7 +12,6 @@ export const useAuthStore = defineStore('auth', () => {
   const error = ref(null)
   const initialized = ref(false)
 
-  // GETTERS
   const isAuthenticated = computed(() => user.value !== null)
   const userEmail = computed(() => user.value?.email ?? '')
   const userName = computed(() =>
@@ -58,8 +57,13 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function setUser(sessionUser) {
+  async function setUser(sessionUser, { forzar = false } = {}) {
+    const mismoUsuario = sessionUser?.id && sessionUser.id === user.value?.id
     user.value = sessionUser
+
+    if (mismoUsuario && !forzar) return
+
+    if (sessionUser) await syncProfileEmail(sessionUser)
     await loadUserRole(sessionUser)
   }
 
@@ -125,7 +129,6 @@ export const useAuthStore = defineStore('auth', () => {
       result.data.user &&
       result.data.session
     ) {
-      await syncProfileEmail(result.data.user)
       await setUser(result.data.user)
     }
 
@@ -142,13 +145,15 @@ export const useAuthStore = defineStore('auth', () => {
     if (initialized.value) return
 
     const { data: { session } } = await supabase.auth.getSession()
-    await setUser(session?.user ?? null)
+    await setUser(session?.user ?? null, { forzar: true })
     initialized.value = true
 
-    supabase.auth
-      .onAuthStateChange(async (_event, session) => {
-        await setUser(session?.user ?? null)
-      })
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'INITIAL_SESSION') return
+      setTimeout(() => {
+        setUser(session?.user ?? null)
+      }, 0)
+    })
   }
 
   return {

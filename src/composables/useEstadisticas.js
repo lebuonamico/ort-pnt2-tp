@@ -66,6 +66,19 @@ export function useEstadisticas(transacciones) {
     })
   })
 
+  const datosIngresos = computed(() => {
+    const hoy = new Date()
+    return Array.from({ length: 6 }, (_, i) => {
+     const mes = new Date(hoy.getFullYear(), hoy.getMonth() - (5 - i), 1)
+      return transacciones.value
+        .filter(t => {
+          const f = new Date(t.fecha)
+          return t.tipo === 'ingreso' && f.getMonth() === mes.getMonth() && f.getFullYear() === mes.getFullYear()
+       })
+       .reduce((s, t) => s + Number(t.monto), 0)
+   })
+  })
+  
   const _gastosPorCategoria = computed(() => {
     const agrupado = {}
     transaccionesFiltradas.value.filter(t => t.tipo === 'gasto').forEach(t => {
@@ -85,5 +98,6 @@ export function useEstadisticas(transacciones) {
     totalIngresos, totalGastos, porcentajeAhorro,
     categoriasPrincipal, labelsFlujo, datosFlujo,
     categoriasDoughnut, montosDoughnut,
+    datosIngresos,
   }
 }

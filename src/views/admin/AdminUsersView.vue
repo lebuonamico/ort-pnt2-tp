@@ -2,47 +2,38 @@
 import { computed, onMounted, ref } from 'vue'
 import { useAdminStore } from '../../stores/admin'
 import { useCurrency } from '../../composables/useCurrency'
+import { useBusqueda } from '../../composables/useBusqueda'
+import { usePagination } from '../../composables/usePagination'
 import PrimaryButton from '../../components/PrimaryButton.vue'
 import AddSupervisedUserModal from '../../components/admin/AddSupervisedUserModal.vue'
+import EstadoDatos from '../../components/EstadoDatos.vue'
 
 const admin = useAdminStore()
 const { formatDate } = useCurrency()
 
-const search = ref('')
-const page = ref(1)
-const pageSize = 20
 const modalOpen = ref(false)
+const cargando = ref(false)
 
-onMounted(() => {
-  admin.loadSupervision()
-})
-
-const filteredUsers = computed(() => {
-  const term = search.value.trim().toLowerCase()
-  if (!term) return admin.supervisedUsers
-  return admin.supervisedUsers.filter((u) =>
-    (u.email || '').toLowerCase().includes(term) ||
-    (u.id || '').toLowerCase().includes(term)
-  )
-})
-
-const totalPages = computed(() =>
-  Math.max(1, Math.ceil(filteredUsers.value.length / pageSize))
+const { termino: search, resultados: filteredUsers } = useBusqueda(
+  computed(() => admin.supervisedUsers),
+  ['email', 'id']
 )
+const { paginaActual: page, totalPaginas, itemsPaginados: pageItems, cambiarPagina: goToPage } =
+  usePagination(filteredUsers, 20)
+const totalPages = computed(() => Math.max(1, totalPaginas.value))
 
-const pageItems = computed(() => {
-  const start = (page.value - 1) * pageSize
-  return filteredUsers.value.slice(start, start + pageSize)
+onMounted(async () => {
+  cargando.value = true
+  try {
+    await admin.loadSupervision()
+  } finally {
+    cargando.value = false
+  }
 })
 
 const initials = (u) => {
   const source = u.email || u.id || '?'
   return source.slice(0, 2).toUpperCase()
-}
-
-const goToPage = (next) => {
-  if (next < 1 || next > totalPages.value) return
-  page.value = next
 }
 
 const toggleStatus = async (user) => {
@@ -89,6 +80,7 @@ const removeFromGroup = async (user) => {
         </div>
       </header>
 
+      <EstadoDatos :cargando="cargando">
       <div class="table-wrapper">
         <table class="data-table">
           <thead>
@@ -157,6 +149,7 @@ const removeFromGroup = async (user) => {
           </tbody>
         </table>
       </div>
+      </EstadoDatos>
 
       <footer class="table-footer">
         <span class="table-summary">

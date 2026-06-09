@@ -82,7 +82,6 @@ const inputClasses = computed(() => ({
 <template>
   <div class="input-group">
 
-    <!-- Label -->
     <label
       v-if="label"
       :for="id"
@@ -92,10 +91,8 @@ const inputClasses = computed(() => ({
       {{ label }}
     </label>
 
-    <!-- Input Wrapper -->
     <div class="input-wrapper">
 
-      <!-- Icon -->
       <span
         v-if="icon"
         class="material-symbols-outlined input-icon"
@@ -103,7 +100,6 @@ const inputClasses = computed(() => ({
         {{ icon }}
       </span>
 
-      <!-- Input -->
       <input
         :id="id"
         :type="internalType"
@@ -114,10 +110,8 @@ const inputClasses = computed(() => ({
         :class="['input-field', inputClasses]"
       />
 
-      <!-- Right Slot -->
       <slot name="append">
 
-        <!-- Password Toggle -->
         <button
           v-if="showToggle"
           type="button"
@@ -149,8 +143,6 @@ const inputClasses = computed(() => ({
   gap: 10px;
 }
 
-/* LABEL */
-
 .input-label {
   width: 100%;
 
@@ -161,14 +153,10 @@ const inputClasses = computed(() => ({
   color: #475569;
 }
 
-/* WRAPPER */
-
 .input-wrapper {
   position: relative;
   width: 100%;
 }
-
-/* ICON */
 
 .input-icon {
   position: absolute;
@@ -183,8 +171,6 @@ const inputClasses = computed(() => ({
 
   pointer-events: none;
 }
-
-/* INPUT */
 
 .input-field {
   width: 100%;
@@ -208,19 +194,13 @@ const inputClasses = computed(() => ({
   box-sizing: border-box;
 }
 
-/* INPUT WITH ICON */
-
 .with-icon {
   padding-left: 48px;
 }
 
-/* INPUT WITH TOGGLE */
-
 .with-toggle {
   padding-right: 48px;
 }
-
-/* INPUT FOCUS */
 
 .input-field:focus {
   outline: none;
@@ -230,14 +210,10 @@ const inputClasses = computed(() => ({
   background: white;
 }
 
-/* DISABLED */
-
 .input-field:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
-
-/* TOGGLE PASSWORD */
 
 .toggle-password {
   position: absolute;

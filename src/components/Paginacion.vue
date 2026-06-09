@@ -1,83 +1,127 @@
-```vue
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   paginaActual: { type: Number, required: true },
   totalPaginas: { type: Number, required: true },
   totalItems: { type: Number, required: true },
   porPagina: { type: Number, required: true },
 })
 
-defineEmits(['cambiar'])
+const emit = defineEmits(['cambiar'])
+
+const VENTANA = 5
+
+const paginasVisibles = computed(() => {
+  const inicio = Math.floor((props.paginaActual - 1) / VENTANA) * VENTANA + 1
+  const fin = Math.min(inicio + VENTANA - 1, props.totalPaginas)
+  const paginas = []
+  for (let i = inicio; i <= fin; i++) paginas.push(i)
+  return paginas
+})
+
+const hayGrupoAnterior = computed(() => paginasVisibles.value[0] > 1)
+const hayGrupoSiguiente = computed(() => paginasVisibles.value[paginasVisibles.value.length - 1] < props.totalPaginas)
+
+function irGrupoAnterior() {
+  emit('cambiar', paginasVisibles.value[0] - 1)
+}
+
+function irGrupoSiguiente() {
+  emit('cambiar', paginasVisibles.value[paginasVisibles.value.length - 1] + 1)
+}
 </script>
 
 <template>
-  <div class="tabla-footer">
-    <p class="total">
-      Mostrando {{ (paginaActual - 1) * porPagina + 1 }} a
-      {{ Math.min(paginaActual * porPagina, totalItems) }} de {{ totalItems }}
-    </p>
+  <div class="paginacion-wrapper">
+    <span class="total">{{ (paginaActual - 1) * porPagina + 1 }}–{{ Math.min(paginaActual * porPagina, totalItems) }} de {{ totalItems }}</span>
+
     <div class="paginacion">
-      <button @click="$emit('cambiar', paginaActual - 1)" :disabled="paginaActual === 1">‹</button>
+      <button class="btn-nav" @click="$emit('cambiar', paginaActual - 1)" :disabled="paginaActual === 1">‹</button>
+
+      <span v-if="hayGrupoAnterior" class="dots" @click="irGrupoAnterior">…</span>
+
       <button
-        v-for="n in totalPaginas"
+        v-for="n in paginasVisibles"
         :key="n"
-        @click="$emit('cambiar', n)"
+        class="btn-pag"
         :class="{ activa: n === paginaActual }"
+        @click="$emit('cambiar', n)"
       >{{ n }}</button>
-      <button @click="$emit('cambiar', paginaActual + 1)" :disabled="paginaActual === totalPaginas">›</button>
+
+      <span v-if="hayGrupoSiguiente" class="dots" @click="irGrupoSiguiente">…</span>
+
+      <button class="btn-nav" @click="$emit('cambiar', paginaActual + 1)" :disabled="paginaActual === totalPaginas">›</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.tabla-footer {
+.paginacion-wrapper {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
 }
 
 .total {
-  font-size: 13px;
+  font-size: 12px;
   color: #94a3b8;
 }
 
 .paginacion {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 2px;
 }
 
-.paginacion button {
-  padding: 6px 12px;
-  border: 1px solid #e2e8f0;
+.btn-nav, .btn-pag {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
   border-radius: 6px;
-  background: white;
+  background: transparent;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  color: #475569;
+  transition: background 0.15s;
 }
 
-.paginacion button.activa {
+.btn-nav:hover:not(:disabled),
+.btn-pag:hover:not(.activa) {
+  background: #f1f5f9;
+}
+
+.btn-pag.activa {
   background: #006a61;
   color: white;
-  border-color: #006a61;
+  font-weight: 600;
 }
 
-.paginacion button:disabled {
-  opacity: 0.4;
+.btn-nav:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
-@media (max-width: 480px) {
-  .tabla-footer {
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-  }
+.dots {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
 
-  .paginacion button {
-    padding: 8px 14px;
-  }
+.dots:hover {
+  background: #f1f5f9;
 }
 </style>
-
-```

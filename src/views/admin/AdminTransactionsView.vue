@@ -2,9 +2,12 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useAdminStore } from '../../stores/admin'
 import { useCurrency } from '../../composables/useCurrency'
+import { useTipoTransaccion } from '../../composables/useTipoTransaccion'
+import EstadoDatos from '../../components/EstadoDatos.vue'
 
 const admin = useAdminStore()
 const { formatCurrency, formatDate } = useCurrency()
+const { esIngreso: isIncome } = useTipoTransaccion()
 
 const page = ref(1)
 const pageSize = 25
@@ -12,12 +15,19 @@ const pageSize = 25
 const filterType = ref('all')
 const filterCategoria = ref('')
 
+const cargando = ref(false)
+
 onMounted(async () => {
-  await admin.loadSupervision()
-  await Promise.all([
-    admin.loadTransactions({ page: page.value, pageSize }),
-    admin.loadCategories()
-  ])
+  cargando.value = true
+  try {
+    await admin.loadSupervision()
+    await Promise.all([
+      admin.loadTransactions({ page: page.value, pageSize }),
+      admin.loadCategories()
+    ])
+  } finally {
+    cargando.value = false
+  }
 })
 
 watch(page, (next) => {
@@ -29,9 +39,6 @@ const usersById = computed(() => {
   for (const u of admin.supervisedUsers) map.set(u.id, u)
   return map
 })
-
-const incomeKeywords = ['ingreso', 'ingresos', 'income']
-const isIncome = (tipo) => incomeKeywords.includes(String(tipo).toLowerCase())
 
 const filteredTransactions = computed(() => {
   return admin.transactions.filter((t) => {
@@ -94,6 +101,7 @@ const emailFor = (userId) => {
         </div>
       </header>
 
+      <EstadoDatos :cargando="cargando">
       <div class="table-wrapper">
         <table class="data-table">
           <thead>
@@ -131,6 +139,7 @@ const emailFor = (userId) => {
           </tbody>
         </table>
       </div>
+      </EstadoDatos>
 
       <footer class="table-footer">
         <span class="table-summary">

@@ -1,6 +1,7 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 import { useAdminStore } from '../../stores/admin'
+import { useBusqueda } from '../../composables/useBusqueda'
 
 const props = defineProps({
   open: {
@@ -12,7 +13,10 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const admin = useAdminStore()
-const search = ref('')
+const { termino: search, resultados: filteredCandidates } = useBusqueda(
+  computed(() => admin.availableUsers),
+  ['email', 'id']
+)
 
 const close = () => emit('close')
 
@@ -34,22 +38,11 @@ watch(
     if (isOpen) {
       search.value = ''
       admin.errors.addUser = null
-      // Asegurar que conocemos el grupo + el admin actual antes de listar candidatos
       if (admin.currentAdminId === null) await admin.loadSupervision()
       admin.loadAllUsers()
     }
   }
 )
-
-const filteredCandidates = computed(() => {
-  const term = search.value.trim().toLowerCase()
-  const candidates = admin.availableUsers
-  if (!term) return candidates
-  return candidates.filter((u) =>
-    (u.email || '').toLowerCase().includes(term) ||
-    (u.id || '').toLowerCase().includes(term)
-  )
-})
 
 const initials = (u) => {
   const source = u.email || u.id || '?'

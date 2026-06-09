@@ -12,18 +12,7 @@ const logoRoute = computed(() =>
   authStore.isAuthenticated ? '/dashboard' : '/'
 )
 
-const navLinks = computed(() => {
-  if (!authStore.isAuthenticated) return []
-  const links = [
-    { label: 'Dashboard', to: '/dashboard' },
-    { label: 'Movimientos', to: '/movimientos' },
-    { label: 'Estadísticas', to: '/estadisticas' },
-  ]
-  if (authStore.isAdmin) {
-    links.push({ label: 'Admin', to: '/admin' })
-  }
-  return links
-})
+
 
 const guestActions = computed(() => [
   {
@@ -52,23 +41,11 @@ const handleLogout = async () => {
         Finanzas Pro
       </RouterLink>
 
-      <!-- Links centrados cuando está autenticado -->
-      <div v-if="authStore.isAuthenticated" class="nav-links">
-        <RouterLink
-          v-for="link in navLinks"
-          :key="link.to"
-          :to="link.to"
-          class="nav-link"
-        >
-          {{ link.label }}
-        </RouterLink>
-      </div>
-
-      <!-- Acciones a la derecha -->
       <div class="nav-actions">
         <template v-if="authStore.isAuthenticated">
           <button class="btn-logout" @click="handleLogout">Cerrar sesión</button>
         </template>
+
         <template v-else>
           <PrimaryButton
             v-for="item in guestActions"

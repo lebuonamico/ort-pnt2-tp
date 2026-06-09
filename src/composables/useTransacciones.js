@@ -17,6 +17,7 @@ export function useTransacciones() {
   const transacciones = ref([])
 
   const obtenerTransacciones = async () => {
+    // agregar
     const { data, error } = await supabase
       .from('transacciones')
       .select('*')

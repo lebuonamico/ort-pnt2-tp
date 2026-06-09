@@ -2,52 +2,60 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
 const routes = [
+    
     {
         path: "/",
         name: "home",
         component: () => import("../views/HomeView.vue"),
-        meta: { requiresAuth: false, hideNavbar: false }
+        meta: { requiresAuth: false, hideNavbar: false, hideSideBar: true }
     },
     {
         path: "/dashboard",
         name: "dashboard",
         component: () => import("../views/DashboardView.vue"),
-        meta: { requiresAuth: true, hideNavbar: false }
+        meta: { requiresAuth: true, hideNavbar: true, hideSideBar: false }
+    },    
+    // agregado
+    {
+        path: "/estadisticas",
+        name: "estadisticas",
+        component: () => import("../views/EstadisticasView.vue"),
+         meta: { requiresAuth: true, hideNavbar: true, hideSideBar: false }
     },
     {
         path: "/movimientos",
         name: "movimientos",
         component: () => import("../views/MovimientosView.vue"),
-        meta: { requiresAuth: true, hideNavbar: false }
+        meta: { requiresAuth: true, hideNavbar: true, hideSideBar: false }
     },
     {
         path: "/login",
         name: "login",
         component: () => import("../views/LoginView.vue"),
-        meta: { requiresAuth: false, hideNavbar: false }
+        meta: { requiresAuth: false, hideNavbar: false, hideSideBar: true }
     },
     {
         path: "/register",
         name: "register",
         component: () => import("../views/RegisterView.vue"),
-        meta: { requiresAuth: false, hideNavbar: false }
+        meta: { requiresAuth: false, hideNavbar: false, hideSideBar: true }
     },
     {
         path: "/privacidad",
         name: "privacy-policy",
         component: () => import("../views/PrivacyPolicyView.vue"),
-        meta: { requiresAuth: false, hideNavbar: false }
+        meta: { requiresAuth: false, hideNavbar: false, hideSideBar: true }
     },
     {
         path: '/terminos',
         name: 'terms',
         component: () => import('../views/TermsView.vue'),
-        meta: { requiresAuth: false, hideNavbar: false }
+        meta: { requiresAuth: false, hideNavbar: false, hideSideBar: true }
     },
     {
         path: "/admin",
         component: () => import("../views/admin/AdminLayout.vue"),
-        meta: { requiresAuth: true, requiresAdmin: true, hideNavbar: false },
+        meta: { requiresAuth: true, requiresAdmin: true, hideNavbar: true, hideSideBar: false },
         children: [
             {
                 path: "",
@@ -75,7 +83,7 @@ const routes = [
         path: "/:pathMatch(.*)*",
         name: "not-found",
         component: () => import("../views/NotFoundView.vue"),
-        meta: { requiresAuth: false, hideNavbar: false }
+        meta: { requiresAuth: false, hideNavbar: true, hideSideBar: true }
     }
 ]
 

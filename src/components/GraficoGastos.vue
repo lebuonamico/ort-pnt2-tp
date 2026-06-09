@@ -112,6 +112,7 @@ const chartData = computed(() => ({
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: { display: false }
   },
@@ -132,13 +133,24 @@ const chartOptions = {
         <button :class="{ activo: periodoSeleccionado === 'anual' }" @click="periodoSeleccionado = 'anual'">Anual</button>
       </div>
     </div>
-    <Bar :data="chartData" :options="chartOptions" />
+    <div class="chart-wrapper">
+      <Bar :data="chartData" :options="chartOptions" />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .grafico-container {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.chart-wrapper {
+  flex: 1;
+  min-height: 0;
+  position: relative;
 }
 
 .grafico-header {

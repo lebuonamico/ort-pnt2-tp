@@ -21,10 +21,7 @@ const hideNavbar = computed(() => route.meta.hideNavbar === true)
   min-height: 100vh;
 }
 
-.app-main {
-  padding-top: var(--navbar-height);
-  background: #f8f9ff;
-}
+.app-main { padding-top: var(--navbar-height); background: #f8f9ff; }
 
 .app-main-full {
   padding-top: 0;

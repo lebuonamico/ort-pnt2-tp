@@ -56,29 +56,28 @@ const sidebarWidth = computed(() => {
   left: calc(var(--sidebar-width) - 1px);
   top: 50%;
   transform: translateY(-50%);
-  width: 14px;
-  height: 52px;
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
-  border-left: none;
-  border-radius: 0 8px 8px 0;
+  width: 24px;
+  height: 72px;
+  background: #006a61;
+  border: none;
+  border-radius: 0 10px 10px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 101;
-  box-shadow: 2px 0 6px rgba(15, 23, 42, 0.08);
+  box-shadow: 3px 0 8px rgba(0, 106, 97, 0.25);
   padding: 0;
   transition: left 0.2s ease, background 0.15s;
 }
 
 .sidebar-toggle-bar:hover {
-  background: #ebf3f2;
+  background: #00857a;
 }
 
 .toggle-bar-icon {
-  font-size: 16px;
-  color: #64748b;
+  font-size: 22px;
+  color: #ffffff;
   transition: transform 0.2s ease;
   line-height: 1;
 }

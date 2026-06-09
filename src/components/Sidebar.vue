@@ -17,7 +17,6 @@ const handleLogout = async () => {
 <template>
   <aside class="sidebar" :class="{ colapsado }">
     <div class="sidebar-logo" :class="{ colapsado }">
-      <span class="logo-icon">💰</span>
       <span v-show="!colapsado" class="logo-text">Finanzas Pro</span>
     </div>
 

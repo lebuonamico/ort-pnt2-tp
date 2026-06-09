@@ -70,7 +70,27 @@ export function useEstadisticas(transacciones) {
     })
   })
 
-  const _gastosPorCategoria = computed(() => agruparGastosPorCategoria())
+  const datosIngresos = computed(() => {
+    const hoy = new Date()
+    return Array.from({ length: 6 }, (_, i) => {
+     const mes = new Date(hoy.getFullYear(), hoy.getMonth() - (5 - i), 1)
+      return transacciones.value
+        .filter(t => {
+          const f = new Date(t.fecha)
+          return t.tipo === 'ingreso' && f.getMonth() === mes.getMonth() && f.getFullYear() === mes.getFullYear()
+       })
+       .reduce((s, t) => s + Number(t.monto), 0)
+   })
+  })
+  
+  const _gastosPorCategoria = computed(() => {
+    const agrupado = {}
+    transaccionesFiltradas.value.filter(t => t.tipo === 'gasto').forEach(t => {
+      const cat = t.categoria || 'Otros'
+      agrupado[cat] = (agrupado[cat] || 0) + Number(t.monto)
+    })
+    return Object.entries(agrupado).sort(([,a],[,b]) => b - a)
+  })
 
   const categoriasDoughnut = computed(() => _gastosPorCategoria.value.map(([k]) => k))
   const montosDoughnut     = computed(() => _gastosPorCategoria.value.map(([,v]) => v))
@@ -82,5 +102,6 @@ export function useEstadisticas(transacciones) {
     totalIngresos, totalGastos, porcentajeAhorro,
     categoriasPrincipal, labelsFlujo, datosFlujo,
     categoriasDoughnut, montosDoughnut,
+    datosIngresos,
   }
 }

@@ -97,8 +97,9 @@ export function useTransacciones() {
   const gastosMesAnterior = computed(() => totalPorMes('gasto', mesPrevio.value.mes, mesPrevio.value.anio))
 
   const porcentajeCambioSaldo = computed(() => {
-    const saldoAnterior = ingresosMesAnterior.value - gastosMesAnterior.value
-    return porcentajeCambio(saldoTotal.value, saldoAnterior)
+    const netoMes = ingresosMes.value - gastosMes.value
+    const saldoInicioMes = saldoTotal.value - netoMes
+    return porcentajeCambio(saldoTotal.value, saldoInicioMes)
   })
 
   const porcentajeCambioIngresos = computed(() =>

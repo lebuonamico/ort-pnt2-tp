@@ -2,8 +2,11 @@
 import { computed, ref } from 'vue'
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js'
+import { useFechas } from '../composables/useFechas'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
+
+const { parseLocalDate } = useFechas()
 
 const props = defineProps({
   transacciones: {
@@ -31,11 +34,11 @@ const gastosSemanal = computed(() => {
 
   props.transacciones
     .filter(t => {
-      const fecha = new Date(t.fecha)
+      const fecha = parseLocalDate(t.fecha)
       return t.tipo === 'gasto' && fecha >= inicioSemana && fecha <= finSemana
     })
     .forEach(t => {
-      const dia = new Date(t.fecha).getDay()
+      const dia = parseLocalDate(t.fecha).getDay()
       const indice = dia === 0 ? 6 : dia - 1
       totales[indice] += t.monto
     })
@@ -50,13 +53,13 @@ const gastosMensual = computed(() => {
 
   props.transacciones
     .filter(t => {
-      const fecha = new Date(t.fecha)
+      const fecha = parseLocalDate(t.fecha)
       return t.tipo === 'gasto' && 
              fecha.getMonth() === mesActual && 
              fecha.getFullYear() === anioActual
     })
     .forEach(t => {
-      const dia = new Date(t.fecha).getDate()
+      const dia = parseLocalDate(t.fecha).getDate()
       const semana = Math.min(Math.floor((dia - 1) / 7), 3)
       totales[semana] += t.monto
     })
@@ -69,11 +72,11 @@ const gastosAnual = computed(() => {
 
   props.transacciones
     .filter(t => {
-      const fecha = new Date(t.fecha)
+      const fecha = parseLocalDate(t.fecha)
       return t.tipo === 'gasto' && fecha.getFullYear() === anioActual
     })
     .forEach(t => {
-      const mes = new Date(t.fecha).getMonth()
+      const mes = parseLocalDate(t.fecha).getMonth()
       totales[mes] += t.monto
     })
   return totales
@@ -98,7 +101,7 @@ const chartData = computed(() => ({
       data: datosGrafico.value,
       backgroundColor: datosGrafico.value.map(valor => {
         const max = Math.max(...datosGrafico.value)
-        return valor === max ? '#fca5a5' : '#006a61'
+        return valor === max ? '#7B1E2E' : '#EF4444'
       }),
       borderRadius: 8
     }
@@ -112,8 +115,12 @@ const chartOptions = {
     legend: { display: false }
   },
   scales: {
-    y: { display: false },
-    x: { grid: { display: false } }
+    y: {
+      beginAtZero: true,
+      grid: { color: 'rgba(15,23,42,0.05)' },
+      ticks: { color: '#64748b', font: { family: 'Work Sans', size: 11 } }
+    },
+    x: { grid: { display: false }, ticks: { color: '#64748b', font: { family: 'Work Sans', size: 11 } } }
   }
 }
 </script>

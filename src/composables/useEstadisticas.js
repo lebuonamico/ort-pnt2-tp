@@ -16,7 +16,7 @@ export function useEstadisticas(transacciones) {
       desde.setMonth(0); desde.setDate(1); desde.setHours(0,0,0,0)
     }
     return transacciones.value.filter(t => {
-      const fecha = new Date(t.fecha)
+      const fecha = new Date(t.fecha + 'T00:00:00')
       return fecha >= desde && fecha <= hoy
     })
   })
@@ -63,14 +63,34 @@ export function useEstadisticas(transacciones) {
       const mes = new Date(hoy.getFullYear(), hoy.getMonth() - (5 - i), 1)
       return transacciones.value
         .filter(t => {
-          const f = new Date(t.fecha)
+          const f = new Date(t.fecha + 'T00:00:00')
           return t.tipo === 'gasto' && f.getMonth() === mes.getMonth() && f.getFullYear() === mes.getFullYear()
         })
         .reduce((s, t) => s + Number(t.monto), 0)
     })
   })
 
-  const _gastosPorCategoria = computed(() => agruparGastosPorCategoria())
+  const datosIngresos = computed(() => {
+    const hoy = new Date()
+    return Array.from({ length: 6 }, (_, i) => {
+     const mes = new Date(hoy.getFullYear(), hoy.getMonth() - (5 - i), 1)
+      return transacciones.value
+        .filter(t => {
+          const f = new Date(t.fecha + 'T00:00:00')
+          return t.tipo === 'ingreso' && f.getMonth() === mes.getMonth() && f.getFullYear() === mes.getFullYear()
+       })
+       .reduce((s, t) => s + Number(t.monto), 0)
+   })
+  })
+  
+  const _gastosPorCategoria = computed(() => {
+    const agrupado = {}
+    transaccionesFiltradas.value.filter(t => t.tipo === 'gasto').forEach(t => {
+      const cat = t.categoria || 'Otros'
+      agrupado[cat] = (agrupado[cat] || 0) + Number(t.monto)
+    })
+    return Object.entries(agrupado).sort(([,a],[,b]) => b - a)
+  })
 
   const categoriasDoughnut = computed(() => _gastosPorCategoria.value.map(([k]) => k))
   const montosDoughnut     = computed(() => _gastosPorCategoria.value.map(([,v]) => v))
@@ -82,5 +102,6 @@ export function useEstadisticas(transacciones) {
     totalIngresos, totalGastos, porcentajeAhorro,
     categoriasPrincipal, labelsFlujo, datosFlujo,
     categoriasDoughnut, montosDoughnut,
+    datosIngresos,
   }
 }

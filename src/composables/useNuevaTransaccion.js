@@ -3,12 +3,17 @@ import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../stores/auth'
 import { useCategories } from './useCategories'
 
+function hoyISO() {
+  const hoy = new Date()
+  return `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`
+}
+
 export function useNuevaTransaccion() {
   const tipo = ref('ingreso')
   const monto = ref(0)
   const concepto = ref('')
   const categoria = ref(null)
-  const fecha = ref(new Date().toISOString().split('T')[0])
+  const fecha = ref(hoyISO())
   const notas = ref('')
 
   const auth = useAuthStore()
@@ -31,6 +36,7 @@ export function useNuevaTransaccion() {
     if (!monto.value || monto.value <= 0) e.monto = 'El monto debe ser mayor a 0'
     if (!concepto.value.trim()) e.concepto = 'El concepto es obligatorio'
     if (!categoria.value) e.categoria = 'Seleccioná una categoría'
+    if (fecha.value && fecha.value > hoyISO()) e.fecha = 'La fecha no puede ser futura'
     return e
   })
 
@@ -40,7 +46,7 @@ export function useNuevaTransaccion() {
     tipo.value = t.tipo
     monto.value = t.monto
     concepto.value = t.concepto
-    fecha.value = t.fecha?.split('T')[0] ?? new Date().toISOString().split('T')[0]
+    fecha.value = t.fecha?.split('T')[0] ?? hoyISO()
     notas.value = t.notas ?? ''
     const cat = todasLasCategorias.value.find(c => c.nombre === t.categoria)
     categoria.value = cat ?? null
@@ -108,7 +114,7 @@ export function useNuevaTransaccion() {
     monto.value = 0
     concepto.value = ''
     categoria.value = null
-    fecha.value = new Date().toISOString().split('T')[0]
+    fecha.value = hoyISO()
     notas.value = ''
   }
 
@@ -124,6 +130,7 @@ export function useNuevaTransaccion() {
     esValido,
     guardando,
     guardar,
-    cargarTransaccion
+    cargarTransaccion,
+    hoyISO
   }
 }

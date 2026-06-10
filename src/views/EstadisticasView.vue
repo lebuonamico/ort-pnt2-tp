@@ -4,9 +4,11 @@ import { useTransacciones } from '../composables/useTransacciones'
 import { useEstadisticas } from '../composables/useEstadisticas'
 import BarChart from '../components/BarChart.vue'
 import DoughnutChart from '../components/DoughnutChart.vue'
-import EstadoDatos from '../components/EstadoDatos.vue'
+import ResumenBarras from '../components/ResumenBarras.vue'
 
 const { transacciones, cargando, errorCarga, obtenerTransacciones } = useTransacciones()
+
+
 
 const {
   periodoActivo,
@@ -15,8 +17,9 @@ const {
   totalIngresos,
   porcentajeAhorro,
   categoriasPrincipal,
-  datosFlujo,
   labelsFlujo,
+  datosFlujo,
+  datosIngresos,
   categoriasDoughnut,
   montosDoughnut,
 } = useEstadisticas(transacciones)
@@ -89,11 +92,15 @@ onMounted(async () => {
           <div class="leyenda">
             <span class="leyenda-item leyenda-ingreso">Ingresos</span>
             <span class="leyenda-item leyenda-gasto">Gastos</span>
+            <span class="leyenda-item leyenda-saldo">Saldo</span>
           </div>
         </div>
-        <BarChart :labels="labelsFlujo" :data="datosFlujo" label="Flujo de caja" />
+        <BarChart :labels="labelsFlujo" :data="datosFlujo" :datosIngresos="datosIngresos" label="Flujo de caja" />
+        <!-- <BarChart :labels="labelsFlujo" :data="datosFlujo" label="Flujo de caja" /> -->
       </div>
 
+      
+      
       <div class="grafico-card grafico-chico">
         <h3>Desglose de Gastos</h3>
         <p>Distribución por categoría</p>
@@ -101,6 +108,13 @@ onMounted(async () => {
       </div>
     </div>
     </EstadoDatos>
+
+    <!-- Resumen de barras -->
+    <div class="grafico-card">
+      <h3>Resumen del período</h3>
+      <p>Ingresos, gastos y saldo</p>
+      <ResumenBarras :totalIngresos="totalIngresos" :totalGastos="totalGastos" />
+    </div>
 
   </div>
 </template>
@@ -273,8 +287,9 @@ onMounted(async () => {
   height: 12px;
   border-radius: 3px;
 }
-.leyenda-ingreso::before { background: #006a61; }
-.leyenda-gasto::before { background: #131b2e; }
+.leyenda-ingreso::before { background: #1D9E75; }
+.leyenda-gasto::before { background: #D85A30; }
+.leyenda-saldo::before { background: #378ADD; }
 @media (max-width: 768px) {
   .estadisticas-container { padding: 16px; }
   .header { flex-direction: column; align-items: flex-start; }

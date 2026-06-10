@@ -14,11 +14,14 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => user.value !== null)
   const userEmail = computed(() => user.value?.email ?? '')
-  const userName = computed(() =>
-    user.value?.user_metadata?.full_name ||
-    user.value?.email ||
-    'usuario'
-  )
+  const userName = computed(() => {
+    if (user.value?.user_metadata?.full_name) return user.value.user_metadata.full_name
+    if (user.value?.email) {
+      const prefix = user.value.email.split('@')[0]
+      return prefix.charAt(0).toUpperCase() + prefix.slice(1)
+    }
+    return 'usuario'
+  })
   const isAdmin = computed(() => role.value === 'admin')
 
   async function loadUserRole(sessionUser) {

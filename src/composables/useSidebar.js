@@ -7,6 +7,11 @@ function toggleSidebar() {
   localStorage.setItem('sidebar-colapsado', String(colapsado.value))
 }
 
+function cerrarSidebar() {
+  colapsado.value = true
+  localStorage.setItem('sidebar-colapsado', 'true')
+}
+
 export function useSidebar() {
-  return { colapsado, toggleSidebar }
+  return { colapsado, toggleSidebar, cerrarSidebar }
 }

@@ -101,7 +101,7 @@ const chartData = computed(() => ({
       data: datosGrafico.value,
       backgroundColor: datosGrafico.value.map(valor => {
         const max = Math.max(...datosGrafico.value)
-        return valor === max ? '#fca5a5' : '#006a61'
+        return valor === max ? '#7B1E2E' : '#EF4444'
       }),
       borderRadius: 8
     }
@@ -115,8 +115,12 @@ const chartOptions = {
     legend: { display: false }
   },
   scales: {
-    y: { display: false },
-    x: { grid: { display: false } }
+    y: {
+      beginAtZero: true,
+      grid: { color: 'rgba(15,23,42,0.05)' },
+      ticks: { color: '#64748b', font: { family: 'Work Sans', size: 11 } }
+    },
+    x: { grid: { display: false }, ticks: { color: '#64748b', font: { family: 'Work Sans', size: 11 } } }
   }
 }
 </script>

@@ -16,7 +16,7 @@ export function useEstadisticas(transacciones) {
       desde.setMonth(0); desde.setDate(1); desde.setHours(0,0,0,0)
     }
     return transacciones.value.filter(t => {
-      const fecha = new Date(t.fecha)
+      const fecha = new Date(t.fecha + 'T00:00:00')
       return fecha >= desde && fecha <= hoy
     })
   })
@@ -63,7 +63,7 @@ export function useEstadisticas(transacciones) {
       const mes = new Date(hoy.getFullYear(), hoy.getMonth() - (5 - i), 1)
       return transacciones.value
         .filter(t => {
-          const f = new Date(t.fecha)
+          const f = new Date(t.fecha + 'T00:00:00')
           return t.tipo === 'gasto' && f.getMonth() === mes.getMonth() && f.getFullYear() === mes.getFullYear()
         })
         .reduce((s, t) => s + Number(t.monto), 0)
@@ -76,7 +76,7 @@ export function useEstadisticas(transacciones) {
      const mes = new Date(hoy.getFullYear(), hoy.getMonth() - (5 - i), 1)
       return transacciones.value
         .filter(t => {
-          const f = new Date(t.fecha)
+          const f = new Date(t.fecha + 'T00:00:00')
           return t.tipo === 'ingreso' && f.getMonth() === mes.getMonth() && f.getFullYear() === mes.getFullYear()
        })
        .reduce((s, t) => s + Number(t.monto), 0)

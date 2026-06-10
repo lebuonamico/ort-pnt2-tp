@@ -9,7 +9,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'saved'])
 
-const { tipo, monto, concepto, categorias, categoria, fecha, notas, errores, esValido, guardando, guardar, cargarTransaccion } = useNuevaTransaccion()
+const { tipo, monto, concepto, categorias, categoria, fecha, notas, errores, esValido, guardando, guardar, cargarTransaccion, hoyISO } = useNuevaTransaccion()
 
 const submitted = ref(false)
 const mensajeDuplicado = ref('')
@@ -79,7 +79,8 @@ const guardarYCerrar = async () => {
 
       <div class="campo">
         <label for="fecha">FECHA</label>
-        <input id="fecha" type="date" v-model="fecha" />
+        <input id="fecha" type="date" v-model="fecha" :max="hoyISO()" :class="{ 'input-error': submitted && errores.fecha }" />
+        <span v-if="submitted && errores.fecha" class="error-msg">{{ errores.fecha }}</span>
       </div>
 
       <div class="campo">

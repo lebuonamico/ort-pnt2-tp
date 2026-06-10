@@ -15,10 +15,11 @@ const {
   cambiarPeriodo,
   totalGastos,
   totalIngresos,
-  porcentajeAhorro,       
+  porcentajeAhorro,
   categoriasPrincipal,
   labelsFlujo,
   datosFlujo,
+  datosIngresos,
   categoriasDoughnut,
   montosDoughnut,
 } = useEstadisticas(transacciones)
@@ -91,6 +92,7 @@ onMounted(async () => {
           <div class="leyenda">
             <span class="leyenda-item leyenda-ingreso">Ingresos</span>
             <span class="leyenda-item leyenda-gasto">Gastos</span>
+            <span class="leyenda-item leyenda-saldo">Saldo</span>
           </div>
         </div>
         <BarChart :labels="labelsFlujo" :data="datosFlujo" :datosIngresos="datosIngresos" label="Flujo de caja" />
@@ -285,8 +287,9 @@ onMounted(async () => {
   height: 12px;
   border-radius: 3px;
 }
-.leyenda-ingreso::before { background: #006a61; }
-.leyenda-gasto::before { background: #131b2e; }
+.leyenda-ingreso::before { background: #1D9E75; }
+.leyenda-gasto::before { background: #D85A30; }
+.leyenda-saldo::before { background: #378ADD; }
 @media (max-width: 768px) {
   .estadisticas-container { padding: 16px; }
   .header { flex-direction: column; align-items: flex-start; }

@@ -43,6 +43,19 @@ html, body, #app { min-height: 100%; margin: 0; padding: 0; }
   :root { --navbar-height: 64px; }
 }
 
+@media (max-width: 768px) {
+  .app-page-header-inner { padding: 24px 16px 16px; }
+  .app-page-content { padding: 20px 16px; gap: 16px; }
+  .app-page-title { font-size: 24px; }
+  .app-card { padding: 16px; }
+}
+
+@media (max-width: 480px) {
+  .app-page-header-inner { padding: 20px 12px 12px; }
+  .app-page-content { padding: 16px 12px; }
+  .app-page-title { font-size: 21px; }
+}
+
 .app-page {
   width: 100%;
   min-height: calc(100vh - var(--navbar-height));
@@ -57,12 +70,14 @@ html, body, #app { min-height: 100%; margin: 0; padding: 0; }
 
 .app-page-header-inner {
   width: var(--content-max-width);
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 40px 24px 24px;
 }
 
 .app-page-content {
   width: var(--content-max-width);
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 32px 24px;
   display: flex;

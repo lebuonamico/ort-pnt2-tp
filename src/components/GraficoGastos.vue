@@ -186,4 +186,14 @@ const chartOptions = {
   color: #006a61;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
+
+@media (max-width: 640px) {
+  .grafico-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .toggle-periodo { width: 100%; }
+  .toggle-periodo button { flex: 1; }
+}
 </style>

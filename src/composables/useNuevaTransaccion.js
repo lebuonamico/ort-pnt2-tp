@@ -1,6 +1,7 @@
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../stores/auth'
+import { useBorradorTransaccionStore } from '../stores/borradorTransaccion'
 import { useCategories } from './useCategories'
 
 function hoyISO() {
@@ -17,6 +18,7 @@ export function useNuevaTransaccion() {
   const notas = ref('')
 
   const auth = useAuthStore()
+  const borrador = useBorradorTransaccionStore()
   const { categorias: todasLasCategorias, cargarCategorias } = useCategories()
 
   const guardando = ref(false)
@@ -116,6 +118,46 @@ export function useNuevaTransaccion() {
     categoria.value = null
     fecha.value = hoyISO()
     notas.value = ''
+    limpiarBorrador()
+  }
+
+  const tieneContenido = () =>
+    Number(monto.value) > 0 ||
+    concepto.value.trim() !== '' ||
+    notas.value.trim() !== '' ||
+    categoria.value != null
+
+  function guardarBorrador() {
+    if (!tieneContenido()) {
+      limpiarBorrador()
+      return
+    }
+    borrador.guardar({
+      tipo: tipo.value,
+      monto: monto.value,
+      concepto: concepto.value,
+      categoriaId: categoria.value?.id ?? null,
+      fecha: fecha.value,
+      notas: notas.value
+    })
+  }
+
+  function cargarBorrador() {
+    if (!borrador.activo) return
+    tipo.value = borrador.tipo
+    monto.value = borrador.monto
+    concepto.value = borrador.concepto
+    fecha.value = borrador.fecha || hoyISO()
+    notas.value = borrador.notas
+    nextTick(() => {
+      categoria.value = borrador.categoriaId
+        ? todasLasCategorias.value.find(c => c.id === borrador.categoriaId) ?? null
+        : null
+    })
+  }
+
+  function limpiarBorrador() {
+    borrador.limpiar()
   }
 
   return {
@@ -131,6 +173,9 @@ export function useNuevaTransaccion() {
     guardando,
     guardar,
     cargarTransaccion,
+    guardarBorrador,
+    cargarBorrador,
+    limpiarBorrador,
     hoyISO
   }
 }

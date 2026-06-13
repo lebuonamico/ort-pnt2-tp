@@ -32,7 +32,7 @@ export function useMovimientos(transacciones) {
     totalPaginas,
     itemsPaginados: transaccionesPaginadas,
     cambiarPagina,
-  } = usePagination(transaccionesFiltradas, 7)
+  } = usePagination(transaccionesFiltradas, 5)
 
   function formatearMonto(monto, tipo) {
     const signo = tipo === 'ingreso' ? '+' : '-'

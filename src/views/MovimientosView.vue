@@ -254,10 +254,6 @@ onMounted(async () => {
 .tabla-container {
   padding: 0;
   overflow: hidden;
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .tabla {
@@ -266,8 +262,7 @@ onMounted(async () => {
 }
 
 .paginacion-footer {
-  margin-top: auto;
-  flex-shrink: 0;
+  padding: 12px 16px;
 }
 
 thead th {
@@ -338,25 +333,13 @@ thead th {
 .btn-cancelar:hover { background: #f8fafc; }
 .btn-eliminar:hover { background: #b91c1c; }
 
-.app-page {
-  height: calc(100vh - var(--navbar-height));
-  overflow: hidden;
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-page-content {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  padding-bottom: 16px;
-}
-
-
 @media (max-width: 768px) {
-  .filtros-container { flex-direction: column; }
+  .filtros-container { flex-direction: column; align-items: stretch; }
   thead th:nth-child(1) { display: none; }
   .tabla { font-size: 12px; }
+  .tabla-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  thead th { padding: 12px 10px; white-space: nowrap; }
+  .overlay { padding: 16px; }
+  .confirmar-modal { padding: 24px; }
 }
 </style>

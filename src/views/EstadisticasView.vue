@@ -171,13 +171,12 @@ onMounted(async () => {
   box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 .cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  flex-wrap: wrap;
 }
 .card {
-  flex: 1;
-  min-width: 220px;
+  min-width: 0;
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
@@ -219,6 +218,7 @@ onMounted(async () => {
   font-weight: 700;
   color: #0f172a;
   font-family: 'Manrope', sans-serif;
+  margin: 0;
 }
 .card-categoria { display: flex; align-items: baseline; gap: 8px; }
 .card-valor-sm {
@@ -242,15 +242,20 @@ onMounted(async () => {
   border-radius: 999px;
   transition: width 0.6s ease;
 }
-.graficos { display: flex; gap: 24px; flex-wrap: wrap; }
+.graficos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
 .grafico-card {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 24px;
+  min-width: 0;
 }
-.grafico-grande { flex: 2; min-width: 300px; }
-.grafico-chico { flex: 1; min-width: 260px; }
+.grafico-grande { grid-column: span 2; }
+.grafico-chico { grid-column: span 1; }
 .grafico-header {
   display: flex;
   justify-content: space-between;
@@ -293,7 +298,12 @@ onMounted(async () => {
 @media (max-width: 768px) {
   .estadisticas-container { padding: 16px; }
   .header { flex-direction: column; align-items: flex-start; }
-  .cards { flex-direction: column; }
-  .graficos { flex-direction: column; }
+  .header h1 { font-size: 24px; }
+  .cards { grid-template-columns: 1fr; }
+  .graficos { grid-template-columns: 1fr; }
+  .grafico-grande, .grafico-chico { grid-column: auto; }
+  .periodo-selector { flex-wrap: wrap; width: 100%; }
+  .periodo-selector button { flex: 1; white-space: nowrap; }
+  .grafico-header { flex-direction: column; gap: 12px; }
 }
 </style>

@@ -78,7 +78,7 @@ const handleLogout = async () => {
   position: fixed;
   top: 0;
   left: 0;
-  width: 240px;
+  width: min(240px, 82vw);
   height: 100vh;
   box-sizing: border-box;
   background: #ffffff;

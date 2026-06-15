@@ -20,7 +20,7 @@ const cargando = ref(false)
 onMounted(async () => {
   cargando.value = true
   try {
-    await admin.loadSupervision()
+    await admin.loadAllUsers()
     await Promise.all([
       admin.loadTransactions({ page: page.value, pageSize }),
       admin.loadCategories()
@@ -36,7 +36,7 @@ watch(page, (next) => {
 
 const usersById = computed(() => {
   const map = new Map()
-  for (const u of admin.supervisedUsers) map.set(u.id, u)
+  for (const u of admin.allUsers) map.set(u.id, u)
   return map
 })
 
@@ -71,9 +71,9 @@ const emailFor = (userId) => {
 
       <header class="card-header">
         <div>
-          <h2 class="card-title">Movimientos del grupo</h2>
+          <h2 class="card-title">Movimientos del sistema</h2>
           <p class="card-subtitle">
-            Movimientos registrados por los usuarios que estás supervisando.
+            Movimientos registrados por todos los usuarios del sistema.
           </p>
         </div>
         <div class="filters">

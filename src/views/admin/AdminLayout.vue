@@ -65,6 +65,7 @@ const tabs = [
 
 .admin-header-inner {
   width: min(1200px, 100%);
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 40px 24px 24px;
 }
@@ -97,17 +98,13 @@ const tabs = [
 }
 
 .admin-tabs {
-  background: transparent;
   border-bottom: 1px solid rgba(198, 198, 205, 0.4);
-  position: sticky;
-  top: var(--navbar-height);
-  z-index: 10;
-  backdrop-filter: blur(18px);
-  background: rgba(248, 249, 255, 0.85);
+  background: #f8f9ff;
 }
 
 .admin-tabs-inner {
   width: min(1200px, 100%);
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -149,6 +146,7 @@ const tabs = [
 
 .admin-content {
   width: min(1200px, 100%);
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 32px 24px;
 }

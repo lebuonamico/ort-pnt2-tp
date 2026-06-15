@@ -154,7 +154,7 @@ function handleGuardado() {
 }
 
 .app-page {
-  height: calc(100vh - var(--navbar-height));
+  height: 100vh;
   overflow: hidden;
   padding-bottom: 0;
   display: flex;
@@ -167,6 +167,16 @@ function handleGuardado() {
     grid-template-rows: auto auto auto 1fr;
   }
   .grafico { grid-column: 1; grid-row: 4; }
+
+  .app-page {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  .app-page-content {
+    overflow: visible;
+  }
+  .grafico { min-height: 320px; }
 }
 
 @media (max-width: 768px) {

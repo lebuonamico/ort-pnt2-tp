@@ -9,7 +9,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'saved'])
 
-const { tipo, monto, concepto, categorias, categoria, fecha, notas, errores, esValido, guardando, guardar, cargarTransaccion, hoyISO } = useNuevaTransaccion()
+const { tipo, monto, concepto, categorias, categoria, fecha, notas, errores, esValido, guardando, guardar, cargarTransaccion, guardarBorrador, cargarBorrador, hoyISO } = useNuevaTransaccion()
 
 const submitted = ref(false)
 const mensajeDuplicado = ref('')
@@ -18,6 +18,7 @@ watch(() => props.show, (val) => {
   if (val) {
     submitted.value = false
     mensajeDuplicado.value = ''
+    if (!props.transaccion) cargarBorrador()
   }
 })
 
@@ -25,7 +26,10 @@ watch(() => props.transaccion, (val) => {
   if (val) cargarTransaccion(val)
 }, { immediate: true })
 
-const cerrar = () => emit('close')
+const cerrar = () => {
+  if (!props.transaccion) guardarBorrador()
+  emit('close')
+}
 
 const guardarYCerrar = async () => {
   submitted.value = true
@@ -109,6 +113,9 @@ const guardarYCerrar = async () => {
   align-items: center;
   justify-content: center;
   z-index: 100;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 .modal {
   background: white;
@@ -116,9 +123,16 @@ const guardarYCerrar = async () => {
   padding: 32px;
   width: 100%;
   max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+@media (max-width: 480px) {
+  .modal { padding: 20px; gap: 16px; }
+  .modal-header h2 { font-size: 19px; }
 }
 .modal-header { display: flex; justify-content: space-between; align-items: center; }
 .modal-header h2 { font-size: 22px; font-weight: 700; }

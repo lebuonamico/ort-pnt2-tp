@@ -15,7 +15,7 @@ const cargando = ref(false)
 onMounted(async () => {
   cargando.value = true
   try {
-    await admin.loadSupervision()
+    await admin.loadAllUsers()
     await Promise.all([
       admin.loadStats(),
       admin.loadMonthlyActivity(),
@@ -28,25 +28,25 @@ onMounted(async () => {
 
 const statCards = computed(() => [
   {
-    label: 'Usuarios supervisados',
+    label: 'Usuarios del sistema',
     value: formatNumber(admin.stats.totalUsers),
     icon: 'group',
     accent: 'navy'
   },
   {
-    label: 'Movimientos del grupo',
+    label: 'Movimientos totales',
     value: formatNumber(admin.stats.totalTransactions),
     icon: 'swap_horiz',
     accent: 'navy'
   },
   {
-    label: 'Ingresos del grupo',
+    label: 'Ingresos totales',
     value: formatCurrency(admin.stats.totalIncome),
     icon: 'account_balance_wallet',
     accent: 'teal'
   },
   {
-    label: 'Gastos del grupo',
+    label: 'Gastos totales',
     value: formatCurrency(admin.stats.totalExpenses),
     icon: 'payments',
     accent: 'red'
@@ -85,12 +85,12 @@ const homeError = computed(() =>
     <section class="scope-banner">
       <span class="material-symbols-outlined">visibility</span>
       <div>
-        <p class="scope-title">Grupo supervisado</p>
+        <p class="scope-title">Usuarios del sistema</p>
         <p class="scope-meta">
           {{
-            admin.supervisedUsers.length === 0
-              ? 'Tu grupo todavía no tiene usuarios. Agregalos desde la pestaña Usuarios.'
-              : `Mostrando datos de ${admin.supervisedUsers.length} usuario${admin.supervisedUsers.length === 1 ? '' : 's'}.`
+            admin.allUsers.length === 0
+              ? 'Todavía no hay usuarios en el sistema. Agregalos desde la pestaña Usuarios.'
+              : `Mostrando datos de ${admin.allUsers.length} usuario${admin.allUsers.length === 1 ? '' : 's'}.`
           }}
         </p>
       </div>
@@ -120,7 +120,7 @@ const homeError = computed(() =>
       <article class="card chart-card chart-card-wide">
         <header class="card-header">
           <div>
-            <h2 class="card-title">Actividad del grupo</h2>
+            <h2 class="card-title">Actividad del sistema</h2>
             <p class="card-subtitle">Volumen de transacciones mensuales (últimos 12 meses)</p>
           </div>
         </header>

@@ -109,6 +109,22 @@ export const useAuthStore = defineStore('auth', () => {
     )
 
     if (result.success) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('status')
+        .eq('id', result.data.user.id)
+        .maybeSingle()
+
+      if (profile?.status === 'suspended') {
+        await supabase.auth.signOut()
+        const message = 'Tu cuenta está suspendida. Contactá a un administrador.'
+        error.value = message
+        return {
+          success: false,
+          error: { message }
+        }
+      }
+
       await setUser(result.data.user)
     }
 

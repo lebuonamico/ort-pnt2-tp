@@ -5,7 +5,7 @@ import { useCurrency } from '../../composables/useCurrency'
 import { useBusqueda } from '../../composables/useBusqueda'
 import { usePagination } from '../../composables/usePagination'
 import PrimaryButton from '../../components/PrimaryButton.vue'
-import AddSupervisedUserModal from '../../components/admin/AddSupervisedUserModal.vue'
+import AddUserModal from '../../components/admin/AddUserModal.vue'
 import EstadoDatos from '../../components/EstadoDatos.vue'
 
 const admin = useAdminStore()
@@ -15,7 +15,7 @@ const modalOpen = ref(false)
 const cargando = ref(false)
 
 const { termino: search, resultados: filteredUsers } = useBusqueda(
-  computed(() => admin.supervisedUsers),
+  computed(() => admin.allUsers),
   ['email', 'id']
 )
 const { paginaActual: page, totalPaginas, itemsPaginados: pageItems, cambiarPagina: goToPage } =
@@ -25,7 +25,7 @@ const totalPages = computed(() => Math.max(1, totalPaginas.value))
 onMounted(async () => {
   cargando.value = true
   try {
-    await admin.loadSupervision()
+    await admin.loadAllUsers()
   } finally {
     cargando.value = false
   }
@@ -39,13 +39,6 @@ const initials = (u) => {
 const toggleStatus = async (user) => {
   await admin.toggleUserStatus(user.id, user.status || 'active')
 }
-
-const removeFromGroup = async (user) => {
-  const label = user.email || user.id
-  const ok = window.confirm(`¿Quitar a ${label} del grupo supervisado?`)
-  if (!ok) return
-  await admin.removeFromSupervision(user.id)
-}
 </script>
 
 <template>
@@ -55,9 +48,9 @@ const removeFromGroup = async (user) => {
 
       <header class="card-header">
         <div>
-          <h2 class="card-title">Grupo supervisado</h2>
+          <h2 class="card-title">Usuarios del sistema</h2>
           <p class="card-subtitle">
-            Usuarios que vas a ver reflejados en las estadísticas y movimientos del panel.
+            Todos los usuarios registrados, reflejados en las estadísticas y movimientos del panel.
           </p>
         </div>
         <div class="header-actions">
@@ -98,7 +91,7 @@ const removeFromGroup = async (user) => {
                 <template v-if="search">Sin resultados para esa búsqueda.</template>
                 <template v-else>
                   <span class="material-symbols-outlined empty-icon">group_add</span>
-                  <p class="empty-title">Tu grupo todavía no tiene usuarios</p>
+                  <p class="empty-title">Todavía no hay usuarios en el sistema</p>
                   <p class="empty-hint">Empezá agregando alguno con el botón de arriba.</p>
                 </template>
               </td>
@@ -134,15 +127,6 @@ const removeFromGroup = async (user) => {
                   >
                     {{ (user.status || 'active') === 'active' ? 'Suspender' : 'Activar' }}
                   </button>
-                  <button
-                    type="button"
-                    class="icon-button icon-button-danger"
-                    title="Quitar del grupo"
-                    :disabled="admin.loading"
-                    @click="removeFromGroup(user)"
-                  >
-                    <span class="material-symbols-outlined">person_remove</span>
-                  </button>
                 </div>
               </td>
             </tr>
@@ -176,12 +160,11 @@ const removeFromGroup = async (user) => {
         </div>
       </footer>
 
-      <p v-if="admin.errors.supervision" class="error-banner">{{ admin.errors.supervision }}</p>
-      <p v-if="admin.errors.removeUser" class="error-banner">{{ admin.errors.removeUser }}</p>
+      <p v-if="admin.errors.allUsers" class="error-banner">{{ admin.errors.allUsers }}</p>
 
     </article>
 
-    <AddSupervisedUserModal :open="modalOpen" @close="modalOpen = false" />
+    <AddUserModal :open="modalOpen" @close="modalOpen = false" />
 
   </div>
 </template>

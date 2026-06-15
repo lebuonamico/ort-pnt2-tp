@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { supabase } from '../lib/supabase'
+import { supabase, createIsolatedClient } from '../lib/supabase'
 import { useErrorTranslator } from '../composables/useErrorTranslator'
 import { CATEGORIES_BUCKET } from '../composables/useCategoryImage'
 import { useFechas } from '../composables/useFechas'
@@ -51,7 +51,6 @@ export const useAdminStore = defineStore('admin', () => {
   const stats = ref(emptyStats())
   const monthlyActivity = ref([])
   const categoryDistribution = ref([])
-  const supervisedUsers = ref([])
   const allUsers = ref([])
   const transactions = ref([])
   const transactionsTotal = ref(0)
@@ -62,18 +61,15 @@ export const useAdminStore = defineStore('admin', () => {
     stats: null,
     monthlyActivity: null,
     categoryDistribution: null,
-    supervision: null,
     allUsers: null,
     addUser: null,
-    removeUser: null,
     transactions: null,
     categories: null
   })
 
   const { esIngreso: isIncome } = useTipoTransaccion()
 
-  const supervisedIds = computed(() => supervisedUsers.value.map((u) => u.id))
-  const currentAdminId = ref(null)
+  const allUserIds = computed(() => allUsers.value.map((u) => u.id))
 
   const runQuery = async (key, action) => {
     loading.value = true
@@ -94,45 +90,6 @@ export const useAdminStore = defineStore('admin', () => {
     Object.values(errors.value).some((v) => v !== null)
   )
 
-  async function loadSupervision() {
-    return runQuery('supervision', async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        supervisedUsers.value = []
-        currentAdminId.value = null
-        return
-      }
-
-      currentAdminId.value = user.id
-
-      const { data: supRows, error: supErr } = await supabase
-        .from('admin_supervision')
-        .select('user_id, added_at')
-        .eq('admin_id', user.id)
-        .order('added_at', { ascending: false })
-
-      if (supErr) throw supErr
-
-      const ids = (supRows ?? []).map((r) => r.user_id)
-      if (ids.length === 0) {
-        supervisedUsers.value = []
-        return
-      }
-
-      const { data: profs, error: profErr } = await supabase
-        .from('profiles')
-        .select('id, email, role, status, created_at')
-        .in('id', ids)
-
-      if (profErr) throw profErr
-
-      const orderMap = new Map(ids.map((id, idx) => [id, idx]))
-      supervisedUsers.value = (profs ?? []).sort((a, b) =>
-        (orderMap.get(a.id) ?? 0) - (orderMap.get(b.id) ?? 0)
-      )
-    })
-  }
-
   async function loadAllUsers() {
     return runQuery('allUsers', async () => {
       const { data, error: err } = await supabase
@@ -145,55 +102,45 @@ export const useAdminStore = defineStore('admin', () => {
     })
   }
 
-  async function addToSupervision(userId) {
+  async function createUser({ fullName, email, password, role = 'user' }) {
     errors.value.addUser = null
     loading.value = true
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('Sesión inválida')
-      if (user.id === userId) throw new Error('No podés agregarte a vos mismo al grupo.')
+      const tempClient = createIsolatedClient()
+      const { data, error: signUpErr } = await tempClient.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: fullName } }
+      })
 
-      const { data, error: err } = await supabase
-        .from('admin_supervision')
-        .insert({ admin_id: user.id, user_id: userId })
-        .select()
-        .single()
+      if (signUpErr) throw signUpErr
 
-      if (err) throw err
+      const newUser = data?.user
+      if (!newUser?.id) throw new Error('No se pudo crear la cuenta del usuario.')
 
-      const added = allUsers.value.find((u) => u.id === userId)
-      if (added && !supervisedUsers.value.some((u) => u.id === userId)) {
-        supervisedUsers.value = [added, ...supervisedUsers.value]
+      const profile = {
+        id: newUser.id,
+        email,
+        role,
+        status: 'active',
+        created_at: newUser.created_at ?? new Date().toISOString()
+      }
+
+      const { error: profileErr } = await supabase
+        .from('profiles')
+        .upsert(profile, { onConflict: 'id' })
+
+      if (profileErr) throw profileErr
+
+      await tempClient.auth.signOut()
+
+      if (!allUsers.value.some((u) => u.id === newUser.id)) {
+        allUsers.value = [profile, ...allUsers.value]
       }
       return true
     } catch (err) {
-      console.error('[admin] addToSupervision:', err)
-      errors.value.addUser = err?.message || translateError(err?.message)
-      return false
-    } finally {
-      loading.value = false
-    }
-  }
-
-  async function removeFromSupervision(userId) {
-    errors.value.removeUser = null
-    loading.value = true
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('Sesión inválida')
-
-      const { error: err } = await supabase
-        .from('admin_supervision')
-        .delete()
-        .eq('admin_id', user.id)
-        .eq('user_id', userId)
-
-      if (err) throw err
-      supervisedUsers.value = supervisedUsers.value.filter((u) => u.id !== userId)
-      return true
-    } catch (err) {
-      console.error('[admin] removeFromSupervision:', err)
-      errors.value.removeUser = err?.message || translateError(err?.message)
+      console.error('[admin] createUser:', err)
+      errors.value.addUser = translateError(err?.message) || err?.message
       return false
     } finally {
       loading.value = false
@@ -202,7 +149,7 @@ export const useAdminStore = defineStore('admin', () => {
 
   async function loadStats() {
     return runQuery('stats', async () => {
-      const ids = supervisedIds.value
+      const ids = allUserIds.value
       if (ids.length === 0) {
         stats.value = emptyStats()
         return
@@ -236,7 +183,7 @@ export const useAdminStore = defineStore('admin', () => {
 
   async function loadMonthlyActivity() {
     return runQuery('monthlyActivity', async () => {
-      const ids = supervisedIds.value
+      const ids = allUserIds.value
       if (ids.length === 0) {
         monthlyActivity.value = emptyMonthlyBuckets()
         return
@@ -281,7 +228,7 @@ export const useAdminStore = defineStore('admin', () => {
 
   async function loadCategoryDistribution() {
     return runQuery('categoryDistribution', async () => {
-      const ids = supervisedIds.value
+      const ids = allUserIds.value
       if (ids.length === 0) {
         categoryDistribution.value = []
         return
@@ -308,7 +255,7 @@ export const useAdminStore = defineStore('admin', () => {
   }
 
   async function toggleUserStatus(id, currentStatus) {
-    return runQuery('supervision', async () => {
+    return runQuery('allUsers', async () => {
       const nextStatus = currentStatus === 'active' ? 'suspended' : 'active'
       const { error: err } = await supabase
         .from('profiles')
@@ -317,17 +264,14 @@ export const useAdminStore = defineStore('admin', () => {
 
       if (err) throw err
 
-      const target = supervisedUsers.value.find((u) => u.id === id)
+      const target = allUsers.value.find((u) => u.id === id)
       if (target) target.status = nextStatus
-
-      const inAll = allUsers.value.find((u) => u.id === id)
-      if (inAll) inAll.status = nextStatus
     })
   }
 
   async function loadTransactions({ page = 1, pageSize = 25 } = {}) {
     return runQuery('transactions', async () => {
-      const ids = supervisedIds.value
+      const ids = allUserIds.value
       if (ids.length === 0) {
         transactions.value = []
         transactionsTotal.value = 0
@@ -446,22 +390,12 @@ export const useAdminStore = defineStore('admin', () => {
     categories.value.filter((c) => c.tipo === 'ingreso')
   )
 
-  const availableUsers = computed(() => {
-    const supervisedSet = new Set(supervisedIds.value)
-    return allUsers.value.filter((u) =>
-      !supervisedSet.has(u.id) && u.id !== currentAdminId.value
-    )
-  })
-
   return {
     stats,
     monthlyActivity,
     categoryDistribution,
-    supervisedUsers,
-    supervisedIds,
-    currentAdminId,
     allUsers,
-    availableUsers,
+    allUserIds,
     transactions,
     transactionsTotal,
     categories,
@@ -470,10 +404,8 @@ export const useAdminStore = defineStore('admin', () => {
     loading,
     errors,
     hasAnyError,
-    loadSupervision,
     loadAllUsers,
-    addToSupervision,
-    removeFromSupervision,
+    createUser,
     loadStats,
     loadMonthlyActivity,
     loadCategoryDistribution,

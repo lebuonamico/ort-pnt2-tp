@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
@@ -7,8 +7,28 @@ import { useSidebar } from './composables/useSidebar'
 const route = useRoute()
 const hideNavbar = computed(() => route.meta.hideNavbar === true)
 const hideSidebar = computed(() => route.meta.hideSidebar === true)
-const { colapsado, toggleSidebar } = useSidebar()
+const { colapsado, toggleSidebar, cerrarSidebar } = useSidebar()
+
+const isMobile = ref(false)
+let mql = null
+function aplicarModo() {
+  const eraMobile = isMobile.value
+  isMobile.value = mql.matches
+  // Al pasar a mobile, cerrar el drawer para que no tape el contenido al cargar.
+  if (isMobile.value && !eraMobile) cerrarSidebar()
+}
+onMounted(() => {
+  mql = window.matchMedia('(max-width: 768px)')
+  isMobile.value = mql.matches
+  if (isMobile.value) cerrarSidebar()
+  mql.addEventListener('change', aplicarModo)
+})
+onUnmounted(() => {
+  if (mql) mql.removeEventListener('change', aplicarModo)
+})
+
 const sidebarWidth = computed(() => {
+  if (isMobile.value) return '0px'
   if (hideSidebar.value || colapsado.value) return '0px'
   return '240px'
 })
@@ -17,6 +37,12 @@ const sidebarWidth = computed(() => {
 <template>
   <div class="app-layout" :style="{ '--sidebar-width': sidebarWidth }">
     <Sidebar v-if="!hideSidebar" />
+
+    <div
+      v-if="!hideSidebar && isMobile && !colapsado"
+      class="sidebar-backdrop"
+      @click="cerrarSidebar"
+    ></div>
 
     <button
       v-if="!hideSidebar"
@@ -49,6 +75,19 @@ const sidebarWidth = computed(() => {
 
 .app-main-full {
   padding-top: 0;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    margin-left: 0 !important;
+  }
 }
 
 .sidebar-toggle-bar {

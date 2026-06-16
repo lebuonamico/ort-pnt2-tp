@@ -21,6 +21,7 @@ const {
   datosFlujo,
   categoriasDoughnut,
   montosDoughnut,
+  datosIngresos,
 } = useEstadisticas(transacciones)
 
 onMounted(() => {

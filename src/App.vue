@@ -3,10 +3,14 @@ import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
+import AiChatWidget from './components/AiChatWidget.vue'
 import { useSidebar } from './composables/useSidebar'
+import { useAuthStore } from './stores/auth'
 const route = useRoute()
+const auth = useAuthStore()
 const hideNavbar = computed(() => route.meta.hideNavbar === true)
 const hideSidebar = computed(() => route.meta.hideSidebar === true)
+const mostrarChatIa = computed(() => auth.isAuthenticated && !hideSidebar.value)
 const { colapsado, toggleSidebar, cerrarSidebar } = useSidebar()
 
 const isMobile = ref(false)
@@ -58,6 +62,8 @@ const sidebarWidth = computed(() => {
     <main :class="['app-main', { 'app-main-full': hideNavbar }]">
       <RouterView />
     </main>
+
+    <AiChatWidget v-if="mostrarChatIa" />
   </div>
 </template>
 

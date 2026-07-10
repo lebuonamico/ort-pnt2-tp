@@ -3,10 +3,12 @@ import { computed, ref } from 'vue'
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js'
 import { useFechas } from '../composables/useFechas'
+import { useChartColors } from '../composables/useChartColors'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
 const { parseLocalDate } = useFechas()
+const chartColors = useChartColors()
 
 const props = defineProps({
   transacciones: {
@@ -108,7 +110,7 @@ const chartData = computed(() => ({
   ]
 }))
 
-const chartOptions = {
+const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -117,12 +119,12 @@ const chartOptions = {
   scales: {
     y: {
       beginAtZero: true,
-      grid: { color: 'rgba(15,23,42,0.05)' },
-      ticks: { color: '#64748b', font: { family: 'Work Sans', size: 11 } }
+      grid: { color: chartColors.grid.value },
+      ticks: { color: chartColors.tick.value, font: { family: 'Work Sans', size: 11 } }
     },
-    x: { grid: { display: false }, ticks: { color: '#64748b', font: { family: 'Work Sans', size: 11 } } }
+    x: { grid: { display: false }, ticks: { color: chartColors.tick.value, font: { family: 'Work Sans', size: 11 } } }
   }
-}
+}))
 </script>
 
 <template>
@@ -164,7 +166,7 @@ const chartOptions = {
 
 .toggle-periodo {
   display: flex;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   border-radius: 10px;
   padding: 4px;
   gap: 4px;
@@ -178,12 +180,12 @@ const chartOptions = {
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .toggle-periodo button.activo {
-  background: white;
-  color: #006a61;
+  background: var(--color-surface);
+  color: var(--color-accent);
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 

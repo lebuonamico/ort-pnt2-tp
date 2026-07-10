@@ -186,7 +186,7 @@ const currentDate = fechaLarga()
             </p>
 
             <p
-              style="color:#006a61;font-weight:bold;"
+              style="color:var(--color-accent);font-weight:bold;"
             >
               legales@finanzaspro.com
             </p>
@@ -211,8 +211,8 @@ const currentDate = fechaLarga()
 
 .privacy-page {
   min-height: 100vh;
-  background: #f8f9ff;
-  color: #0b1c30;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
   font-family: 'Work Sans', sans-serif;
 }
 
@@ -229,8 +229,8 @@ const currentDate = fechaLarga()
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.84);
-  border-bottom: 1px solid #d3e4fe;
+  background: var(--color-navbar-bg);
+  border-bottom: 1px solid var(--color-border);
   backdrop-filter: blur(14px);
 }
 
@@ -252,7 +252,7 @@ const currentDate = fechaLarga()
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #45464d;
+  color: var(--color-text-secondary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -261,7 +261,7 @@ const currentDate = fechaLarga()
 }
 
 .back-button:hover {
-  background: #eff4ff;
+  background: var(--color-accent-soft);
 }
 
 .brand-name {
@@ -271,7 +271,7 @@ const currentDate = fechaLarga()
 }
 
 .legal-label {
-  color: #7c839b;
+  color: var(--color-text-muted);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -300,7 +300,7 @@ const currentDate = fechaLarga()
 .policy-title p {
   max-width: 720px;
   margin: 0;
-  color: #45464d;
+  color: var(--color-text-secondary);
   font-size: 18px;
   line-height: 1.6;
 }
@@ -308,10 +308,10 @@ const currentDate = fechaLarga()
 .security-visual {
   margin-bottom: 72px;
   overflow: hidden;
-  border: 1px solid #0b1c30;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   aspect-ratio: 17 / 9;
-  background: #d3e4fe;
+  background: var(--color-surface-2);
 }
 
 .security-visual img {
@@ -343,20 +343,20 @@ const currentDate = fechaLarga()
 .usage-card p,
 .policy-list p {
   margin: 0;
-  color: #45464d;
+  color: var(--color-text-secondary);
   font-size: 16px;
   line-height: 1.65;
 }
 
 .content-block strong,
 .policy-list strong {
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .policy-list {
   margin: 26px 0 0;
   padding: 0 0 0 26px;
-  border-left: 2px solid #86f2e4;
+  border-left: 2px solid var(--color-accent);
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -371,20 +371,20 @@ const currentDate = fechaLarga()
 
 .policy-list .material-symbols-outlined {
   margin-top: 2px;
-  color: #006a61;
+  color: var(--color-accent);
   font-size: 20px;
 }
 
 .highlight-card {
   padding: 32px;
-  border: 1px solid #d3e4fe;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #eff4ff;
+  background: var(--color-accent-soft);
 }
 
 .highlight-card h3 {
   margin: 0 0 14px;
-  color: #006a61;
+  color: var(--color-accent);
   font-family: 'Manrope', sans-serif;
   font-size: 20px;
   font-weight: 600;
@@ -399,19 +399,19 @@ const currentDate = fechaLarga()
 
 .usage-card {
   padding: 20px;
-  border: 1px solid rgba(198, 198, 205, 0.5);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .usage-card .material-symbols-outlined {
   margin-bottom: 10px;
-  color: #009668;
+  color: var(--color-success);
 }
 
 .usage-card h3 {
   margin: 0 0 8px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -424,7 +424,7 @@ const currentDate = fechaLarga()
 .questions {
   margin-top: 56px;
   padding: 48px 0 80px;
-  border-top: 1px solid #d3e4fe;
+  border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -441,8 +441,8 @@ const currentDate = fechaLarga()
   height: 48px;
   padding: 0 22px;
   border-radius: 8px;
-  background: #006a61;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -451,20 +451,20 @@ const currentDate = fechaLarga()
 }
 
 .support-button:hover {
-  background: #005049;
+  background: var(--color-accent-hover);
 }
 
 .legal-footer {
   padding: 32px 24px;
-  border-top: 1px solid #d3e4fe;
-  background: #ffffff;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
   text-align: center;
 }
 
 .legal-footer p {
   width: min(1280px, 100%);
   margin: 0 auto;
-  color: #7c839b;
+  color: var(--color-text-muted);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;

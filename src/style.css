@@ -5,11 +5,28 @@
   --navbar-height: 80px;
 
   --color-bg-page:     #f8f9ff;
+  --color-surface:     #ffffff;
+  --color-surface-2:   #f1f5f9;
+
+
   --color-border:      #c6c6cd;
-  --color-accent:      #006a61;
+
+  --color-accent:        #006a61;
+  --color-accent-hover:  #00857a;
+  --color-on-accent:     #ffffff;
+  --color-accent-soft:   rgba(0, 106, 97, 0.08);
+
   --color-text-primary:   #0b1c30;
   --color-text-secondary: #45464d;
   --color-text-muted:     #64748b;
+
+  --color-success:     #1d9e75;
+  --color-success-bg:  #e6f4f3;
+  --color-danger:      #ba1a1a;
+  --color-danger-bg:   #ffdad6;
+
+  --color-navbar-bg:   rgba(248, 249, 255, 0.78);
+  --color-backdrop:    rgba(0, 0, 0, 0.45);
 
   --shadow-card:       0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-card-hover: 0 8px 24px rgba(15, 23, 42, 0.06);
@@ -18,26 +35,71 @@
 
   --font-heading: 'Manrope', sans-serif;
   --font-body:    'Work Sans', sans-serif;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --color-bg-page:     #0f1417;
+  --color-surface:     #171d21;
+  --color-surface-2:   #1e262b;
+
+  --color-border:      #2c353b;
+
+  --color-accent:        #5fd6c6;
+  --color-accent-hover:  #7ee0d2;
+  --color-on-accent:     #05221f;
+  --color-accent-soft:   rgba(95, 214, 198, 0.14);
+
+  --color-text-primary:   #e6eaed;
+  --color-text-secondary: #b3bcc2;
+  --color-text-muted:     #8b969d;
+
+  --color-success:     #6bd8cb;
+  --color-success-bg:  rgba(29, 158, 117, 0.18);
+  --color-danger:      #ffb4ab;
+  --color-danger-bg:   rgba(186, 26, 26, 0.20);
+
+  --color-navbar-bg:   rgba(15, 20, 23, 0.72);
+  --color-backdrop:    rgba(0, 0, 0, 0.65);
+
+  --shadow-card:       0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 10px 28px rgba(0, 0, 0, 0.5);
+
+  color-scheme: dark;
+}
+
+body,
+.app-page,
+.app-card,
+.app-main {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 html, body, #app { min-height: 100%; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
 
 .app-main {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(6, 95, 77, 0.6) rgba(15, 23, 42, 0.04);
+  scrollbar-color: var(--color-accent-soft) transparent;
 }
 
 .app-main::-webkit-scrollbar { width: 10px; }
 .app-main::-webkit-scrollbar-track { background: transparent; }
 .app-main::-webkit-scrollbar-thumb {
-  background-color: rgba(6, 95, 77, 0.12);
+  background-color: var(--color-accent-soft);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
-.app-main::-webkit-scrollbar-thumb:hover { background-color: rgba(6, 95, 77, 0.2); }
+.app-main::-webkit-scrollbar-thumb:hover { background-color: var(--color-accent); }
 
 @media (max-width: 640px) {
   :root { --navbar-height: 64px; }
@@ -64,8 +126,8 @@ html, body, #app { min-height: 100%; margin: 0; padding: 0; }
 }
 
 .app-page-header {
-  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg-page) 100%);
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg-page) 100%);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .app-page-header-inner {
@@ -112,7 +174,7 @@ html, body, #app { min-height: 100%; margin: 0; padding: 0; }
 }
 
 .app-card {
-  background: #ffffff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: 24px;

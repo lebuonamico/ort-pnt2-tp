@@ -349,28 +349,28 @@ const confirmDelete = async (category) => {
   font-family: 'Manrope', sans-serif;
   font-size: 20px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .section-subtitle {
   margin: 4px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
-  color: #64748b;
+  color: var(--color-text-muted);
   max-width: 560px;
 }
 
 .card {
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card);
 }
 
 .form-card {
-  border-color: rgba(0, 106, 97, 0.4);
-  box-shadow: 0 8px 24px rgba(0, 106, 97, 0.06);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .form-title {
@@ -378,7 +378,7 @@ const confirmDelete = async (category) => {
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .category-form {
@@ -404,7 +404,7 @@ const confirmDelete = async (category) => {
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #475569;
+  color: var(--color-text-secondary);
 }
 
 .image-field {
@@ -424,13 +424,13 @@ const confirmDelete = async (category) => {
   height: 44px;
   border-radius: 12px;
   flex-shrink: 0;
-  background: #f1f5f9;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .image-preview img {
@@ -453,7 +453,7 @@ const confirmDelete = async (category) => {
 .image-remove {
   border: none;
   background: transparent;
-  color: #93000a;
+  color: var(--color-danger);
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -464,7 +464,7 @@ const confirmDelete = async (category) => {
 }
 
 .image-remove:hover:not(:disabled) {
-  background: rgba(186, 26, 26, 0.08);
+  background: var(--color-danger-bg);
 }
 
 .image-remove:disabled {
@@ -476,7 +476,7 @@ const confirmDelete = async (category) => {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #93000a;
+  color: var(--color-danger);
 }
 
 .visually-hidden {
@@ -504,12 +504,12 @@ const confirmDelete = async (category) => {
   gap: 6px;
   padding: 12px 14px;
   border: 2px solid transparent;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   border-radius: 14px;
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #45464d;
+  color: var(--color-text-secondary);
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
@@ -519,9 +519,9 @@ const confirmDelete = async (category) => {
 .type-option .material-symbols-outlined { font-size: 18px; }
 
 .type-option.active {
-  border-color: #006a61;
-  background: white;
-  color: #006a61;
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+  color: var(--color-accent);
 }
 
 .form-actions {
@@ -538,20 +538,20 @@ const confirmDelete = async (category) => {
 }
 
 .category-card {
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .category-card:hover {
-  border-color: #006a61;
-  box-shadow: 0 8px 24px rgba(0, 106, 97, 0.08);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-2px);
 }
 
@@ -573,13 +573,13 @@ const confirmDelete = async (category) => {
 }
 
 .icon-expense {
-  background: rgba(186, 26, 26, 0.08);
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .icon-income {
-  background: rgba(134, 242, 228, 0.4);
-  color: #006a61;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .category-info {
@@ -592,7 +592,7 @@ const confirmDelete = async (category) => {
   font-family: 'Manrope', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .category-meta {
@@ -606,7 +606,7 @@ const confirmDelete = async (category) => {
 .category-desc {
   font-family: 'Work Sans', sans-serif;
   font-size: 12px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .chip {
@@ -618,13 +618,13 @@ const confirmDelete = async (category) => {
 }
 
 .chip-income {
-  background: rgba(134, 242, 228, 0.4);
-  color: #006a61;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .chip-expense {
-  background: rgba(186, 26, 26, 0.1);
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .category-actions {
@@ -638,7 +638,7 @@ const confirmDelete = async (category) => {
   border: none;
   background: transparent;
   border-radius: 8px;
-  color: #64748b;
+  color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -647,13 +647,13 @@ const confirmDelete = async (category) => {
 }
 
 .icon-button:hover {
-  background: rgba(0, 106, 97, 0.06);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .icon-button-danger:hover {
-  background: rgba(186, 26, 26, 0.08);
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .icon-button .material-symbols-outlined { font-size: 18px; }
@@ -671,28 +671,28 @@ const confirmDelete = async (category) => {
   margin: 8px 0 0;
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .empty-card p {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
 .empty-icon {
   font-size: 48px;
-  color: #c6c6cd;
+  color: var(--color-text-muted);
 }
 
 .error-banner {
   margin: 0;
   padding: 12px 16px;
-  border: 1px solid #ffb4ab;
+  border: 1px solid var(--color-danger);
   border-radius: 8px;
-  background: #ffdad6;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
 }

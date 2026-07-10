@@ -49,7 +49,7 @@ defineProps({
 .titulo {
   font-size: 12px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: var(--font-body);
@@ -89,13 +89,13 @@ defineProps({
 }
 
 .badge-variacion.positivo {
-  background: #d1fae5;
-  color: #166534;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .badge-variacion.negativo {
-  background: #fee2e2;
-  color: #92400e;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .sin-datos {

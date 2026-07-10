@@ -109,8 +109,8 @@ const handleRegister = () => {
 }
 
 .page {
-  background: #f8f9ff;
-  color: #0b1c30;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
   overflow-x: hidden;
   min-height: 100%;
   font-family: 'Work Sans', sans-serif;
@@ -148,18 +148,18 @@ const handleRegister = () => {
   line-height: 1.05;
   font-weight: 800;
   letter-spacing: -3px;
-  color: #0f172a;
+  color: var(--color-text-primary);
 }
 
 .hero-text span {
-  color: #006a61;
+  color: var(--color-accent);
 }
 
 .hero-text p {
   margin-top: 34px;
   font-size: 22px;
   line-height: 1.7;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .hero-image-wrapper {
@@ -170,7 +170,7 @@ const handleRegister = () => {
 .hero-blur {
   position: absolute;
   inset: 0;
-  background: rgba(0, 106, 97, 0.08);
+  background: var(--color-accent-soft);
   filter: blur(120px);
   z-index: 0;
 }
@@ -181,13 +181,13 @@ const handleRegister = () => {
   width: 100%;
   max-width: 900px;
   border-radius: 24px;
-  border: 1px solid rgba(198, 198, 205, 0.3);
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .benefits {
   padding: 90px 0;
-  border-top: 1px solid rgba(198, 198, 205, 0.15);
+  border-top: 1px solid var(--color-border);
 }
 
 .benefits-grid {
@@ -205,8 +205,8 @@ const handleRegister = () => {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: rgba(0, 106, 97, 0.08);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,12 +223,12 @@ const handleRegister = () => {
   line-height: 1.3;
   font-weight: 600;
   letter-spacing: -1px;
-  color: #0f172a;
+  color: var(--color-text-primary);
 }
 
 .benefit-card p {
   margin-top: 18px;
-  color: #45464d;
+  color: var(--color-text-secondary);
   font-size: 18px;
   line-height: 1.7;
 }

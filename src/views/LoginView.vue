@@ -105,7 +105,7 @@ const handleToggle = () => {
   align-items: center;
   padding: 16px;
   box-sizing: border-box;
-  background: #f8f9ff;
+  background: var(--color-bg-page);
 }
 
 .login-container {
@@ -126,7 +126,7 @@ const handleToggle = () => {
 
 .brand-icon {
   font-size: 40px;
-  color: #006a61;
+  color: var(--color-accent);
   display: flex;
   align-items: center;
 }
@@ -135,18 +135,18 @@ const handleToggle = () => {
   font-family: 'Manrope', sans-serif;
   font-size: 32px;
   font-weight: 800;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   letter-spacing: -0.5px;
   text-decoration: none;
 }
 
 .login-card {
   width: 100%;
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 24px;
   padding: 48px;
-  box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -154,14 +154,14 @@ const handleToggle = () => {
   font-family: 'Manrope', sans-serif;
   font-size: 30px;
   font-weight: 600;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
 }
 
 .card-subtitle {
   font-family: 'Work Sans', sans-serif;
   font-size: 18px;
-  color: #45464d;
+  color: var(--color-text-secondary);
   margin-bottom: 32px;
   line-height: 1.5;
 }
@@ -182,7 +182,7 @@ const handleToggle = () => {
   font-family: 'Work Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: #45464d;
+  color: var(--color-text-secondary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -197,7 +197,7 @@ const handleToggle = () => {
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #006a61;
+  color: var(--color-accent);
   text-decoration: none;
 }
 
@@ -215,7 +215,7 @@ const handleToggle = () => {
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #76777d;
+  color: var(--color-text-muted);
   font-size: 20px;
 }
 
@@ -224,20 +224,20 @@ const handleToggle = () => {
   height: 52px;
   padding-left: 40px;
   padding-right: 16px;
-  border: 1px solid #c6c6cd;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #f8f9ff;
+  background: var(--color-surface-2);
   font-family: 'Work Sans', sans-serif;
   font-size: 16px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .input:focus {
   outline: none;
-  border-color: #006a61;
-  box-shadow: 0 0 0 2px rgba(0, 106, 97, 0.1);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-soft);
 }
 
 .password-input {
@@ -252,7 +252,7 @@ const handleToggle = () => {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #76777d;
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -267,7 +267,7 @@ const handleToggle = () => {
 .checkbox {
   width: 16px;
   height: 16px;
-  accent-color: #006a61;
+  accent-color: var(--color-accent);
 }
 
 
@@ -279,7 +279,7 @@ const handleToggle = () => {
 .divider span {
   width: 100%;
   height: 1px;
-  background: #c6c6cd;
+  background: var(--color-border);
   display: block;
 }
 
@@ -287,14 +287,14 @@ const handleToggle = () => {
   margin-top: 32px;
   font-family: 'Work Sans', sans-serif;
   font-size: 16px;
-  color: #45464d;
+  color: var(--color-text-secondary);
   text-align: center;
 }
 
 .register-link {
   background: transparent;
   border: none;
-  color: #006a61;
+  color: var(--color-accent);
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;
@@ -305,9 +305,9 @@ const handleToggle = () => {
 }
 
 .error-box {
-  background: #ffdad6;
-  border: 1px solid #ba1a1a;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 24px;

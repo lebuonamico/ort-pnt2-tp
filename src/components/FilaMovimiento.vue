@@ -50,9 +50,9 @@ function formatearMonto(monto, tipo) {
 <style scoped>
 td {
   padding: 14px 16px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-border);
   font-size: 14px;
-  color: #0f172a;
+  color: var(--color-text-primary);
   vertical-align: middle;
 }
 
@@ -66,7 +66,7 @@ td {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,7 +82,7 @@ td {
 
 .icono-fallback {
   font-size: 18px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .badge {
@@ -93,17 +93,17 @@ td {
 }
 
 .badge.ingreso {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .badge.gasto {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
-.positivo { color: #006a61; font-weight: 700; }
-.negativo { color: #dc2626; font-weight: 700; }
+.positivo { color: var(--color-accent); font-weight: 700; }
+.negativo { color: var(--color-danger); font-weight: 700; }
 
 .acciones-inner {
   display: flex;
@@ -121,8 +121,8 @@ td {
   transition: background 0.2s;
 }
 
-.btn-editar:hover { background: #e6f4f3; }
-.btn-eliminar:hover { background: #fee2e2; }
+.btn-editar:hover { background: var(--color-accent-soft); }
+.btn-eliminar:hover { background: var(--color-danger-bg); }
 
 @media (max-width: 768px) {
   td:nth-child(1) { display: none; }

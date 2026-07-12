@@ -36,15 +36,16 @@ const goHome = () => {
 h1 {
   font-size: 6rem;
   margin: 0;
-  color: #006a61;
+  color: var(--color-accent);
 }
 
 h2 {
   margin: 0 0 1rem 0;
+  color: var(--color-text-primary);
 }
 
 p {
-  color: #45464d;
+  color: var(--color-text-secondary);
   margin-bottom: 2rem;
 }
 

@@ -10,8 +10,11 @@ import {
   CategoryScale,
   LinearScale
 } from 'chart.js'
+import { useChartColors } from '../../composables/useChartColors'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+
+const chartColors = useChartColors()
 
 const props = defineProps({
   labels: {
@@ -50,13 +53,13 @@ const chartData = computed(() => ({
   ]
 }))
 
-const chartOptions = {
+const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: '#0f172a',
+      backgroundColor: chartColors.tooltipBg.value,
       titleFont: { family: 'Work Sans' },
       bodyFont: { family: 'Work Sans' },
       padding: 12,
@@ -67,20 +70,20 @@ const chartOptions = {
     x: {
       grid: { display: false },
       ticks: {
-        color: '#64748b',
+        color: chartColors.tick.value,
         font: { family: 'Work Sans', size: 11 }
       }
     },
     y: {
       beginAtZero: true,
-      grid: { color: 'rgba(15,23,42,0.05)' },
+      grid: { color: chartColors.grid.value },
       ticks: {
-        color: '#64748b',
+        color: chartColors.tick.value,
         font: { family: 'Work Sans', size: 11 }
       }
     }
   }
-}
+}))
 </script>
 
 <template>

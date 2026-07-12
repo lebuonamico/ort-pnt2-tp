@@ -7,8 +7,11 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import { useChartColors } from '../../composables/useChartColors'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
+
+const chartColors = useChartColors()
 
 const PALETTE = [
   '#006a61',
@@ -38,14 +41,14 @@ const chartData = computed(() => ({
     {
       data: props.data,
       backgroundColor: props.labels.map((_, i) => PALETTE[i % PALETTE.length]),
-      borderColor: '#ffffff',
+      borderColor: chartColors.surface.value,
       borderWidth: 3,
       hoverOffset: 8
     }
   ]
 }))
 
-const chartOptions = {
+const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   cutout: '62%',
@@ -53,7 +56,7 @@ const chartOptions = {
     legend: {
       position: 'bottom',
       labels: {
-        color: '#0b1c30',
+        color: chartColors.legend.value,
         font: { family: 'Work Sans', size: 12 },
         padding: 12,
         boxWidth: 12,
@@ -62,14 +65,14 @@ const chartOptions = {
       }
     },
     tooltip: {
-      backgroundColor: '#0f172a',
+      backgroundColor: chartColors.tooltipBg.value,
       titleFont: { family: 'Work Sans' },
       bodyFont: { family: 'Work Sans' },
       padding: 12,
       cornerRadius: 8
     }
   }
-}
+}))
 </script>
 
 <template>

@@ -68,33 +68,33 @@ const buttonClass = computed(() => {
 }
 
 .primary {
-  background: #006a61;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 .primary:hover:not(:disabled) {
-  background: #00554d;
+  background: var(--color-accent-hover);
 }
 
 .dark {
-  background: #0f172a;
-  color: white;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+  background: var(--color-text-primary);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .dark:hover:not(:disabled) {
-  background: #1e293b;
+  opacity: 0.9;
   transform: translateY(-1px);
 }
 
 .outline {
   background: transparent;
-  border: 1px solid #c6c6cd;
-  color: #0f172a;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .outline:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.03);
+  background: var(--color-accent-soft);
 }
 
 .primary-button:disabled {

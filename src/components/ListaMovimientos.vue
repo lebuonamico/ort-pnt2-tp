@@ -66,13 +66,13 @@ const { paginaActual, porPagina, totalPaginas, itemsPaginados, cambiarPagina } =
 .lista-header h3 {
   font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-primary);
 }
 
 .btn-ver-todos {
   background: none;
   border: none;
-  color: #006a61;
+  color: var(--color-accent);
   font-weight: 600;
   cursor: pointer;
   font-size: 14px;

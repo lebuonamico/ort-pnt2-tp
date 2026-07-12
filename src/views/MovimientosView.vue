@@ -227,7 +227,7 @@ onMounted(async () => {
 
 .input-busqueda {
   padding: 9px 12px 9px 36px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   font-size: 14px;
   width: 100%;
@@ -240,7 +240,7 @@ onMounted(async () => {
 
 .select-filtro {
   padding: 9px 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   font-size: 14px;
   width: 100%;
@@ -272,14 +272,14 @@ thead th {
   font-weight: 600;
   color: var(--color-text-muted);
   padding: 14px 16px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-border);
   letter-spacing: 0.04em;
 }
 
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-backdrop);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -287,7 +287,7 @@ thead th {
 }
 
 .confirmar-modal {
-  background: white;
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: 32px;
   width: 100%;
@@ -308,9 +308,10 @@ thead th {
 .btn-cancelar {
   flex: 1;
   padding: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: white;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   cursor: pointer;
   font-family: var(--font-body);
   font-weight: 600;
@@ -330,7 +331,7 @@ thead th {
   font-size: 14px;
 }
 
-.btn-cancelar:hover { background: #f8fafc; }
+.btn-cancelar:hover { background: var(--color-surface-2); }
 .btn-eliminar:hover { background: #b91c1c; }
 
 @media (max-width: 768px) {

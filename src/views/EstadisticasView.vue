@@ -138,17 +138,17 @@ onMounted(async () => {
 .header h1 {
   font-size: 32px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-family: 'Manrope', sans-serif;
 }
 .header p {
-  color: #94a3b8;
+  color: var(--color-text-muted);
   font-size: 14px;
   font-family: 'Work Sans', sans-serif;
 }
 .periodo-selector {
   display: flex;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   border-radius: 10px;
   padding: 4px;
   gap: 4px;
@@ -161,13 +161,13 @@ onMounted(async () => {
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-family: 'Work Sans', sans-serif;
   transition: all 0.15s;
 }
 .periodo-selector button.activo {
-  background: #006a61;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 .cards {
@@ -177,15 +177,15 @@ onMounted(async () => {
 }
 .card {
   min-width: 0;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 24px;
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.2s;
 }
-.card:hover { box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+.card:hover { box-shadow: var(--shadow-card-hover); }
 .card-icon-row {
   display: flex;
   justify-content: space-between;
@@ -194,7 +194,7 @@ onMounted(async () => {
 }
 .card-icon {
   font-size: 22px;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   padding: 8px;
   border-radius: 10px;
 }
@@ -205,18 +205,18 @@ onMounted(async () => {
   border-radius: 20px;
   font-family: 'Work Sans', sans-serif;
 }
-.badge-gasto { background: rgba(0,33,19,0.08); color: #009668; }
-.badge-ahorro { background: rgba(0,106,97,0.12); color: #006a61; }
+.badge-gasto { background: var(--color-success-bg); color: var(--color-success); }
+.badge-ahorro { background: var(--color-accent-soft); color: var(--color-accent); }
 .card-label {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   font-family: 'Work Sans', sans-serif;
   margin-bottom: 4px;
 }
 .card-valor {
   font-size: 24px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-family: 'Manrope', sans-serif;
   margin: 0;
 }
@@ -224,21 +224,21 @@ onMounted(async () => {
 .card-valor-sm {
   font-size: 22px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-family: 'Manrope', sans-serif;
 }
-.card-sub { font-size: 13px; color: #94a3b8; font-family: 'Work Sans', sans-serif; }
+.card-sub { font-size: 13px; color: var(--color-text-muted); font-family: 'Work Sans', sans-serif; }
 .progress-bar {
   width: 100%;
   height: 6px;
-  background: #e2e8f0;
+  background: var(--color-surface-2);
   border-radius: 999px;
   margin-top: 12px;
   overflow: hidden;
 }
 .progress-fill {
   height: 100%;
-  background: #006a61;
+  background: var(--color-accent);
   border-radius: 999px;
   transition: width 0.6s ease;
 }
@@ -248,8 +248,8 @@ onMounted(async () => {
   gap: 24px;
 }
 .grafico-card {
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 24px;
   min-width: 0;
@@ -265,13 +265,13 @@ onMounted(async () => {
 .grafico-card h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-family: 'Manrope', sans-serif;
   margin-bottom: 4px;
 }
 .grafico-card p {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   font-family: 'Work Sans', sans-serif;
   margin-bottom: 16px;
 }
@@ -283,7 +283,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 .leyenda-item::before {
   content: '';

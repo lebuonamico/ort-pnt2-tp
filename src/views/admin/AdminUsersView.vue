@@ -173,10 +173,10 @@ const toggleStatus = async (user) => {
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
 .card {
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -186,7 +186,7 @@ const toggleStatus = async (user) => {
   align-items: flex-start;
   gap: 16px;
   padding: 24px;
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
 }
 
@@ -195,14 +195,14 @@ const toggleStatus = async (user) => {
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .card-subtitle {
   margin: 4px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .header-actions {
@@ -216,7 +216,7 @@ const toggleStatus = async (user) => {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   border: 2px solid transparent;
   border-radius: 999px;
   padding: 8px 16px;
@@ -225,13 +225,13 @@ const toggleStatus = async (user) => {
 }
 
 .search-box:focus-within {
-  border-color: #006a61;
-  background: white;
+  border-color: var(--color-accent);
+  background: var(--color-surface);
 }
 
 .search-box .material-symbols-outlined {
   font-size: 20px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .search-box input {
@@ -240,7 +240,7 @@ const toggleStatus = async (user) => {
   outline: none;
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   width: 100%;
 }
 
@@ -255,7 +255,7 @@ const toggleStatus = async (user) => {
 }
 
 .data-table thead tr {
-  background: rgba(229, 238, 255, 0.4);
+  background: var(--color-surface-2);
 }
 
 .data-table th {
@@ -265,23 +265,23 @@ const toggleStatus = async (user) => {
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #64748b;
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .data-table tbody tr {
-  border-bottom: 1px solid rgba(198, 198, 205, 0.25);
+  border-bottom: 1px solid var(--color-border);
   transition: background 0.2s ease;
 }
 
 .data-table tbody tr:hover {
-  background: rgba(248, 249, 255, 0.6);
+  background: var(--color-surface-2);
 }
 
 .data-table td {
   padding: 14px 20px;
   font-size: 14px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   vertical-align: middle;
 }
 
@@ -299,8 +299,8 @@ const toggleStatus = async (user) => {
   width: 36px;
   height: 36px;
   border-radius: 999px;
-  background: rgba(134, 242, 228, 0.5);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
   font-weight: 700;
   font-size: 12px;
   display: flex;
@@ -315,16 +315,16 @@ const toggleStatus = async (user) => {
 
 .user-email {
   font-weight: 600;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .user-id {
   font-size: 12px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .cell-date {
-  color: #45464d;
+  color: var(--color-text-secondary);
   font-variant-numeric: tabular-nums;
 }
 
@@ -338,23 +338,23 @@ const toggleStatus = async (user) => {
 }
 
 .chip-admin {
-  background: rgba(15, 23, 42, 0.08);
-  color: #0f172a;
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
 }
 
 .chip-user {
-  background: rgba(0, 106, 97, 0.1);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .chip-active {
-  background: rgba(134, 242, 228, 0.4);
-  color: #006a61;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .chip-suspended {
-  background: rgba(186, 26, 26, 0.1);
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .row-actions {
@@ -366,8 +366,8 @@ const toggleStatus = async (user) => {
 
 .action-button {
   background: transparent;
-  border: 1px solid #c6c6cd;
-  color: #0f172a;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
   padding: 6px 14px;
   border-radius: 8px;
   font-family: 'Work Sans', sans-serif;
@@ -380,10 +380,10 @@ const toggleStatus = async (user) => {
 .icon-button {
   width: 32px;
   height: 32px;
-  border: 1px solid #c6c6cd;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: white;
-  color: #64748b;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -401,15 +401,15 @@ const toggleStatus = async (user) => {
 }
 
 .icon-button-danger:hover:not(:disabled) {
-  background: rgba(186, 26, 26, 0.08);
-  border-color: #ba1a1a;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
 }
 
 .action-button:hover:not(:disabled) {
-  background: rgba(0, 106, 97, 0.06);
-  border-color: #006a61;
-  color: #006a61;
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .action-button:disabled {
@@ -420,12 +420,12 @@ const toggleStatus = async (user) => {
 .empty-row {
   text-align: center;
   padding: 40px 24px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .empty-icon {
   font-size: 48px;
-  color: #c6c6cd;
+  color: var(--color-text-muted);
   display: block;
 }
 
@@ -434,14 +434,14 @@ const toggleStatus = async (user) => {
   font-family: 'Manrope', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .empty-hint {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .table-footer {
@@ -449,14 +449,14 @@ const toggleStatus = async (user) => {
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  border-top: 1px solid rgba(198, 198, 205, 0.4);
-  background: rgba(248, 249, 255, 0.4);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-2);
   font-family: 'Work Sans', sans-serif;
 }
 
 .table-summary {
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .pagination {
@@ -468,10 +468,10 @@ const toggleStatus = async (user) => {
 .page-button {
   width: 32px;
   height: 32px;
-  border: 1px solid #c6c6cd;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: white;
-  color: #45464d;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -480,8 +480,8 @@ const toggleStatus = async (user) => {
 }
 
 .page-button:hover:not(:disabled) {
-  background: rgba(0, 106, 97, 0.06);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .page-button:disabled {
@@ -496,17 +496,17 @@ const toggleStatus = async (user) => {
 .page-indicator {
   font-size: 13px;
   font-weight: 600;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   padding: 0 4px;
 }
 
 .error-banner {
   margin: 16px 24px;
   padding: 12px 16px;
-  border: 1px solid #ffb4ab;
+  border: 1px solid var(--color-danger);
   border-radius: 8px;
-  background: #ffdad6;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
 }

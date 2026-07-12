@@ -84,10 +84,10 @@ defineEmits([
   align-items: flex-end;
   width: 100%;
   box-sizing: border-box;
-  background: white;
+  background: var(--color-surface);
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
 }
 
 .filtro-grupo {
@@ -100,7 +100,7 @@ defineEmits([
 .filtro-grupo label {
   font-size: 12px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .input-wrapper {
@@ -117,7 +117,7 @@ defineEmits([
 
 .input-busqueda {
   padding: 8px 12px 8px 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   font-size: 14px;
   width: 100%;
@@ -126,7 +126,7 @@ defineEmits([
 
 .select-filtro {
   padding: 8px 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   font-size: 14px;
   width: 100%;

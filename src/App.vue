@@ -4,6 +4,7 @@ import { RouterView, useRoute } from 'vue-router'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
 import AiChatWidget from './components/AiChatWidget.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
 import { useSidebar } from './composables/useSidebar'
 import { useAuthStore } from './stores/auth'
 const route = useRoute()
@@ -59,6 +60,8 @@ const sidebarWidth = computed(() => {
 
     <Navbar v-if="!hideNavbar" />
 
+    <ThemeToggle v-if="hideNavbar" class="theme-toggle-floating" />
+
     <main :class="['app-main', { 'app-main-full': hideNavbar }]">
       <RouterView />
     </main>
@@ -74,9 +77,16 @@ const sidebarWidth = computed(() => {
 
 .app-main {
   padding-top: var(--navbar-height);
-  background: #f8f9ff;
+  background: var(--color-bg-page);
   margin-left: var(--sidebar-width, 0);
-  transition: margin-left 0.2s ease;
+  transition: margin-left 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle-floating {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 1001;
 }
 
 .app-main-full {
@@ -86,7 +96,7 @@ const sidebarWidth = computed(() => {
 .sidebar-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--color-backdrop);
   z-index: 99;
 }
 
@@ -103,7 +113,7 @@ const sidebarWidth = computed(() => {
   transform: translateY(-50%);
   width: 24px;
   height: 72px;
-  background: #006a61;
+  background: var(--color-accent);
   border: none;
   border-radius: 0 10px 10px 0;
   display: flex;
@@ -117,12 +127,12 @@ const sidebarWidth = computed(() => {
 }
 
 .sidebar-toggle-bar:hover {
-  background: #00857a;
+  background: var(--color-accent-hover);
 }
 
 .toggle-bar-icon {
   font-size: 22px;
-  color: #ffffff;
+  color: var(--color-on-accent);
   transition: transform 0.2s ease;
   line-height: 1;
 }

@@ -5,7 +5,7 @@
     <div class="barra-item">
       <div class="barra-header">
         <span class="barra-label">Ingresos</span>
-        <span class="barra-monto" style="color: #0F6E56;">{{ formatear(totalIngresos) }}</span>
+        <span class="barra-monto" style="color: #1D9E75;">{{ formatear(totalIngresos) }}</span>
       </div>
       <div class="barra-track">
         <div class="barra-fill" :style="{ width: pctIngresos + '%', background: '#1D9E75' }"></div>
@@ -15,7 +15,7 @@
     <div class="barra-item">
       <div class="barra-header">
         <span class="barra-label">Gastos</span>
-        <span class="barra-monto" style="color: #993C1D;">{{ formatear(totalGastos) }}</span>
+        <span class="barra-monto" style="color: #D85A30;">{{ formatear(totalGastos) }}</span>
       </div>
       <div class="barra-track">
         <div class="barra-fill" :style="{ width: pctGastos + '%', background: '#D85A30' }"></div>
@@ -25,7 +25,7 @@
     <div class="barra-item">
       <div class="barra-header">
         <span class="barra-label">Saldo</span>
-        <span class="barra-monto" style="color: #185FA5;">{{ formatear(saldo) }}</span>
+        <span class="barra-monto" style="color: #378ADD;">{{ formatear(saldo) }}</span>
       </div>
       <div class="barra-track">
         <div class="barra-fill" :style="{ width: pctSaldo + '%', background: '#378ADD' }"></div>
@@ -72,7 +72,7 @@ function formatear(n) {
 }
 .barra-label {
   font-size: 13px;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
 .barra-monto {
   font-size: 14px;
@@ -80,7 +80,7 @@ function formatear(n) {
 }
 .barra-track {
   height: 8px;
-  background: #f0f0ee;
+  background: var(--color-surface-2);
   border-radius: 4px;
   overflow: hidden;
 }

@@ -101,7 +101,7 @@ function handleGuardado() {
   gap: 6px;
   padding: 10px 20px;
   background: var(--color-accent);
-  color: white;
+  color: var(--color-on-accent);
   border: none;
   border-radius: 10px;
   font-family: var(--font-body);
@@ -113,7 +113,7 @@ function handleGuardado() {
   transition: background 0.2s ease;
 }
 
-.btn-nueva:hover { background: #00554d; }
+.btn-nueva:hover { background: var(--color-accent-hover); }
 
 .btn-nueva .material-symbols-outlined { font-size: 18px; }
 

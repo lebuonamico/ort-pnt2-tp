@@ -180,14 +180,14 @@ const homeError = computed(() =>
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
-  background: rgba(0, 106, 97, 0.06);
-  border: 1px solid rgba(0, 106, 97, 0.2);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent-soft);
   border-radius: 14px;
 }
 
 .scope-banner > .material-symbols-outlined {
   font-size: 28px;
-  color: #006a61;
+  color: var(--color-accent);
   flex-shrink: 0;
 }
 
@@ -201,14 +201,14 @@ const homeError = computed(() =>
   font-family: 'Manrope', sans-serif;
   font-size: 15px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .scope-meta {
   margin: 2px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .scope-action {
@@ -219,14 +219,14 @@ const homeError = computed(() =>
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
-  color: #006a61;
+  color: var(--color-accent);
   white-space: nowrap;
   flex-shrink: 0;
   transition: color 0.2s ease;
 }
 
 .scope-action:hover {
-  color: #00554d;
+  color: var(--color-accent-hover);
 }
 
 .scope-action .material-symbols-outlined {
@@ -240,19 +240,19 @@ const homeError = computed(() =>
 }
 
 .stat-card {
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .stat-card:hover {
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-2px);
 }
 
@@ -270,18 +270,18 @@ const homeError = computed(() =>
 }
 
 .accent-navy {
-  background: rgba(15, 23, 42, 0.06);
-  color: #0f172a;
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
 }
 
 .accent-teal {
-  background: rgba(0, 106, 97, 0.1);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .accent-red {
-  background: rgba(186, 26, 26, 0.08);
-  color: #ba1a1a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .stat-label {
@@ -289,7 +289,7 @@ const homeError = computed(() =>
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
   font-weight: 500;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .stat-value {
@@ -297,7 +297,7 @@ const homeError = computed(() =>
   font-family: 'Manrope', sans-serif;
   font-size: 28px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   letter-spacing: -0.01em;
 }
 
@@ -308,11 +308,11 @@ const homeError = computed(() =>
 }
 
 .card {
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card);
 }
 
 .card-header {
@@ -327,14 +327,14 @@ const homeError = computed(() =>
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .card-subtitle {
   margin: 4px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .chart-body {
@@ -347,7 +347,7 @@ const homeError = computed(() =>
 .empty-state {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 14px;
   text-align: center;
 }
@@ -355,10 +355,10 @@ const homeError = computed(() =>
 .error-banner {
   margin: 0;
   padding: 12px 16px;
-  border: 1px solid #ffb4ab;
+  border: 1px solid var(--color-danger);
   border-radius: 8px;
-  background: #ffdad6;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
 }

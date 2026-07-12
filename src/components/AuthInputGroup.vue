@@ -150,7 +150,7 @@ const inputClasses = computed(() => ({
   font-size: 14px;
   font-weight: 600;
 
-  color: #475569;
+  color: var(--color-text-secondary);
 }
 
 .input-wrapper {
@@ -166,7 +166,7 @@ const inputClasses = computed(() => ({
 
   transform: translateY(-50%);
 
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 20px;
 
   pointer-events: none;
@@ -180,12 +180,12 @@ const inputClasses = computed(() => ({
   border: 2px solid transparent;
   border-radius: 14px;
 
-  background: #f1f5f9;
+  background: var(--color-surface-2);
 
   font-family: 'Work Sans', sans-serif;
   font-size: 16px;
 
-  color: #0b1c30;
+  color: var(--color-text-primary);
 
   transition:
     border-color 0.2s ease,
@@ -205,9 +205,9 @@ const inputClasses = computed(() => ({
 .input-field:focus {
   outline: none;
 
-  border-color: #006a61;
+  border-color: var(--color-accent);
 
-  background: white;
+  background: var(--color-surface);
 }
 
 .input-field:disabled {
@@ -228,7 +228,7 @@ const inputClasses = computed(() => ({
 
   cursor: pointer;
 
-  color: #64748b;
+  color: var(--color-text-muted);
 
   display: flex;
   align-items: center;
@@ -236,6 +236,6 @@ const inputClasses = computed(() => ({
 }
 
 .toggle-password:hover {
-  color: #334155;
+  color: var(--color-text-primary);
 }
 </style>

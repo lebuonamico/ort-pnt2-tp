@@ -207,7 +207,7 @@ const handleToggle = () => {
   align-items: center;
   justify-content: center;
   padding: 13px;
-  background: #f8f9ff;
+  background: var(--color-bg-page);
   overflow: visible;
 }
 
@@ -216,14 +216,14 @@ const handleToggle = () => {
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  background: white;
+  background: var(--color-surface);
 
   border-radius: 24px;
   overflow: visible;
 
-  border: 1px solid rgba(198, 198, 205, 0.3);
+  border: 1px solid var(--color-border);
 
-  box-shadow: 12px 12px 12px rgba(15, 23, 42, 0.05);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .branding-section {
@@ -353,7 +353,7 @@ const handleToggle = () => {
 }
 
 .form-section {
-  background: white;
+  background: var(--color-surface);
 
   display: flex;
   align-items: center;
@@ -377,13 +377,13 @@ const handleToggle = () => {
   font-size: 52px;
   line-height: 1.1;
 
-  color: #0f172a;
+  color: var(--color-text-primary);
 
   margin-bottom: 14px;
 }
 
 .form-container header p {
-  color: #64748b;
+  color: var(--color-text-muted);
 
   font-size: 18px;
   line-height: 1.6;
@@ -403,7 +403,7 @@ form {
   font-size: 14px;
   line-height: 1.6;
 
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .terms input[type='checkbox'] {
@@ -412,23 +412,23 @@ form {
 
   margin-top: 3px;
 
-  accent-color: #006a61;
+  accent-color: var(--color-accent);
 
   cursor: pointer;
 }
 
 .terms a {
-  color: #006a61;
+  color: var(--color-accent);
   font-weight: 600;
   text-decoration: none;
 }
 
 .error-message {
-  background: #fee2e2;
+  background: var(--color-danger-bg);
 
-  border: 1px solid #fca5a5;
+  border: 1px solid var(--color-danger);
 
-  color: #991b1b;
+  color: var(--color-danger);
 
   border-radius: 14px;
 
@@ -445,11 +445,11 @@ footer {
 }
 
 footer p {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 footer a {
-  color: #006a61;
+  color: var(--color-accent);
 
   font-weight: 700;
 

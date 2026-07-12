@@ -39,8 +39,8 @@ const route = useRoute()
 }
 
 .footer {
-  background: white;
-  border-top: 1px solid rgba(198, 198, 205, 0.3);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
   padding-top: 70px;
 }
 
@@ -55,19 +55,19 @@ const route = useRoute()
 .footer-top h2 {
   font-family: 'Manrope', sans-serif;
   font-size: 34px;
-  color: #0f172a;
+  color: var(--color-text-primary);
 }
 
 .footer-top p {
   margin-top: 12px;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .footer-links {
   display: flex;
   align-items: center;
   gap: 32px;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .footer-links a {
@@ -76,12 +76,12 @@ const route = useRoute()
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(198, 198, 205, 0.2);
+  border-top: 1px solid var(--color-border);
   padding: 30px 32px;
 }
 
 .footer-bottom p {
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 @media (max-width: 960px) {

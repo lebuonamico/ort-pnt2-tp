@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import PrimaryButton from './PrimaryButton.vue'
+import ThemeToggle from './ThemeToggle.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -57,6 +58,8 @@ const handleLogout = async () => {
             {{ item.label }}
           </PrimaryButton>
         </template>
+
+        <ThemeToggle />
       </div>
 
     </div>
@@ -72,10 +75,10 @@ const handleLogout = async () => {
   right: 0;
   height: var(--navbar-height);
   z-index: 1000;
-  background: rgba(248,249,255,.78);
+  background: var(--color-navbar-bg);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(198,198,205,.18);
-  transition: left 0.2s ease;
+  border-bottom: 1px solid var(--color-border);
+  transition: left 0.2s ease, background 0.2s ease;
 }
 
 .navbar-container {
@@ -95,7 +98,7 @@ const handleLogout = async () => {
   font-family: 'Manrope', sans-serif;
   font-size: 28px;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--color-text-primary);
   transition: .2s;
   justify-self: start;
 }
@@ -115,18 +118,18 @@ const handleLogout = async () => {
   font-family: 'Work Sans', sans-serif;
   font-weight: 600;
   font-size: 15px;
-  color: #45464d;
+  color: var(--color-text-secondary);
   position: relative;
   transition: .2s;
   white-space: nowrap;
 }
 
 .nav-link:hover {
-  color: #006a61;
+  color: var(--color-accent);
 }
 
 .nav-link.router-link-active {
-  color: #006a61;
+  color: var(--color-accent);
 }
 
 .nav-link.router-link-active::after {
@@ -136,7 +139,7 @@ const handleLogout = async () => {
   bottom: -8px;
   width: 100%;
   height: 2px;
-  background: #006a61;
+  background: var(--color-accent);
   border-radius: 999px;
 }
 
@@ -155,15 +158,15 @@ const handleLogout = async () => {
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #45464d;
+  color: var(--color-text-secondary);
   padding: 8px 12px;
   border-radius: 8px;
   transition: .2s;
 }
 
 .btn-logout:hover {
-  color: #006a61;
-  background: rgba(0,106,97,.08);
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
 }
 
 @media (max-width: 768px) {

@@ -44,7 +44,7 @@ const fechaFormateada = computed(() => formatDate(props.fecha))
   align-items: center;
   gap: 12px;
   padding: 8px 0;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-border);
   width: 100%;
   overflow: hidden;
 }
@@ -54,7 +54,7 @@ const fechaFormateada = computed(() => formatDate(props.fecha))
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +70,7 @@ const fechaFormateada = computed(() => formatDate(props.fecha))
 
 .icono-fallback {
   font-size: 20px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .info {
@@ -79,12 +79,12 @@ const fechaFormateada = computed(() => formatDate(props.fecha))
 
 .concepto {
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text-primary);
 }
 
 .detalle {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .monto {
@@ -95,10 +95,10 @@ const fechaFormateada = computed(() => formatDate(props.fecha))
 }
 
 .positivo {
-  color: #006a61;
+  color: var(--color-accent);
 }
 
 .negativo {
-  color: #ef4444;
+  color: var(--color-danger);
 }
 </style>

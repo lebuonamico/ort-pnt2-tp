@@ -81,9 +81,9 @@ const handleLogout = async () => {
   width: min(240px, 82vw);
   height: 100vh;
   box-sizing: border-box;
-  background: #ffffff;
-  border-right: 1px solid #c6c6cd;
-  box-shadow: 2px 0 8px rgba(15, 23, 42, 0.04);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
@@ -118,7 +118,7 @@ const handleLogout = async () => {
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 800;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .sidebar-user {
@@ -139,8 +139,8 @@ const handleLogout = async () => {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #006a61;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   font-family: 'Manrope', sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -160,7 +160,7 @@ const handleLogout = async () => {
   font-family: 'Work Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   white-space: nowrap;
 }
 
@@ -168,7 +168,7 @@ const handleLogout = async () => {
   font-family: 'Work Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: #45464d;
+  color: var(--color-text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -188,7 +188,7 @@ const handleLogout = async () => {
   padding: 12px 16px;
   border-radius: 10px;
   text-decoration: none;
-  color: #45464d;
+  color: var(--color-text-secondary);
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
@@ -196,13 +196,13 @@ const handleLogout = async () => {
 }
 
 .nav-item:hover {
-  background: #ebf3f2;
-  color: #0b1c30;
+  background: var(--color-accent-soft);
+  color: var(--color-text-primary);
 }
 
 .nav-item.activo {
-  background: #ebf3f2;
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
   font-weight: 600;
 }
 
@@ -217,13 +217,13 @@ const handleLogout = async () => {
   width: 100%;
   cursor: pointer;
   text-align: left;
-  color: #45464d;
+  color: var(--color-text-secondary);
   margin-bottom: 16px;
 }
 
 .logout-btn:hover {
-  background: #ebf3f2;
-  color: #0b1c30;
+  background: var(--color-accent-soft);
+  color: var(--color-text-primary);
 }
 
 

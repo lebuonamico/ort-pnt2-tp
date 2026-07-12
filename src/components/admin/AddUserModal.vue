@@ -193,7 +193,7 @@ const banner = computed(() => formError.value || admin.errors.addUser)
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.4);
+  background: var(--color-backdrop);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -203,13 +203,13 @@ const banner = computed(() => formError.value || admin.errors.addUser)
 }
 
 .modal-card {
-  background: #ffffff;
+  background: var(--color-surface);
   border-radius: 16px;
   width: min(520px, 100%);
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.2);
+  box-shadow: var(--shadow-card-hover);
   overflow: hidden;
 }
 
@@ -219,7 +219,7 @@ const banner = computed(() => formError.value || admin.errors.addUser)
   justify-content: space-between;
   gap: 12px;
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .modal-title {
@@ -227,14 +227,14 @@ const banner = computed(() => formError.value || admin.errors.addUser)
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .modal-subtitle {
   margin: 4px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .close-button {
@@ -243,7 +243,7 @@ const banner = computed(() => formError.value || admin.errors.addUser)
   border: none;
   background: transparent;
   border-radius: 8px;
-  color: #64748b;
+  color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -253,8 +253,8 @@ const banner = computed(() => formError.value || admin.errors.addUser)
 }
 
 .close-button:hover {
-  background: rgba(15, 23, 42, 0.06);
-  color: #0b1c30;
+  background: var(--color-accent-soft);
+  color: var(--color-text-primary);
 }
 
 .modal-form {
@@ -275,26 +275,26 @@ const banner = computed(() => formError.value || admin.errors.addUser)
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .field input,
 .field select {
   border: 2px solid transparent;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   border-radius: 10px;
   padding: 10px 12px;
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .field input:focus,
 .field select:focus {
   outline: none;
-  border-color: #006a61;
-  background: white;
+  border-color: var(--color-accent);
+  background: var(--color-surface);
 }
 
 .field select {
@@ -321,10 +321,10 @@ const banner = computed(() => formError.value || admin.errors.addUser)
 .error-banner {
   margin: 0;
   padding: 12px 16px;
-  border: 1px solid #ffb4ab;
+  border: 1px solid var(--color-danger);
   border-radius: 8px;
-  background: #ffdad6;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
 }

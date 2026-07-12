@@ -54,13 +54,13 @@ const tabs = [
 .admin-layout {
   width: 100%;
   min-height: calc(100vh - var(--navbar-height));
-  background: #f8f9ff;
+  background: var(--color-bg-page);
   padding-bottom: 64px;
 }
 
 .admin-header {
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9ff 100%);
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg-page) 100%);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .admin-header-inner {
@@ -77,7 +77,7 @@ const tabs = [
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #006a61;
+  color: var(--color-accent);
 }
 
 .admin-title {
@@ -85,7 +85,7 @@ const tabs = [
   font-family: 'Manrope', sans-serif;
   font-size: 32px;
   font-weight: 800;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   line-height: 1.2;
 }
 
@@ -93,13 +93,13 @@ const tabs = [
   margin: 8px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 15px;
-  color: #45464d;
+  color: var(--color-text-secondary);
   max-width: 640px;
 }
 
 .admin-tabs {
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
-  background: #f8f9ff;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-page);
 }
 
 .admin-tabs-inner {
@@ -125,7 +125,7 @@ const tabs = [
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #45464d;
+  color: var(--color-text-secondary);
   border-bottom: 2px solid transparent;
   white-space: nowrap;
   transition: color 0.2s ease, border-color 0.2s ease;
@@ -133,15 +133,15 @@ const tabs = [
 
 .admin-tab:first-child { margin-left: 0; }
 
-.admin-tab:hover { color: #006a61; }
+.admin-tab:hover { color: var(--color-accent); }
 
 .admin-tab-icon {
   font-size: 20px;
 }
 
 .admin-tab-active {
-  color: #006a61;
-  border-bottom-color: #006a61;
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
 }
 
 .admin-content {

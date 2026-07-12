@@ -177,10 +177,10 @@ const emailFor = (userId) => {
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
 .card {
-  background: #ffffff;
-  border: 1px solid #c6c6cd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -190,7 +190,7 @@ const emailFor = (userId) => {
   align-items: flex-start;
   gap: 16px;
   padding: 24px;
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
 }
 
@@ -199,14 +199,14 @@ const emailFor = (userId) => {
   font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #0b1c30;
+  color: var(--color-text-primary);
 }
 
 .card-subtitle {
   margin: 4px 0 0;
   font-family: 'Work Sans', sans-serif;
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .filters {
@@ -222,17 +222,17 @@ const emailFor = (userId) => {
   font-family: 'Work Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .filter select {
   border: 2px solid transparent;
-  background: #f1f5f9;
+  background: var(--color-surface-2);
   border-radius: 10px;
   padding: 8px 12px;
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease;
   min-width: 160px;
@@ -240,8 +240,8 @@ const emailFor = (userId) => {
 
 .filter select:focus {
   outline: none;
-  border-color: #006a61;
-  background: white;
+  border-color: var(--color-accent);
+  background: var(--color-surface);
 }
 
 .table-wrapper {
@@ -255,7 +255,7 @@ const emailFor = (userId) => {
 }
 
 .data-table thead tr {
-  background: rgba(229, 238, 255, 0.4);
+  background: var(--color-surface-2);
 }
 
 .data-table th {
@@ -265,23 +265,23 @@ const emailFor = (userId) => {
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #64748b;
-  border-bottom: 1px solid rgba(198, 198, 205, 0.4);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .data-table tbody tr {
-  border-bottom: 1px solid rgba(198, 198, 205, 0.25);
+  border-bottom: 1px solid var(--color-border);
   transition: background 0.2s ease;
 }
 
 .data-table tbody tr:hover {
-  background: rgba(248, 249, 255, 0.6);
+  background: var(--color-surface-2);
 }
 
 .data-table td {
   padding: 14px 20px;
   font-size: 14px;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   vertical-align: middle;
 }
 
@@ -298,11 +298,11 @@ const emailFor = (userId) => {
   font-weight: 600;
 }
 
-.amount-positive { color: #006a61; }
-.amount-negative { color: #93000a; }
+.amount-positive { color: var(--color-accent); }
+.amount-negative { color: var(--color-danger); }
 
 .cell-email {
-  color: #45464d;
+  color: var(--color-text-secondary);
   max-width: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -314,7 +314,7 @@ const emailFor = (userId) => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #45464d;
+  color: var(--color-text-secondary);
 }
 
 .chip {
@@ -326,19 +326,19 @@ const emailFor = (userId) => {
 }
 
 .chip-income {
-  background: rgba(134, 242, 228, 0.4);
-  color: #006a61;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .chip-expense {
-  background: rgba(186, 26, 26, 0.1);
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .empty-row {
   text-align: center;
   padding: 32px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .table-footer {
@@ -346,14 +346,14 @@ const emailFor = (userId) => {
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  border-top: 1px solid rgba(198, 198, 205, 0.4);
-  background: rgba(248, 249, 255, 0.4);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-2);
   font-family: 'Work Sans', sans-serif;
 }
 
 .table-summary {
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .pagination {
@@ -365,10 +365,10 @@ const emailFor = (userId) => {
 .page-button {
   width: 32px;
   height: 32px;
-  border: 1px solid #c6c6cd;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: white;
-  color: #45464d;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -377,8 +377,8 @@ const emailFor = (userId) => {
 }
 
 .page-button:hover:not(:disabled) {
-  background: rgba(0, 106, 97, 0.06);
-  color: #006a61;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .page-button:disabled {
@@ -393,17 +393,17 @@ const emailFor = (userId) => {
 .page-indicator {
   font-size: 13px;
   font-weight: 600;
-  color: #0b1c30;
+  color: var(--color-text-primary);
   padding: 0 4px;
 }
 
 .error-banner {
   margin: 16px 24px;
   padding: 12px 16px;
-  border: 1px solid #ffb4ab;
+  border: 1px solid var(--color-danger);
   border-radius: 8px;
-  background: #ffdad6;
-  color: #93000a;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
 }

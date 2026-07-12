@@ -63,12 +63,12 @@ function irGrupoSiguiente() {
   justify-content: space-between;
   margin-top: auto;
   padding-top: 10px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--color-border);
 }
 
 .total {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .paginacion {
@@ -88,18 +88,18 @@ function irGrupoSiguiente() {
   background: transparent;
   cursor: pointer;
   font-size: 13px;
-  color: #475569;
+  color: var(--color-text-secondary);
   transition: background 0.15s;
 }
 
 .btn-nav:hover:not(:disabled),
 .btn-pag:hover:not(.activa) {
-  background: #f1f5f9;
+  background: var(--color-surface-2);
 }
 
 .btn-pag.activa {
-  background: #006a61;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   font-weight: 600;
 }
 
@@ -115,13 +115,13 @@ function irGrupoSiguiente() {
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   cursor: pointer;
   border-radius: 6px;
   transition: background 0.15s;
 }
 
 .dots:hover {
-  background: #f1f5f9;
+  background: var(--color-surface-2);
 }
 </style>

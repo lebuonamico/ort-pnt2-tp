@@ -50,7 +50,7 @@ defineProps({
 
 .estado-error .material-symbols-outlined {
   font-size: 36px;
-  color: #b91c1c;
+  color: var(--color-danger);
 }
 
 @keyframes spin {
